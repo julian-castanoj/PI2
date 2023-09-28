@@ -143,7 +143,7 @@ const RegistrarMiembros = () => {
         </div>
           <div className="form-group">
             <button type="submit" className="submit-button">Registrar</button>
-            <button type="submit" className="cancel-button" onClick={redirectToUsuarios}>Cancelar</button>
+            <Link to="/usuarios" className="register-button">Cancelar</Link>
           </div>
       </form>
     </div>

@@ -25,11 +25,23 @@ const Sidebar = ({children}) => {
             path:"/usuarios",
             name:"Usuarios",
             icon:<FaUserAlt/>,
-            children: [
+            /*children: [
                 {label:"Miembros",key:"/miembros" },
                 {label:"Gestores",key:"/gestores" },
                 {label:"Transformadores",key:"/transformadores" }
-            ],
+            ],*/
+        },
+        {
+            path:"/gestores",
+            name:"Gestores",
+            icon:<FaUserAlt/>,
+
+        },
+        {
+            path:"/transformadores",
+            name:"Transformadores",
+            icon:<FaUserAlt/>,
+
         },
         {
             path:"/estadisticas",

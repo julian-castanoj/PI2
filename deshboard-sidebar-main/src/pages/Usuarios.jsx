@@ -17,7 +17,7 @@ const About = () => {
           nit: '987654321',
           nacionalidad: 'Colombiana',
         },
-        // Agrega más filas de datos según sea necesario
+        
       ];
     
       const [currentPage, setCurrentPage] = useState(1);
@@ -36,7 +36,7 @@ const About = () => {
     
       return (
         <div className="about-page">
-          <h1 className="page-title">Registar miembros</h1>
+          <h1 className="page-title">Miembros</h1>
           <table className="custom-table">
             <thead>
               <tr>
@@ -58,7 +58,7 @@ const About = () => {
             </tbody>
           </table>
     
-          {/* Botón para cambiar el número de página */}
+          
           <div className="pagination">
             <button
               onClick={() => handlePageChange(currentPage - 1)}
@@ -75,7 +75,7 @@ const About = () => {
             </button>
           </div>
     
-          {/* Botones para registrar y editar */}
+          
           <div className="action-buttons">
           <Link to="/registrarMiembros" className="register-button">
           Registrar
