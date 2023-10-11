@@ -14,9 +14,9 @@ const RegistrarGestores = () => {
     municipio: '',
     correo: '',
     toneladasRecolectadas: '',
-    puntosRecoleccion: 0,
-    mecanismosRecoleccion: 0,
-    materialesRecolectados: 0,
+    puntosRecoleccion: '',
+    mecanismosRecoleccion: '',
+    materialesRecolectados: ''
   });
 
   const [registros, setRegistros] = useState([]);
@@ -30,25 +30,31 @@ const RegistrarGestores = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const nuevoRegistro = { ...formData, id: Date.now() };
-    setRegistros([...registros, nuevoRegistro]);
-    setFormData({
-      nombre: '',
-      capacidad: 0,
-      nit: 0,
-      telefono: 0,
-      direccion: '',
-      estado: true,
-      categoriaMunicipio: '',
-      municipio: '',
-      correo: '',
-      toneladasRecolectadas: '',
-      puntosRecoleccion: 0,
-      mecanismosRecoleccion: 0,
-      materialesRecolectados: 0,
-    });
+    
+
+    // Construye la solicitud POST
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    };
+
+    try {
+      console.log(formData);
+      const response = await fetch('http://localhost:3000/gestor/registrar', requestOptions);
+      
+      if (response.ok) {
+        
+        console.log('Registro exitoso');
+      } else {
+        // La solicitud falló
+        console.error('Error al registrar');
+      }
+    } catch (error) {
+      console.error('Error al realizar la solicitud:', error);
+    }
   };
 
   const handleCancelar = () => {
@@ -211,7 +217,7 @@ const RegistrarGestores = () => {
         <div className="form-group">
           <label>Puntos de Recolección</label>
           <input
-            type="number"
+            type="text"
             name="puntosRecoleccion"
             value={formData.puntosRecoleccion}
             onChange={handleChange}
@@ -220,7 +226,7 @@ const RegistrarGestores = () => {
         <div className="form-group">
           <label>Mecanismos de Recolección</label>
           <input
-            type="number"
+            type="text"
             name="mecanismosRecoleccion"
             value={formData.mecanismosRecoleccion}
             onChange={handleChange}
@@ -229,7 +235,7 @@ const RegistrarGestores = () => {
         <div className="form-group">
           <label>Materiales Recolectados</label>
           <input
-            type="number"
+            type="text"
             name="materialesRecolectados"
             value={formData.materialesRecolectados}
             onChange={handleChange}
