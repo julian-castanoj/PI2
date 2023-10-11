@@ -10,13 +10,13 @@ const RegistrarGestores = () => {
     telefono: 0,
     direccion: '',
     estado: true,
-    categoriaMunicipio: '',
+    categoria_municipio: '',
     municipio: '',
     correo: '',
-    toneladasRecolectadas: '',
-    puntosRecoleccion: '',
-    mecanismosRecoleccion: '',
-    materialesRecolectados: ''
+    toneladas_recolectadas: '',
+    puntos_recoleccion: '',
+    mecanismos_recoleccion: '',
+    materiales_recolectados: ''
   });
 
   const [registros, setRegistros] = useState([]);
@@ -80,18 +80,18 @@ const RegistrarGestores = () => {
       setRegistros([...registros]);
       setFormData({
         nombre: '',
-        capacidad: 0,
-        nit: 0,
-        telefono: 0,
-        direccion: '',
-        estado: true,
-        categoriaMunicipio: '',
-        municipio: '',
-        correo: '',
-        toneladasRecolectadas: '',
-        puntosRecoleccion: 0,
-        mecanismosRecoleccion: 0,
-        materialesRecolectados: 0,
+    capacidad: 0,
+    nit: 0,
+    telefono: 0,
+    direccion: '',
+    estado: true,
+    categoria_municipio: '',
+    municipio: '',
+    correo: '',
+    toneladas_recolectadas: '',
+    puntos_recoleccion: '',
+    mecanismos_recoleccion: '',
+    materiales_recolectados: ''
       });
       setEditandoId(null);
     }
@@ -103,18 +103,18 @@ const RegistrarGestores = () => {
     if (editandoId === id) {
       setFormData({
         nombre: '',
-        capacidad: 0,
-        nit: 0,
-        telefono: 0,
-        direccion: '',
-        estado: true,
-        categoriaMunicipio: '',
-        municipio: '',
-        correo: '',
-        toneladasRecolectadas: '',
-        puntosRecoleccion: 0,
-        mecanismosRecoleccion: 0,
-        materialesRecolectados: 0,
+    capacidad: 0,
+    nit: 0,
+    telefono: 0,
+    direccion: '',
+    estado: true,
+    categoria_municipio: '',
+    municipio: '',
+    correo: '',
+    toneladas_recolectadas: '',
+    puntos_recoleccion: '',
+    mecanismos_recoleccion: '',
+    materiales_recolectados: ''
       });
       setEditandoId(null);
     }
@@ -182,8 +182,8 @@ const RegistrarGestores = () => {
           <label>Categoría Municipio</label>
           <input
             type="text"
-            name="categoriaMunicipio"
-            value={formData.categoriaMunicipio}
+            name="categoria_municipio"
+            value={formData.categoria_municipio}
             onChange={handleChange}
           />
         </div>
@@ -209,8 +209,8 @@ const RegistrarGestores = () => {
           <label>Toneladas Recolectadas</label>
           <input
             type="text"
-            name="toneladasRecolectadas"
-            value={formData.toneladasRecolectadas}
+            name="toneladas_recolectadas"
+            value={formData.toneladas_recolectadas}
             onChange={handleChange}
           />
         </div>
@@ -218,8 +218,8 @@ const RegistrarGestores = () => {
           <label>Puntos de Recolección</label>
           <input
             type="text"
-            name="puntosRecoleccion"
-            value={formData.puntosRecoleccion}
+            name="puntos_recoleccion"
+            value={formData.puntos_recoleccion}
             onChange={handleChange}
           />
         </div>
@@ -227,8 +227,8 @@ const RegistrarGestores = () => {
           <label>Mecanismos de Recolección</label>
           <input
             type="text"
-            name="mecanismosRecoleccion"
-            value={formData.mecanismosRecoleccion}
+            name="mecanismos_recoleccion"
+            value={formData.mecanismos_recoleccion}
             onChange={handleChange}
           />
         </div>
@@ -236,8 +236,8 @@ const RegistrarGestores = () => {
           <label>Materiales Recolectados</label>
           <input
             type="text"
-            name="materialesRecolectados"
-            value={formData.materialesRecolectados}
+            name="materiales_recolectados"
+            value={formData.materiales_recolectados}
             onChange={handleChange}
           />
         </div>
