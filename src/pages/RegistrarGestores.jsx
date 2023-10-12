@@ -33,11 +33,11 @@ const RegistrarGestores = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    // Mostrar una ventana emergente de confirmación al usuario
+    
     const userConfirmed = window.confirm("¿Estás seguro de que deseas enviar el formulario?");
   
     if (userConfirmed) {
-      // Construir la solicitud POST
+      
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -57,7 +57,7 @@ const RegistrarGestores = () => {
         console.error('Error al realizar la solicitud:', error);
       }
     } else {
-      // El usuario canceló el envío del formulario
+      
       console.log('Envío del formulario cancelado');
     }
   };
@@ -97,17 +97,26 @@ const RegistrarGestores = () => {
           body: JSON.stringify(registroActualizado),
         });
         if (response.ok) {
-          // Actualizar el estado de los registros si es necesario
+          
           const nuevosRegistros = [...registros];
           nuevosRegistros[indiceEdicion] = registroActualizado;
           setRegistros(nuevosRegistros);
   
-          // Limpiar el formulario y el estado de edición
+          
           setFormData({
             nombre: '',
             capacidad: 0,
             nit: 0,
-            // ...
+            telefono: 0,
+            direccion: '',
+            estado: true,
+            categoria_municipio: '',
+            municipio: '',
+            correo: '',
+            toneladas_recolectadas: '',
+            puntos_recoleccion: '',
+            mecanismos_recoleccion: '',
+            materiales_recolectados: ''
           });
           setEditandoId(null);
   
@@ -127,11 +136,11 @@ const RegistrarGestores = () => {
         method: 'DELETE',
       });
       if (response.ok) {
-        // Actualizar el estado de los registros si es necesario
+        
         const registrosActualizados = registros.filter((registro) => registro.id !== id);
         setRegistros(registrosActualizados);
   
-        // Limpiar el formulario y el estado de edición si es necesario
+        
         if (editandoId === id) {
           setFormData({
             nombre: '',

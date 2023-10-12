@@ -5,14 +5,14 @@ import React, { useState, useEffect } from 'react';
 const About = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchNit, setSearchNit] = useState(''); // Cambiado a searchNit
+  const [searchNit, setSearchNit] = useState(''); 
   const itemsPerPage = 10;
   const totalPages = Math.ceil(data.length / itemsPerPage);
-  const [filteredData, setFilteredData] = useState([]); // Para almacenar los resultados de la búsqueda
+  const [filteredData, setFilteredData] = useState([]); 
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://tuapi.com/gestores'); // Reemplaza con la URL de tu API
+      const response = await fetch('http://localhost:3000.com/gestores'); 
       if (response.ok) {
         const result = await response.json();
         setData(result);
@@ -33,7 +33,7 @@ const About = () => {
   };
 
   useEffect(() => {
-    // Filtrar los datos en tiempo real mientras se ingresa el NIT
+    
     const filtered = data.filter((item) =>
       item.nit.includes(searchNit)
     );
@@ -48,9 +48,9 @@ const About = () => {
 
   const eliminarGestor = async (id) => {
     try {
-      const response = await fetch(`http://tuapi.com/gestores/${id}`, {
+      const response = await fetch(`http://localhost:3000/gestores/${id}`, {
         method: 'DELETE',
-      }); // Reemplaza con la URL de tu API
+      }); 
       if (response.ok) {
         await fetchData();
       } else {
