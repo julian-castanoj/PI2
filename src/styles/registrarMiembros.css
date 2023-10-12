@@ -1,5 +1,25 @@
 /* RegistrarMiembros.css (o el nombre de tu archivo CSS) */
 
+.search-bar {
+  background-color: #fff; /* Fondo blanco */
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc; /* Borde gris claro */
+  border-radius: 4px;
+  background-color: #fff; /* Fondo blanco */
+  color: #333; /* Texto negro */
+  font-size: 14px;
+  margin-right: 10px; /* Espacio entre el input y los botones */
+}
+
 .registrar-miembros-page {
     background-color: #f0f0f0; /* Fondo gris claro */
     padding: 20px;

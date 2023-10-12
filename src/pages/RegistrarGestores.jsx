@@ -32,30 +32,36 @@ const RegistrarGestores = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-
-    // Construye la solicitud POST
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    };
-
-    try {
-      console.log(formData);
-      const response = await fetch('http://localhost:3000/gestor/registrar', requestOptions);
-      
-      if (response.ok) {
+  
+    // Mostrar una ventana emergente de confirmación al usuario
+    const userConfirmed = window.confirm("¿Estás seguro de que deseas enviar el formulario?");
+  
+    if (userConfirmed) {
+      // Construir la solicitud POST
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      };
+  
+      try {
+        console.log(formData);
+        const response = await fetch('http://localhost:3000/gestor/registrar', requestOptions);
         
-        console.log('Registro exitoso');
-      } else {
-        // La solicitud falló
-        console.error('Error al registrar');
+        if (response.ok) {
+          console.log('Registro exitoso');
+        } else {
+          console.error('Error al registrar');
+        }
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error);
       }
-    } catch (error) {
-      console.error('Error al realizar la solicitud:', error);
+    } else {
+      // El usuario canceló el envío del formulario
+      console.log('Envío del formulario cancelado');
     }
   };
+  
 
   const handleCancelar = () => {
     const confirmCancel = window.confirm("¿Seguro que quieres cancelar?");
@@ -65,58 +71,92 @@ const RegistrarGestores = () => {
     }
   };
 
-  const editarRegistro = (id) => {
-    const registroEditado = registros.find((registro) => registro.id === id);
-    if (registroEditado) {
-      setFormData({ ...registroEditado });
-      setEditandoId(id);
+  const editarRegistro = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:3000/gestor/${id}`);
+      if (response.ok) {
+        const data = await response.json();
+        setFormData({ ...data });
+        setEditandoId(id);
+      } else {
+        console.error('Error al obtener detalles del registro');
+      }
+    } catch (error) {
+      console.error('Error al realizar la solicitud:', error);
     }
   };
 
-  const guardarEdicion = () => {
+  const guardarEdicion = async () => {
     const indiceEdicion = registros.findIndex((registro) => registro.id === editandoId);
     if (indiceEdicion !== -1) {
-      registros[indiceEdicion] = { ...formData, id: editandoId };
-      setRegistros([...registros]);
-      setFormData({
-        nombre: '',
-    capacidad: 0,
-    nit: 0,
-    telefono: 0,
-    direccion: '',
-    estado: true,
-    categoria_municipio: '',
-    municipio: '',
-    correo: '',
-    toneladas_recolectadas: '',
-    puntos_recoleccion: '',
-    mecanismos_recoleccion: '',
-    materiales_recolectados: ''
-      });
-      setEditandoId(null);
+      const registroActualizado = { ...formData, id: editandoId };
+      try {
+        const response = await fetch(`http://localhost:3000/gestor/${editandoId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(registroActualizado),
+        });
+        if (response.ok) {
+          // Actualizar el estado de los registros si es necesario
+          const nuevosRegistros = [...registros];
+          nuevosRegistros[indiceEdicion] = registroActualizado;
+          setRegistros(nuevosRegistros);
+  
+          // Limpiar el formulario y el estado de edición
+          setFormData({
+            nombre: '',
+            capacidad: 0,
+            nit: 0,
+            // ...
+          });
+          setEditandoId(null);
+  
+          console.log('Edición exitosa');
+        } else {
+          console.error('Error al editar el registro');
+        }
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error);
+      }
     }
   };
-
-  const eliminarRegistro = (id) => {
-    const registrosActualizados = registros.filter((registro) => registro.id !== id);
-    setRegistros(registrosActualizados);
-    if (editandoId === id) {
-      setFormData({
-        nombre: '',
-    capacidad: 0,
-    nit: 0,
-    telefono: 0,
-    direccion: '',
-    estado: true,
-    categoria_municipio: '',
-    municipio: '',
-    correo: '',
-    toneladas_recolectadas: '',
-    puntos_recoleccion: '',
-    mecanismos_recoleccion: '',
-    materiales_recolectados: ''
+  
+  const eliminarRegistro = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:3000/gestor/${id}`, {
+        method: 'DELETE',
       });
-      setEditandoId(null);
+      if (response.ok) {
+        // Actualizar el estado de los registros si es necesario
+        const registrosActualizados = registros.filter((registro) => registro.id !== id);
+        setRegistros(registrosActualizados);
+  
+        // Limpiar el formulario y el estado de edición si es necesario
+        if (editandoId === id) {
+          setFormData({
+            nombre: '',
+            capacidad: 0,
+            nit: 0,
+            telefono: 0,
+            direccion: '',
+            estado: true,
+            categoria_municipio: '',
+            municipio: '',
+            correo: '',
+            toneladas_recolectadas: '',
+            puntos_recoleccion: '',
+            mecanismos_recoleccion: '',
+            materiales_recolectados: ''
+          });
+          setEditandoId(null);
+        }
+  
+        console.log('Eliminación exitosa');
+      } else {
+        console.error('Error al eliminar el registro');
+      }
+    } catch (error) {
+      console.error('Error al realizar la solicitud:', error);
     }
   };
 
