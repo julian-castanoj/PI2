@@ -12,7 +12,7 @@ const About = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:3000.com/gestores'); 
+      const response = await fetch('http://localhost:3000.com/gestor'); 
       if (response.ok) {
         const result = await response.json();
         setData(result);

@@ -12,7 +12,7 @@ const About = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:3000/transformadores'); 
+      const response = await fetch('http://localhost:3000/transformador'); 
       if (response.ok) {
         const result = await response.json();
         setData(result);
@@ -46,7 +46,7 @@ const About = () => {
 
   const eliminarTransformador = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/transformadores/${id}`, {
+      const response = await fetch(`http://localhost:3000/transformador/${id}`, {
         method: 'DELETE',
       }); 
       if (response.ok) {

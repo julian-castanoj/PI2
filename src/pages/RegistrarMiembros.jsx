@@ -41,7 +41,7 @@ const RegistrarMiembros = () => {
 
       try {
         console.log(formData);
-        const response = await fetch('http://localhost:3000/miembros/registrar', requestOptions); 
+        const response = await fetch('http://localhost:3000/productor/registrar', requestOptions); 
         if (response.ok) {
           console.log('Registro exitoso');
         } else {
@@ -65,7 +65,7 @@ const RegistrarMiembros = () => {
 
   const editarRegistro = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/miembros/${id}`); 
+      const response = await fetch(`http://localhost:3000/productor/${id}`); 
       if (response.ok) {
         const data = await response.json();
         setFormData({ ...data });
@@ -83,7 +83,7 @@ const RegistrarMiembros = () => {
     if (indiceEdicion !== -1) {
       const registroActualizado = { ...formData, id: editandoId };
       try {
-        const response = await fetch(`http://localhost:3000/miembros/${editandoId}`, {
+        const response = await fetch(`http://localhost:3000/productor/${editandoId}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(registroActualizado),
@@ -119,7 +119,7 @@ const RegistrarMiembros = () => {
 
   const eliminarRegistro = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/miembros/${id}`, {
+      const response = await fetch(`http://localhost:3000/productor/${id}`, {
         method: 'DELETE',
       });
       if (response.ok) {

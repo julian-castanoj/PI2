@@ -12,7 +12,7 @@ const About = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:3000/miembros');
+      const response = await fetch('http://localhost:3000/productor');
       if (response.ok) {
         const result = await response.json();
         setData(result);
@@ -47,7 +47,7 @@ const About = () => {
 
   const deleteMember = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/miembros/${id}`, {
+      const response = await fetch(`http://localhost:3000/productor/${id}`, {
         method: 'DELETE',
       });
       if (response.ok) {
