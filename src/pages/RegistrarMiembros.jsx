@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import '../styles/registrarMiembros.css';
+import { Link } from 'react-router-dom';
 
 const RegistrarMiembros = () => {
   const [formData, setFormData] = useState({
-    razonSocial: '',
+    plancolectivo_id: 0,
+    correo: '',
     nombre: '',
-    formaParticipacion: '',
-    materialesGestionar: 0,
-    pesoReutilizable: 0,
-    pesoNoReutilizable: 0,
-    metaAprovechamiento: 0,
-    metaQMA: 0,
-    qmqm: 0,
-    lineaBase: 0,
+    nit: 0,
+    telefono: 0,
+    direccion: '',
+    forma_participacion: '',
+    materiales_gestiona: '',
+    peso_total_reutilizable: 0,
+    peso_total_no_reutilizable: 0,
   });
 
   const [registros, setRegistros] = useState([]);
@@ -27,70 +27,127 @@ const RegistrarMiembros = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const nuevoRegistro = { ...formData, id: Date.now() };
-    setRegistros([...registros, nuevoRegistro]);
-    setFormData({
-      razonSocial: '',
-      nombre: '',
-      formaParticipacion: '',
-      materialesGestionar: 0,
-      pesoReutilizable: 0,
-      pesoNoReutilizable: 0,
-      metaAprovechamiento: 0,
-      metaQMA: 0,
-      qmqm: 0,
-      lineaBase: 0,
-    });
-  };
 
-  const editarRegistro = (id) => {
-    const registroEditado = registros.find((registro) => registro.id === id);
-    if (registroEditado) {
-      setFormData({ ...registroEditado });
-      setEditandoId(id);
+    const userConfirmed = window.confirm("¿Estás seguro de que deseas enviar el formulario?");
+
+    if (userConfirmed) {
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      };
+
+      try {
+        console.log(formData);
+        const response = await fetch('http://localhost:3000/miembros/registrar', requestOptions); 
+        if (response.ok) {
+          console.log('Registro exitoso');
+        } else {
+          console.error('Error al registrar');
+        }
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error);
+      }
+    } else {
+      console.log('Envío del formulario cancelado');
     }
   };
 
-  const guardarEdicion = () => {
+  const handleCancelar = () => {
+    const confirmCancel = window.confirm("¿Seguro que quieres cancelar?");
+    if (confirmCancel) {
+      // Redirige a la página de miembros ("/miembros")
+      window.location.href = "/usuarios";
+    }
+  };
+
+  const editarRegistro = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:3000/miembros/${id}`); 
+      if (response.ok) {
+        const data = await response.json();
+        setFormData({ ...data });
+        setEditandoId(id);
+      } else {
+        console.error('Error al obtener detalles del registro');
+      }
+    } catch (error) {
+      console.error('Error al realizar la solicitud:', error);
+    }
+  };
+
+  const guardarEdicion = async () => {
     const indiceEdicion = registros.findIndex((registro) => registro.id === editandoId);
     if (indiceEdicion !== -1) {
-      registros[indiceEdicion] = { ...formData, id: editandoId };
-      setRegistros([...registros]);
-      setFormData({
-        razonSocial: '',
-        nombre: '',
-        formaParticipacion: '',
-        materialesGestionar: 0,
-        pesoReutilizable: 0,
-        pesoNoReutilizable: 0,
-        metaAprovechamiento: 0,
-        metaQMA: 0,
-        qmqm: 0,
-        lineaBase: 0,
-      });
-      setEditandoId(null);
+      const registroActualizado = { ...formData, id: editandoId };
+      try {
+        const response = await fetch(`http://localhost:3000/miembros/${editandoId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(registroActualizado),
+        });
+        if (response.ok) {
+          const nuevosRegistros = [...registros];
+          nuevosRegistros[indiceEdicion] = registroActualizado;
+          setRegistros(nuevosRegistros);
+
+          setFormData({
+            plancolectivo_id: 0,
+            correo: '',
+            nombre: '',
+            nit: 0,
+            telefono: 0,
+            direccion: '',
+            forma_participacion: '',
+            materiales_gestiona: '',
+            peso_total_reutilizable: 0,
+            peso_total_no_reutilizable: 0,
+          });
+          setEditandoId(null);
+
+          console.log('Edición exitosa');
+        } else {
+          console.error('Error al editar el registro');
+        }
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error);
+      }
     }
   };
 
-  const eliminarRegistro = (id) => {
-    const registrosActualizados = registros.filter((registro) => registro.id !== id);
-    setRegistros(registrosActualizados);
-    if (editandoId === id) {
-      setFormData({
-        razonSocial: '',
-        nombre: '',
-        formaParticipacion: '',
-        materialesGestionar: 0,
-        pesoReutilizable: 0,
-        pesoNoReutilizable: 0,
-        metaAprovechamiento: 0,
-        metaQMA: 0,
-        qmqm: 0,
-        lineaBase: 0,
+  const eliminarRegistro = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:3000/miembros/${id}`, {
+        method: 'DELETE',
       });
-      setEditandoId(null);
+      if (response.ok) {
+        const registrosActualizados = registros.filter((registro) => registro.id !== id);
+        setRegistros(registrosActualizados);
+
+        if (editandoId === id) {
+          setFormData({
+            plancolectivo_id: 0,
+            correo: '',
+            nombre: '',
+            nit: 0,
+            telefono: 0,
+            direccion: '',
+            forma_participacion: '',
+            materiales_gestiona: '',
+            peso_total_reutilizable: 0,
+            peso_total_no_reutilizable: 0,
+          });
+          setEditandoId(null);
+        }
+
+        console.log('Eliminación exitosa');
+      } else {
+        console.error('Error al eliminar el registro');
+      }
+    } catch (error) {
+      console.error('Error al realizar la solicitud:', error);
     }
   };
 
@@ -99,11 +156,20 @@ const RegistrarMiembros = () => {
       <h2>Formulario de Registro de Miembros</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>Razón Social</label>
+          <label>Plan Colectivo ID</label>
+          <input
+            type="number"
+            name="plancolectivo_id"
+            value={formData.plancolectivo_id}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Correo</label>
           <input
             type="text"
-            name="razonSocial"
-            value={formData.razonSocial}
+            name="correo"
+            value={formData.correo}
             onChange={handleChange}
           />
         </div>
@@ -117,89 +183,76 @@ const RegistrarMiembros = () => {
           />
         </div>
         <div className="form-group">
+          <label>NIT</label>
+          <input
+            type="number"
+            name="nit"
+            value={formData.nit}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Teléfono</label>
+          <input
+            type="number"
+            name="telefono"
+            value={formData.telefono}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Dirección</label>
+          <input
+            type="text"
+            name="direccion"
+            value={formData.direccion}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
           <label>Forma de Participación</label>
           <input
             type="text"
-            name="formaParticipacion"
-            value={formData.formaParticipacion}
+            name="forma_participacion"
+            value={formData.forma_participacion}
             onChange={handleChange}
           />
         </div>
         <div className="form-group">
-          <label>Materiales a Gestionar</label>
+          <label>Materiales que Gestiona</label>
+          <input
+            type="text"
+            name="materiales_gestiona"
+            value={formData.materiales_gestiona}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Peso Total Reutilizable</label>
           <input
             type="number"
-            name="materialesGestionar"
-            value={formData.materialesGestionar}
+            name="peso_total_reutilizable"
+            value={formData.peso_total_reutilizable}
             onChange={handleChange}
           />
         </div>
         <div className="form-group">
-          <label>Peso Reutilizable</label>
+          <label>Peso Total No Reutilizable</label>
           <input
             type="number"
-            name="pesoReutilizable"
-            value={formData.pesoReutilizable}
+            name="peso_total_no_reutilizable"
+            value={formData.peso_total_no_reutilizable}
             onChange={handleChange}
           />
         </div>
         <div className="form-group">
-          <label>Peso No Reutilizable</label>
-          <input
-            type="number"
-            name="pesoNoReutilizable"
-            value={formData.pesoNoReutilizable}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Meta de Aprovechamiento</label>
-          <input
-            type="number"
-            name="metaAprovechamiento"
-            value={formData.metaAprovechamiento}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Meta QMA</label>
-          <input
-            type="number"
-            name="metaQMA"
-            value={formData.metaQMA}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>QMQM</label>
-          <input
-            type="number"
-            name="qmqm"
-            value={formData.qmqm}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Línea Base</label>
-          <input
-            type="number"
-            name="lineaBase"
-            value={formData.lineaBase}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <button type="submit" className="submit-button">
-            Registrar
-          </button>
+          <button type="submit" className="submit-button">Registrar</button>
           {editandoId ? (
             <button onClick={guardarEdicion} className="edit-button">
               Guardar Edición
             </button>
           ) : null}
-          <Link to="/usuarios" className="register-button">
-            Cancelar
-          </Link>
+          <button type="button" className="register-button" onClick={handleCancelar}>Cancelar</button>
         </div>
       </form>
       <h2>Registros</h2>
@@ -221,4 +274,3 @@ const RegistrarMiembros = () => {
 };
 
 export default RegistrarMiembros;
-

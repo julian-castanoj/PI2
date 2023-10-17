@@ -12,6 +12,7 @@ import Gestores from './pages/Gestores.jsx';
 import Transformadores from './pages/Transformadores.jsx';
 import RegistrarGestores from './pages/RegistrarGestores.jsx'
 import RegistrarTransformadores from './pages/RegistrarTransformadores.jsx'
+import RegistrarTransacciones from './pages/RegistrarTransacciones.jsx'
 
 
 
@@ -34,6 +35,8 @@ const App = () => {
           <Route exact path="/registrarTransformadores" element={<RegistrarTransformadores />} />
 
           <Route path="/transacciones" element={<Transacciones />} />
+          <Route path="/registrarTransacciones" element={<RegistrarTransacciones />} />
+
           <Route path="/estadisticas" element={<Estadisticas />} />
           <Route path="/logout" element={<Logout />} />
         </Routes>
