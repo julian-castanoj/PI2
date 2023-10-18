@@ -4,11 +4,11 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
 import Inicio from './pages/Inicio.jsx';
-import Usuarios from './pages/Usuarios.jsx';
+import Productores from './pages/Productores.jsx';
 import Estadisticas from './pages/Estadisticas.jsx';
 import Transacciones from './pages/Transacciones.jsx';
 import Logout from './pages/Logout.jsx';
-import RegistrarMiembros from './pages/RegistrarMiembros.jsx'
+import RegistrarProductores from './pages/RegistrarProductores.jsx'
 import Gestores from './pages/Gestores.jsx';
 import Transformadores from './pages/Transformadores.jsx';
 import RegistrarGestores from './pages/RegistrarGestores.jsx'
@@ -30,8 +30,8 @@ const App = () => {
             <Route path="/inicio" element={<Inicio />} />
 
 
-            <Route exact path="/usuarios" element={<Usuarios />} />
-            <Route exact path="/registrarMiembros" element={<RegistrarMiembros />} />
+            <Route exact path="/Productores" element={<Productores />} />
+            <Route exact path="/registrarProductores" element={<RegistrarProductores />} />
 
             <Route exact path="/gestores" element={<Gestores />} />
             <Route exact path="/registrarGestores" element={<RegistrarGestores />} />

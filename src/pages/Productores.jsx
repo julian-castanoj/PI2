@@ -53,7 +53,7 @@ const About = () => {
       if (response.ok) {
         await fetchData();
       } else {
-        console.error('Error al eliminar el miembro');
+        console.error('Error al eliminar el productor');
       }
     } catch (error) {
       console.error('Error al realizar la solicitud:', error);
@@ -62,7 +62,7 @@ const About = () => {
 
   return (
     <div className="about-page">
-      <h1 className="page-title">Miembros</h1>
+      <h1 className="page-title">productores</h1>
       <div className="search-bar">
         <input
           type="text"
@@ -95,7 +95,7 @@ const About = () => {
               <td>{item.direccion}</td>
               <td>
                 <button onClick={() => deleteMember(item.id)}>Eliminar</button>
-                <Link to={`/editarMiembro/${item.id}`}>
+                <Link to={`/editarProductor/${item.id}`}>
                   <button>Editar</button>
                 </Link>
               </td>
@@ -121,7 +121,7 @@ const About = () => {
       </div>
 
       <div className="action-buttons">
-        <Link to="/registrarMiembros" className="register-button">
+        <Link to="/registrarproductores" className="register-button">
           Registrar
         </Link>
       </div>

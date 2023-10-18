@@ -22,8 +22,8 @@ const Sidebar = ({children}) => {
             icon:<FaTh/>
         },
         {
-            path:"/usuarios",
-            name:"Usuarios",
+            path:"/productores",
+            name:"Productores",
             icon:<FaUserAlt/>,
             /*children: [
                 {label:"Miembros",key:"/miembros" },

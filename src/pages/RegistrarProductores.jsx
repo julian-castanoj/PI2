@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import '../styles/registrarMiembros.css';
 import { Link } from 'react-router-dom';
 
-const RegistrarMiembros = () => {
+const RegistrarProductores = () => {
   const [formData, setFormData] = useState({
-    plancolectivo_id: 0,
+    
     correo: '',
     nombre: '',
     nit: 0,
@@ -58,7 +58,7 @@ const RegistrarMiembros = () => {
   const handleCancelar = () => {
     const confirmCancel = window.confirm("¿Seguro que quieres cancelar?");
     if (confirmCancel) {
-      // Redirige a la página de miembros ("/miembros")
+      // Redirige a la página de productores ("/productores")
       window.location.href = "/usuarios";
     }
   };
@@ -94,7 +94,7 @@ const RegistrarMiembros = () => {
           setRegistros(nuevosRegistros);
 
           setFormData({
-            plancolectivo_id: 0,
+            
             correo: '',
             nombre: '',
             nit: 0,
@@ -128,7 +128,7 @@ const RegistrarMiembros = () => {
 
         if (editandoId === id) {
           setFormData({
-            plancolectivo_id: 0,
+            
             correo: '',
             nombre: '',
             nit: 0,
@@ -153,17 +153,9 @@ const RegistrarMiembros = () => {
 
   return (
     <div className="registrar-miembros-page">
-      <h2>Formulario de Registro de Miembros</h2>
+      <h2>Formulario de Registro de productores</h2>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Plan Colectivo ID</label>
-          <input
-            type="number"
-            name="plancolectivo_id"
-            value={formData.plancolectivo_id}
-            onChange={handleChange}
-          />
-        </div>
+        
         <div className="form-group">
           <label>Correo</label>
           <input
@@ -218,6 +210,10 @@ const RegistrarMiembros = () => {
             onChange={handleChange}
           />
         </div>
+        
+        /* */
+
+
         <div className="form-group">
           <label>Materiales que Gestiona</label>
           <input
@@ -227,6 +223,7 @@ const RegistrarMiembros = () => {
             onChange={handleChange}
           />
         </div>
+
         <div className="form-group">
           <label>Peso Total Reutilizable</label>
           <input
@@ -273,4 +270,4 @@ const RegistrarMiembros = () => {
   );
 };
 
-export default RegistrarMiembros;
+export default RegistrarProductores;
