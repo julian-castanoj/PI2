@@ -62,7 +62,7 @@ const About = () => {
 
   return (
     <div className="about-page">
-      <h1 className="page-title">productores</h1>
+      <h1 className="page-title">Productores</h1>
       <div className="search-bar">
         <input
           type="text"

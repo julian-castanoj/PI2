@@ -228,20 +228,20 @@ const RegistrarGestores = () => {
           />
         </div>
         <div className="form-group">
-          <label>Categoría Municipio</label>
-          <input
-            type="text"
-            name="categoria_municipio"
-            value={formData.categoria_municipio}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
           <label>Municipio</label>
           <input
             type="text"
             name="municipio"
             value={formData.municipio}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Categoría Municipio</label>
+          <input
+            type="text"
+            name="categoria_municipio"
+            value={formData.categoria_municipio}
             onChange={handleChange}
           />
         </div>
@@ -255,7 +255,7 @@ const RegistrarGestores = () => {
           />
         </div>
         <div className="form-group">
-          <label>Toneladas Recolectadas</label>
+          <label>Capacidad total que gestionas</label>
           <input
             type="text"
             name="toneladas_recolectadas"

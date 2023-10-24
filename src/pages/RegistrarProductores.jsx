@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
-import '../styles/registrarMiembros.css';
+import '../styles/registrarProductor.css';
 import { Link } from 'react-router-dom';
 
 const RegistrarProductores = () => {
   const [formData, setFormData] = useState({
-    
     correo: '',
     nombre: '',
     nit: 0,
     telefono: 0,
     direccion: '',
     forma_participacion: '',
-    materiales_gestiona: '',
+    materiales_gestiona: {
+      papel: false,
+      carton: false,
+      vidrio: false,
+      plasticoRigido: false,
+      plasticoFlexible: false,
+    },
     peso_total_reutilizable: 0,
     peso_total_no_reutilizable: 0,
   });
@@ -20,17 +25,30 @@ const RegistrarProductores = () => {
   const [editandoId, setEditandoId] = useState(null);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    const { name, value, type, checked } = e.target;
+    // Manejar campos de entrada normales
+    if (type === 'text' || type === 'number') {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
+    // Manejar el checkbox de materiales
+    else if (type === 'checkbox') {
+      setFormData({
+        ...formData,
+        materiales_gestiona: {
+          ...formData.materiales_gestiona,
+          [name]: checked,
+        },
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const userConfirmed = window.confirm("¿Estás seguro de que deseas enviar el formulario?");
+    const userConfirmed = window.confirm('¿Estás seguro de que deseas enviar el formulario?');
 
     if (userConfirmed) {
       const requestOptions = {
@@ -41,7 +59,7 @@ const RegistrarProductores = () => {
 
       try {
         console.log(formData);
-        const response = await fetch('http://localhost:3000/productor/registrar', requestOptions); 
+        const response = await fetch('http://localhost:3000/productor/registrar', requestOptions);
         if (response.ok) {
           console.log('Registro exitoso');
         } else {
@@ -56,16 +74,16 @@ const RegistrarProductores = () => {
   };
 
   const handleCancelar = () => {
-    const confirmCancel = window.confirm("¿Seguro que quieres cancelar?");
+    const confirmCancel = window.confirm('¿Seguro que quieres cancelar?');
     if (confirmCancel) {
       // Redirige a la página de productores ("/productores")
-      window.location.href = "/usuarios";
+      window.location.href = '/productores';
     }
   };
 
   const editarRegistro = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/productor/${id}`); 
+      const response = await fetch(`http://localhost:3000/productor/${id}`);
       if (response.ok) {
         const data = await response.json();
         setFormData({ ...data });
@@ -94,14 +112,19 @@ const RegistrarProductores = () => {
           setRegistros(nuevosRegistros);
 
           setFormData({
-            
             correo: '',
             nombre: '',
             nit: 0,
             telefono: 0,
             direccion: '',
             forma_participacion: '',
-            materiales_gestiona: '',
+            materiales_gestiona: {
+              papel: false,
+              carton: false,
+              vidrio: false,
+              plasticoRigido: false,
+              plasticoFlexible: false,
+            },
             peso_total_reutilizable: 0,
             peso_total_no_reutilizable: 0,
           });
@@ -128,14 +151,19 @@ const RegistrarProductores = () => {
 
         if (editandoId === id) {
           setFormData({
-            
             correo: '',
             nombre: '',
             nit: 0,
             telefono: 0,
             direccion: '',
             forma_participacion: '',
-            materiales_gestiona: '',
+            materiales_gestiona: {
+              papel: false,
+              carton: false,
+              vidrio: false,
+              plasticoRigido: false,
+              plasticoFlexible: false,
+            },
             peso_total_reutilizable: 0,
             peso_total_no_reutilizable: 0,
           });
@@ -155,75 +183,120 @@ const RegistrarProductores = () => {
     <div className="registrar-miembros-page">
       <h2>Formulario de Registro de productores</h2>
       <form onSubmit={handleSubmit}>
-        
         <div className="form-group">
           <label>Correo</label>
-          <input
-            type="text"
-            name="correo"
-            value={formData.correo}
-            onChange={handleChange}
-          />
+          <input type="text" name="correo" value={formData.correo} onChange={handleChange} />
         </div>
         <div className="form-group">
           <label>Nombre</label>
-          <input
-            type="text"
-            name="nombre"
-            value={formData.nombre}
-            onChange={handleChange}
-          />
+          <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} />
         </div>
         <div className="form-group">
           <label>NIT</label>
-          <input
-            type="number"
-            name="nit"
-            value={formData.nit}
-            onChange={handleChange}
-          />
+          <input type="number" name="nit" value={formData.nit} onChange={handleChange} />
         </div>
         <div className="form-group">
           <label>Teléfono</label>
-          <input
-            type="number"
-            name="telefono"
-            value={formData.telefono}
-            onChange={handleChange}
-          />
+          <input type="number" name="telefono" value={formData.telefono} onChange={handleChange} />
         </div>
         <div className="form-group">
           <label>Dirección</label>
-          <input
-            type="text"
-            name="direccion"
-            value={formData.direccion}
-            onChange={handleChange}
-          />
+          <input type="text" name="direccion" value={formData.direccion} onChange={handleChange} />
         </div>
         <div className="form-group">
           <label>Forma de Participación</label>
-          <input
-            type="text"
-            name="forma_participacion"
-            value={formData.forma_participacion}
-            onChange={handleChange}
-          />
+          <input type="text" name="forma_participacion" value={formData.forma_participacion} onChange={handleChange} />
         </div>
-        
-        /* */
-
-
         <div className="form-group">
           <label>Materiales que Gestiona</label>
-          <input
-            type="text"
-            name="materiales_gestiona"
-            value={formData.materiales_gestiona}
-            onChange={handleChange}
-          />
+          <div className="checkbox-group">
+            <label>
+              Papel
+              <input
+                type="checkbox"
+                name="papel"
+                checked={formData.materiales_gestiona.papel}
+                onChange={handleChange}
+              />
+              {formData.materiales_gestiona.papel && (
+                <input
+                  type="number"
+                  name="papelValue"
+                  value={formData.materiales_gestiona.papelValue}
+                  onChange={handleChange}
+                />
+              )}
+            </label>
+            <label>
+              Cartón
+              <input
+                type="checkbox"
+                name="carton"
+                checked={formData.materiales_gestiona.carton}
+                onChange={handleChange}
+              />
+              {formData.materiales_gestiona.carton && (
+                <input
+                  type="number"
+                  name="cartonValue"
+                  value={formData.materiales_gestiona.cartonValue}
+                  onChange={handleChange}
+                />
+              )}
+            </label>
+            <label>
+              Vidrio
+              <input
+                type="checkbox"
+                name="vidrio"
+                checked={formData.materiales_gestiona.vidrio}
+                onChange={handleChange}
+              />
+              {formData.materiales_gestiona.vidrio && (
+                <input
+                  type="number"
+                  name="vidrioValue"
+                  value={formData.materiales_gestiona.vidrioValue}
+                  onChange={handleChange}
+                />
+              )}
+            </label>
+            <label>
+              Plástico Rígido
+              <input
+                type="checkbox"
+                name="plasticoRigido"
+                checked={formData.materiales_gestiona.plasticoRigido}
+                onChange={handleChange}
+              />
+              {formData.materiales_gestiona.plasticoRigido && (
+                <input
+                  type="number"
+                  name="plasticoRigidoValue"
+                  value={formData.materiales_gestiona.plasticoRigidoValue}
+                  onChange={handleChange}
+                />
+              )}
+            </label>
+            <label>
+              Plástico Flexible
+              <input
+                type="checkbox"
+                name="plasticoFlexible"
+                checked={formData.materiales_gestiona.plasticoFlexible}
+                onChange={handleChange}
+              />
+              {formData.materiales_gestiona.plasticoFlexible && (
+                <input
+                  type="number"
+                  name="plasticoFlexibleValue"
+                  value={formData.materiales_gestiona.plasticoFlexibleValue}
+                  onChange={handleChange}
+                />
+              )}
+            </label>
+          </div>
         </div>
-
         <div className="form-group">
           <label>Peso Total Reutilizable</label>
           <input
@@ -243,13 +316,17 @@ const RegistrarProductores = () => {
           />
         </div>
         <div className="form-group">
-          <button type="submit" className="submit-button">Registrar</button>
+          <button type="submit" className="submit-button">
+            Registrar
+          </button>
           {editandoId ? (
             <button onClick={guardarEdicion} className="edit-button">
               Guardar Edición
             </button>
           ) : null}
-          <button type="button" className="register-button" onClick={handleCancelar}>Cancelar</button>
+          <button type="button" className="register-button" onClick={handleCancelar}>
+            Cancelar
+          </button>
         </div>
       </form>
       <h2>Registros</h2>
