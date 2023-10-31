@@ -62,7 +62,7 @@ const Transactions = () => {
 
   return (
     <div className="about-page">
-      <h1 className="page-title">Transacciones</h1>
+      <h1 className="page-title">Gestor Trasformador</h1>
       <div className="search-bar">
         <input
           type="text"

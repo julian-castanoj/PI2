@@ -1,8 +1,10 @@
 import '../styles/custom-table.css';
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const About = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchNit, setSearchNit] = useState(''); 
@@ -27,6 +29,10 @@ const About = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleEditarClick = (id) => {
+    navigate(`/editarTransformador/${id}`);
+  };
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -87,16 +93,14 @@ const About = () => {
           {paginatedData.map((item) => (
             <tr key={item.id}>
               <td>{item.id}</td>
-              <td>{item.razonSocial}</td>
-              <td>{item.representanteLegal}</td>
+              <td>{item.razon_social}</td>
+              <td>{item.representante_legal}</td>
               <td>{item.nit}</td>
               <td>{item.telefono}</td>
-              <td>{item.direccionPrincipal}</td>
+              <td>{item.direccion_principal}</td>
               <td>
                 <button onClick={() => eliminarTransformador(item.id)}>Eliminar</button>
-                <Link to={`/editarTransformador/${item.id}`}>
-                  <button>Editar</button>
-                </Link>
+                <button onClick={() => handleEditarClick(item.id)}>Editar</button>
               </td>
             </tr>
           ))}

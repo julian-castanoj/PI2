@@ -1,0 +1,17 @@
+.submenu .link {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 8px 20px; /* Ajusta el espacio entre elementos en los submenús */
+    text-decoration: none;
+    color: #fff;
+    border-radius: 0;
+  
+    /* Añade estilos de transición para suavizar las animaciones */
+    transition: background-color 0.2s, padding 0.2s;
+  }
+  
+  .submenu .link:hover {
+    background-color: #444;
+    padding: 8px 30px; /* Ajusta el espacio cuando se pasa el cursor por encima */
+  }

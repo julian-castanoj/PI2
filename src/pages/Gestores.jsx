@@ -1,18 +1,18 @@
-import '../styles/custom-table.css';
-import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const About = () => {
+const Gestores = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchNit, setSearchNit] = useState(''); 
+  const [searchNit, setSearchNit] = useState('');
   const itemsPerPage = 10;
-  const totalPages = Math.ceil(data.length / itemsPerPage);
-  const [filteredData, setFilteredData] = useState([]); 
+  const [filteredData, setFilteredData] = useState([]);
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:3000/gestor'); 
+      const response = await fetch('http://localhost:3000/gestor');
       if (response.ok) {
         const result = await response.json();
         setData(result);
@@ -33,10 +33,8 @@ const About = () => {
   };
 
   useEffect(() => {
-    
-    const filtered = data.filter((item) =>
-      item.nit.includes(searchNit)
-    );
+    // Filtrar los datos por NIT
+    const filtered = data.filter((item) => item.nit.toString().includes(searchNit));
 
     setFilteredData(filtered);
   }, [searchNit, data]);
@@ -46,11 +44,15 @@ const About = () => {
     currentPage * itemsPerPage
   );
 
+  const handleEditarClick = (id) => {
+    navigate(`/editarGestor/${id}`);
+  };
+
   const eliminarGestor = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/gestores/${id}`, {
+      const response = await fetch(`http://localhost:3000/gestor/${id}`, {
         method: 'DELETE',
-      }); 
+      });
       if (response.ok) {
         await fetchData();
       } else {
@@ -61,20 +63,18 @@ const About = () => {
     }
   };
 
-
-
   return (
-    <div className="about-page">
+    <div className="gestores-page">
       <h1 className="page-title">Gestores</h1>
       <div className="search-bar">
-  <input
-    type="text"
-    placeholder="Buscar por NIT"
-    value={searchNit}
-    onChange={(e) => setSearchNit(e.target.value)}
-    className="search-input"
-  />
-</div>
+        <input
+          type="text"
+          placeholder="Buscar por NIT"
+          value={searchNit}
+          onChange={(e) => setSearchNit(e.target.value)}
+          className="search-input"
+        />
+      </div>
       <table className="custom-table">
         <thead>
           <tr>
@@ -98,15 +98,12 @@ const About = () => {
               <td>{item.direccion}</td>
               <td>
                 <button onClick={() => eliminarGestor(item.id)}>Eliminar</button>
-                <Link to={`/editarGestor/${item.id}`}>
-                  <button>Editar</button>
-                </Link>
+                <button onClick={() => handleEditarClick(item.id)}>Editar</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-
       <div className="pagination">
         <button
           onClick={() => handlePageChange(currentPage - 1)}
@@ -114,15 +111,14 @@ const About = () => {
         >
           Anterior
         </button>
-        <span>Página {currentPage} de {totalPages}</span>
+        <span>Página {currentPage}</span>
         <button
           onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
+          disabled={currentPage * itemsPerPage >= paginatedData.length}
         >
           Siguiente
         </button>
       </div>
-
       <div className="action-buttons">
         <Link to="/registrarGestores" className="register-button">
           Registrar
@@ -132,5 +128,5 @@ const About = () => {
   );
 };
 
-export default About;
+export default Gestores;
 

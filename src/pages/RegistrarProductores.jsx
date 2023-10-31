@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/registrarProductor.css';
-import { Link } from 'react-router-dom';
+
 
 const RegistrarProductores = () => {
   const [formData, setFormData] = useState({
@@ -208,7 +208,7 @@ const RegistrarProductores = () => {
           <input type="text" name="forma_participacion" value={formData.forma_participacion} onChange={handleChange} />
         </div>
         <div className="form-group">
-          <label>Materiales que Gestiona</label>
+          <label>Materiales que produce</label>
           <div className="checkbox-group">
             <label>
               Papel

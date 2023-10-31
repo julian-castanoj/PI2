@@ -8,15 +8,18 @@
   }, []);*/
   import React, { useState } from 'react';
   import '../styles/registrarMiembros.css';
+  import { useParams } from 'react-router-dom';
+  import { useNavigate } from 'react-router-dom';
   
   const RegistrarTransformadores = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
-      razonSocial: '',
-      representanteLegal: '',
+      razon_social: '',
+      representante_legal: '',
       nit: 0,
       telefono: 0,
-      direccionPrincipal: '',
-      direccionPlanta: '',
+      direccion_principal: '',
+      direccion_planta: '',
       departamento: '',
       municipio: '',
       correo: '',
@@ -52,8 +55,8 @@
           otro: false,
         },
       },
-      registroAnla: false,
-      numeroDeCertificado: 0,
+      registro_anla: false,
+      numero_certificado: 0,
     });
   
     const [registros, setRegistros] = useState([]);
@@ -100,6 +103,7 @@
   
           if (response.ok) {
             console.log('Registro exitoso');
+            navigate('/transformadores');
           } else {
             console.error('Error al registrar');
           }
@@ -149,12 +153,12 @@
             setRegistros(nuevosRegistros);
   
             setFormData({
-              razonSocial: '',
-              representanteLegal: '',
+              razon_social: '',
+              representante_legal: '',
               nit: 0,
               telefono: 0,
-              direccionPrincipal: '',
-              direccionPlanta: '',
+              direccion_principal: '',
+              direccion_planta: '',
               departamento: '',
               municipio: '',
               correo: '',
@@ -190,8 +194,8 @@
                   otro: false,
                 },
               },
-              registroAnla: false,
-              numeroDeCertificado: 0,
+              registro_anla: false,
+              numero_certificado: 0,
             });
             setEditandoId(null);
   
@@ -216,12 +220,12 @@
   
           if (editandoId === id) {
             setFormData({
-              razonSocial: '',
-              representanteLegal: '',
+              razon_social: '',
+              representante_legal: '',
               nit: 0,
               telefono: 0,
-              direccionPrincipal: '',
-              direccionPlanta: '',
+              direccion_principal: '',
+              direccion_planta: '',
               departamento: '',
               municipio: '',
               correo: '',
@@ -257,8 +261,8 @@
                   otro: false,
                 },
               },
-              registroAnla: false,
-              numeroDeCertificado: 0,
+              registro_anla: false,
+              numero_certificado: 0,
             });
             setEditandoId(null);
   
@@ -278,8 +282,8 @@
             <label>Razón Social</label>
             <input
               type="text"
-              name="razonSocial"
-              value={formData.razonSocial}
+              name="razon_social"
+              value={formData.razon_social}
               onChange={handleChange}
             />
           </div>
@@ -287,8 +291,8 @@
             <label>Representante Legal</label>
             <input
               type="text"
-              name="representanteLegal"
-              value={formData.representanteLegal}
+              name="representante_legal"
+              value={formData.representante_legal}
               onChange={handleChange}
             />
           </div>
@@ -314,8 +318,8 @@
             <label>Dirección Principal</label>
             <input
               type="text"
-              name="direccionPrincipal"
-              value={formData.direccionPrincipal}
+              name="direccion_principal"
+              value={formData.direccion_principal}
               onChange={handleChange}
             />
           </div>
@@ -323,8 +327,8 @@
             <label>Dirección Planta</label>
             <input
               type="text"
-              name="direccionPlanta"
-              value={formData.direccionPlanta}
+              name="direccion_planta"
+              value={formData.direccion_planta}
               onChange={handleChange}
             />
           </div>
@@ -417,8 +421,8 @@
             <label>Registro ANLA</label>
             <input
               type="checkbox"
-              name="registroAnla"
-              checked={formData.registroAnla}
+              name="registro_anla"
+              checked={formData.registro_anla}
               onChange={handleChange}
             />
           </div>
@@ -426,8 +430,8 @@
             <label>Número de Certificado</label>
             <input
               type="number"
-              name="numeroDeCertificado"
-              value={formData.numeroDeCertificado}
+              name="numero_certificado"
+              value={formData.numero_certificado}
               onChange={handleChange}
             />
           </div>
@@ -449,7 +453,7 @@
         <ul>
           {registros.map((registro) => (
             <li key={registro.id}>
-              <span>{registro.razonSocial}</span>
+              <span>{registro.razon_social}</span>
               <button onClick={() => editarRegistro(registro.id)} className="edit-button">
                 Editar
               </button>

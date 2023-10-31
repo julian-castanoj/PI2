@@ -1,8 +1,10 @@
 import '../styles/custom-table.css';
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const About = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchNit, setSearchNit] = useState('');
@@ -60,6 +62,11 @@ const About = () => {
     }
   };
 
+  const handleEditarClick = (id) => {
+    navigate(`/editarProductores/${id}`);
+  };
+
+
   return (
     <div className="about-page">
       <h1 className="page-title">Productores</h1>
@@ -95,9 +102,7 @@ const About = () => {
               <td>{item.direccion}</td>
               <td>
                 <button onClick={() => deleteMember(item.id)}>Eliminar</button>
-                <Link to={`/editarProductor/${item.id}`}>
-                  <button>Editar</button>
-                </Link>
+                <button onClick={() => handleEditarClick(item.id)}>Editar</button>
               </td>
             </tr>
           ))}
