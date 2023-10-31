@@ -1,32 +1,35 @@
-import '../styles/custom-table.css';
-import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-const Transactions = () => {
+const GestorEntidadExterna = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchNit, setSearchNit] = useState('');
+  const [searchId, setSearchId] = useState('');
   const itemsPerPage = 10;
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const [filteredData, setFilteredData] = useState([]);
+  const [error, setError] = useState(null); // Estado para manejar errores
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:3000/transacciones');
+      const response = await fetch('http://localhost:3000/transaccionge'); // Reemplaza con la URL correcta
       if (response.ok) {
         const result = await response.json();
         setData(result);
+        setError(null); // Borra el mensaje de error si la solicitud tiene éxito
       } else {
         console.error('Error al cargar datos de la API');
+        setError('Error al cargar datos de la API');
       }
     } catch (error) {
       console.error('Error al realizar la solicitud:', error);
+      setError('Error al realizar la solicitud');
     }
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [data]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -34,41 +37,33 @@ const Transactions = () => {
 
   useEffect(() => {
     const filtered = data.filter((item) =>
-      item.nit.includes(searchNit)
+      item.id.toString().includes(searchId)
     );
 
     setFilteredData(filtered);
-  }, [searchNit, data]);
+  }, [searchId, data]);
 
   const paginatedData = filteredData.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
-  const deleteTransaction = async (id) => {
-    try {
-      const response = await fetch(`http://localhost:3000/transacciones/${id}`, {
-        method: 'DELETE',
-      });
-      if (response.ok) {
-        await fetchData();
-      } else {
-        console.error('Error al eliminar la transacción');
-      }
-    } catch (error) {
-      console.error('Error al realizar la solicitud:', error);
-    }
-  };
-
   return (
     <div className="about-page">
-      <h1 className="page-title">Gestor Trasformador</h1>
+      <h1 className="page-title">Gestor Entidad Externa</h1>
+
+      {error && ( // Muestra el mensaje de error si existe
+        <div className="error-message">
+          Error: {error}
+        </div>
+      )}
+
       <div className="search-bar">
         <input
           type="text"
-          placeholder="Buscar por NIT"
-          value={searchNit}
-          onChange={(e) => setSearchNit(e.target.value)}
+          placeholder="Buscar por ID"
+          value={searchId}
+          onChange={(e) => setSearchId(e.target.value)}
           className="search-input"
         />
       </div>
@@ -76,10 +71,14 @@ const Transactions = () => {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Gestor ID</th>
-            <th>Transformador</th>
+            <th>ID Gestor</th>
+            <th>Material</th>
+            <th>Cantidad</th>
             <th>Fecha</th>
-            <th>Observaciones</th>
+            <th>Archivo de Imagen</th>
+            <th>Nombre de Entidad</th>
+            <th>Descripción</th>
+            <th>Ubicación</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -88,12 +87,15 @@ const Transactions = () => {
             <tr key={item.id}>
               <td>{item.id}</td>
               <td>{item.gestor_id}</td>
-              <td>{item.transformador}</td>
+              <td>{item.material}</td>
+              <td>{item.cantidad}</td>
               <td>{item.fecha}</td>
-              <td>{item.observaciones}</td>
+              <td>{item.archivoImagen ? item.archivoImagen : 'NULL'}</td>
+              <td>{item.entidad_externa}</td>
+              <td>{item.descripcion}</td>
+              <td>{item.ubicacion}</td>
               <td>
-                <button onClick={() => deleteTransaction(item.id)}>Eliminar</button>
-                <Link to={`/editarTransaccion/${item.id}`}>
+                <Link to={`/editarGestorEntidadExterna/${item.id}`}>
                   <button>Editar</button>
                 </Link>
               </td>
@@ -119,13 +121,13 @@ const Transactions = () => {
       </div>
 
       <div className="action-buttons">
-        <Link to="/registrarTransacciones" className="register-button">
-          Registrar
+        <Link to="/registrarGestorEntidadExterna" className="register-button">
+          Registrar Transacción Gestor Entidad Externa
         </Link>
       </div>
     </div>
   );
 };
 
-export default Transactions;
+export default GestorEntidadExterna;
 

@@ -8,25 +8,32 @@ import Navbar from './components/Navbar';
 import Inicio from './pages/Inicio.jsx';
 import Productores from './pages/Productores.jsx';
 import Estadisticas from './pages/Estadisticas.jsx';
-import Transacciones from './pages/Transacciones.jsx';
+
 import Logout from './pages/Logout.jsx';
 import RegistrarProductores from './pages/RegistrarProductores.jsx';
 import Gestores from './pages/Gestores.jsx';
 import Transformadores from './pages/Transformadores.jsx';
 import RegistrarGestores from './pages/RegistrarGestores.jsx';
 import RegistrarTransformadores from './pages/RegistrarTransformadores.jsx';
-import RegistrarTransacciones from './pages/RegistrarTransacciones.jsx';
+
 import EditarGestor from './pages/EditarGestor';
 import EditarTransformador from './pages/EditarTransformador';
 import EditarProductores from './pages/EditarProductores';
 
-import EditarTransacciones from './pages/EditarTransaccion';
-import ProductorEntidadExterna from './pages/ProductorEntidadExterna';
-import RegistrarProductorEntidadExterna from './pages/RegistrarProductorEntidadExterna';
-import EditarProductorEntidadExterna from './pages/EditarProductorEntidadExterna';
-import GestorGestor from './pages/GestorGestor';
-import RegistrarGestorGestor from './pages/RegistrarGestorGestor';
-import EditarGestorGestor from './pages/EditarGestorGestor';
+import EditarTransacciones from './pages/TransGestorProductor/EditarTransaccion';
+import RegistrarTransacciones from './pages/TransGestorProductor/RegistrarTransacciones.jsx';
+import Transacciones from './pages/TransGestorProductor/Transacciones.jsx';
+
+import GestorGestor from './pages/TransGestorGestor/GestorGestor';
+import RegistrarGestorGestor from './pages/TransGestorGestor/RegistrarGestorGestor';
+import EditarGestorGestor from './pages/TransGestorGestor/EditarGestorGestor';
+
+
+
+import GestorEntidadExterna from './pages/TransGestorExterno/GestorEntidadExterna';
+import RegistrarGestorEntidadExterna from './pages/TransGestorExterno/RegistrarGestorEntidadExterna';
+import EditarGestorEntidadExterna from './pages/TransGestorExterno/EditarGestorEntidadExterna';
+
 import ProductorGestor from './pages/ProductorGestor';
 import EditarProductorGestor from './pages/EditarProductorGestor';
 import RegistrarProductorGestor from './pages/RegistrarProductorGestor';
@@ -89,9 +96,9 @@ const App = () => {
             <Route path="/editarTransaccion" element={<EditarTransacciones />} />
 
             {/*  Productor - entidad externa  */}
-            <Route path="/productorEntidadExterna" element={<ProductorEntidadExterna />} />
-            <Route path="/registrarProductorEntidadExterna" element={<RegistrarProductorEntidadExterna />} />
-            <Route path="/editarProductorEntidadExterna" element={<EditarProductorEntidadExterna />} />
+            <Route path="/gestorEntidadExterna" element={<GestorEntidadExterna />} />
+            <Route path="/registrarGestorEntidadExterna" element={<RegistrarGestorEntidadExterna />} />
+            <Route path="/editarGestorEntidadExterna" element={<EditarGestorEntidadExterna />} />
 
             {/* Gestor - Gestor   */}
             <Route path="/gestorGestor" element={<GestorGestor />} />

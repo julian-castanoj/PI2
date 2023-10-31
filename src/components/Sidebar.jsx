@@ -32,15 +32,11 @@ const Sidebar = ({ children, isAuthenticated }) => {
 
   const transactionsSubMenu = [ // Definición de submenú de transacciones
     {
-      path: "/productorEntidadExterna",
-      name: "Productor - Entidad Externa",
+      path: "/gestorEntidadExterna",
+      name: "Gestor - Entidad Externa",
       icon: <FaCommentAlt />,
     },
-    {
-      path: "/productorGestor",
-      name: "Productor - Gestor ",
-      icon: <FaCommentAlt />,
-    },
+    
     {
       path: "/gestorGestor",
       name: "Gestor - Gestor",

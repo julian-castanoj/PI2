@@ -1,32 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/registrarTransacciones.css';
+import '../../styles/registrarTransacciones.css';
 import { useNavigate } from 'react-router-dom';
 
 const RegistrarTransacciones = () => {
   const [formData, setFormData] = useState({
     gestor_id: 0,
     transformador_id: 0,
+    materialId: 0,
+    cantidad: 0, // Campo "cantidad" agregado
     fecha: '',
-    observaciones: '',
-    imagen: null,
-    nro_expediente_anla: 0,
-    nro_factura_dian: 0,
+    descripcion: '',
+    ubicacion: '',
+    archivoImagen: null
   });
 
-  const [gestorIds, setGestorIds] = useState([]);                                                                                                                                                                                             
-  const [transformadorIds, setTransformadorIds] = useState([]);                                                                                                                                                                                            
+  const [gestorIds, setGestorIds] = useState([]);
+  const [transformadorIds, setTransformadorIds] = useState([]);
   const [registros, setRegistros] = useState([]);
   const [editandoId, setEditandoId] = useState(null);
+  const [errores, setErrores] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
-                                                                                                                                                                                              
     fetch('http://localhost:3000/gestor')
       .then((response) => response.json())
       .then((data) => setGestorIds(data.map((gestor) => gestor.id)))
       .catch((error) => console.error('Error al obtener la lista de gestores:', error));
 
-                                                                                                                                                                                               
     fetch('http://localhost:3000/transformador')
       .then((response) => response.json())
       .then((data) => setTransformadorIds(data.map((transformador) => transformador.id)))
@@ -50,34 +50,37 @@ const RegistrarTransacciones = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const userConfirmed = window.confirm("¿Estás seguro de que deseas enviar el formulario?");
-    
+
     if (userConfirmed) {
       const form = new FormData();
+
       for (const key in formData) {
-        if (key === 'imagen') {
-          form.append(key, formData[key], formData[key].name);
-        } else {
-          form.append(key, formData[key]);
+        if (formData[key] !== null) { // Verificar si formData[key] no es null
+          if (key === 'archivoImagen') {
+            form.append(key, formData[key], formData[key].name);
+          } else {
+            form.append(key, formData[key]);
+          }
         }
       }
-      
+
       const requestOptions = {
         method: 'POST',
         body: form,
       };
-  
+
       try {
-        console.log(formData);
-        const response = await fetch('http://localhost:3000/transacciones/registrar', requestOptions);
-  
+        const response = await fetch('http://localhost:3000/transacciongt', requestOptions);
+
         if (response.ok) {
           console.log('Registro exitoso');
-                                                                                                                                                                                                     
           fetchData();
         } else {
-          console.error('Error al registrar');
+          // Aquí accede a los detalles del error proporcionados por el servidor
+          const errorData = await response.json();
+          console.error('Error al registrar:', response.status, errorData.message);
         }
       } catch (error) {
         console.error('Error al realizar la solicitud:', error);
@@ -89,7 +92,7 @@ const RegistrarTransacciones = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:3000/transacciones');
+      const response = await fetch('http://localhost:3000/transacciongt');
       if (response.ok) {
         const result = await response.json();
         setRegistros(result);
@@ -103,11 +106,11 @@ const RegistrarTransacciones = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);                                                                                                                                                                                            
+  }, []);
 
   const editarRegistro = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/transacciones/${id}`);
+      const response = await fetch(`http://localhost:3000/transacciongt/${id}`);
       if (response.ok) {
         const data = await response.json();
         setFormData({ ...data });
@@ -128,11 +131,10 @@ const RegistrarTransacciones = () => {
     };
 
     try {
-      const response = await fetch(`http://localhost:3000/transacciones/${editandoId}`, requestOptions);
+      const response = await fetch(`http://localhost:3000/transacciongt/${editandoId}`, requestOptions);
 
       if (response.ok) {
         console.log('Edición exitosa');
-                                                                                                                                                                                                   
         fetchData();
       } else {
         console.error('Error al editar el registro');
@@ -144,13 +146,12 @@ const RegistrarTransacciones = () => {
 
   const eliminarRegistro = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/transacciones/${id}`, {
+      const response = await fetch(`http://localhost:3000/transacciongt/${id}`, {
         method: 'DELETE',
       });
 
       if (response.ok) {
         console.log('Eliminación exitosa');
-                                                                                                                                                                                                    
         fetchData();
       } else {
         console.error('Error al eliminar el registro');
@@ -191,6 +192,24 @@ const RegistrarTransacciones = () => {
           </select>
         </div>
         <div className="form-group">
+          <label>Material ID</label>
+          <input
+            type="number"
+            name="materialId"
+            value={formData.materialId}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Cantidad</label>
+          <input
+            type="number"
+            name="cantidad"
+            value={formData.cantidad}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
           <label>Fecha</label>
           <input
             type="date"
@@ -200,41 +219,33 @@ const RegistrarTransacciones = () => {
           />
         </div>
         <div className="form-group">
-          <label>Observaciones</label>
+          <label>Descripción</label>
           <input
             type="text"
-            name="observaciones"
-            value={formData.observaciones}
+            name="descripcion"
+            value={formData.descripcion}
             onChange={handleChange}
           />
         </div>
         <div className="form-group">
-          <label>Imagen</label>
+          <label>Ubicación</label>
+          <input
+            type="text"
+            name="ubicacion"
+            value={formData.ubicacion}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Archivo de Imagen</label>
           <input
             type="file"
-            name="imagen"
+            name="archivoImagen"
             accept="image/*"
             onChange={handleChange}
           />
         </div>
-        <div className="form-group">
-          <label>Nro Expediente ANLA</label>
-          <input
-            type="number"
-            name="nro_expediente_anla"
-            value={formData.nro_expediente_anla}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Nro Factura DIAN</label>
-          <input
-            type="number"
-            name="nro_factura_dian"
-            value={formData.nro_factura_dian}
-            onChange={handleChange}
-          />
-        </div>
+
         <div className="form-group">
           <button type="submit" className="submit-button">
             Registrar
@@ -253,7 +264,7 @@ const RegistrarTransacciones = () => {
       <ul>
         {registros.map((registro) => (
           <li key={registro.id}>
-            <span>{registro.transformador}</span>
+            <span>{registro.transformador.nombre}</span>
             <button onClick={() => editarRegistro(registro.id)} className="edit-button">
               Editar
             </button>
@@ -268,5 +279,3 @@ const RegistrarTransacciones = () => {
 };
 
 export default RegistrarTransacciones;
-
-

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import '../../styles/custom-table.css';
 
-const ProductorEntidadExterna = () => {
+const GestorGestor = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchId, setSearchId] = useState('');
@@ -11,7 +12,7 @@ const ProductorEntidadExterna = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:3000/productorEntidadExterna'); // Cambia la URL para obtener datos de productorEntidadExterna
+      const response = await fetch('http://localhost:3000/transacciongg');
       if (response.ok) {
         const result = await response.json();
         setData(result);
@@ -46,7 +47,7 @@ const ProductorEntidadExterna = () => {
 
   return (
     <div className="about-page">
-      <h1 className="page-title">Productor Entidad Externa</h1>
+      <h1 className="page-title">Gestor Gestor</h1>
       <div className="search-bar">
         <input
           type="text"
@@ -59,24 +60,30 @@ const ProductorEntidadExterna = () => {
       <table className="custom-table">
         <thead>
           <tr>
-            <th>ID</th> {/* Nueva columna para el ID de la transacción */}
-            <th>ID Productor</th>
-            <th>Nombre de Entidad</th>
+            <th>ID</th>
+            <th>Gestor Realiza ID</th>
+            <th>Gestor Recibe ID</th>
+            <th>Material ID</th>
+            <th>Cantidad</th>
             <th>Fecha</th>
-            <th>Observaciones</th>
+            <th>Descripción</th>
+            <th>Ubicación</th>
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
           {paginatedData.map((item) => (
             <tr key={item.id}>
-              <td>{item.idTransaccion}</td> {/* Muestra el ID de la transacción */}
-              <td>{item.idProductor}</td> {/* Cambia el nombre del campo según tu estructura de datos */}
-              <td>{item.nombreEntidad}</td> {/* Cambia el nombre del campo según tu estructura de datos */}
+              <td>{item.id}</td>
+              <td>{item.gestorRealizaId}</td>
+              <td>{item.gestorRecibeId}</td>
+              <td>{item.materialId}</td>
+              <td>{item.cantidad}</td>
               <td>{item.fecha}</td>
-              <td>{item.observaciones}</td>
+              <td>{item.descripcion}</td>
+              <td>{item.ubicacion}</td>
               <td>
-                <Link to={`/editarProductorEntidadExterna/${item.id}`}>
+                <Link to={`/editarGestorGestor/${item.id}`}>
                   <button>Editar</button>
                 </Link>
               </td>
@@ -102,12 +109,15 @@ const ProductorEntidadExterna = () => {
       </div>
 
       <div className="action-buttons">
-        <Link to="/registrarProductorEntidadExterna" className="register-button">
-          Registrar Transacción Productor Entidad Externa
+        <Link to="/registrarGestorGestor" className="register-button">
+          Registrar Transacción Gestor Gestor
         </Link>
       </div>
     </div>
   );
 };
 
-export default ProductorEntidadExterna;
+export default GestorGestor;
+
+
+
