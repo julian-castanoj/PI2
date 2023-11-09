@@ -1,3 +1,5 @@
+import '../../styles/gestor.css';
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -35,7 +37,6 @@ const Gestores = () => {
   useEffect(() => {
     // Filtrar los datos por NIT
     const filtered = data.filter((item) => item.nit.toString().includes(searchNit));
-
     setFilteredData(filtered);
   }, [searchNit, data]);
 
@@ -49,17 +50,20 @@ const Gestores = () => {
   };
 
   const eliminarGestor = async (id) => {
-    try {
-      const response = await fetch(`http://localhost:3000/gestor/${id}`, {
-        method: 'DELETE',
-      });
-      if (response.ok) {
-        await fetchData();
-      } else {
-        console.error('Error al eliminar el gestor');
+    const userConfirmed = window.confirm('¿Estás seguro de que deseas eliminar a este miembro?');
+    if (userConfirmed) {
+      try {
+        const response = await fetch(`http://localhost:3000/gestor/${id}`, {
+          method: 'DELETE',
+        });
+        if (response.ok) {
+          await fetchData();
+        } else {
+          console.error('Error al eliminar el gestor');
+        }
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error);
       }
-    } catch (error) {
-      console.error('Error al realizar la solicitud:', error);
     }
   };
 
@@ -78,10 +82,10 @@ const Gestores = () => {
       <table className="custom-table">
         <thead>
           <tr>
-            <th>ID</th>
+            
             <th>Nombre</th>
-            <th>Capacidad</th>
             <th>NIT</th>
+            <th>Correo</th>
             <th>Teléfono</th>
             <th>Dirección</th>
             <th>Acciones</th>
@@ -90,10 +94,10 @@ const Gestores = () => {
         <tbody>
           {paginatedData.map((item) => (
             <tr key={item.id}>
-              <td>{item.id}</td>
+              
               <td>{item.nombre}</td>
-              <td>{item.capacidad}</td>
               <td>{item.nit}</td>
+              <td>{item.correo}</td>
               <td>{item.telefono}</td>
               <td>{item.direccion}</td>
               <td>
@@ -108,6 +112,7 @@ const Gestores = () => {
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
+          className="pagination-button"
         >
           Anterior
         </button>
@@ -115,6 +120,7 @@ const Gestores = () => {
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage * itemsPerPage >= paginatedData.length}
+          className="pagination-button"
         >
           Siguiente
         </button>
@@ -129,4 +135,3 @@ const Gestores = () => {
 };
 
 export default Gestores;
-

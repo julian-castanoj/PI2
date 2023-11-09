@@ -70,7 +70,7 @@ const GestorEntidadExterna = () => {
       <table className="custom-table">
         <thead>
           <tr>
-            <th>ID</th>
+            
             <th>ID Gestor</th>
             <th>Material</th>
             <th>Cantidad</th>
@@ -85,7 +85,7 @@ const GestorEntidadExterna = () => {
         <tbody>
           {paginatedData.map((item) => (
             <tr key={item.id}>
-              <td>{item.id}</td>
+              
               <td>{item.gestor_id}</td>
               <td>{item.material}</td>
               <td>{item.cantidad}</td>

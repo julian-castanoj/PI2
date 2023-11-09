@@ -11,16 +11,8 @@ const EditarProductores = () => {
     nit: 0,
     telefono: 0,
     direccion: '',
-    forma_participacion: '',
-    materiales_gestiona: {
-      papel: false,
-      carton: false,
-      vidrio: false,
-      plasticoRigido: false,
-      plasticoFlexible: false,
-    },
-    peso_total_reutilizable: 0,
-    peso_total_no_reutilizable: 0,
+    
+    materiales_recolectados: [],
   });
 
   useEffect(() => {
@@ -41,21 +33,30 @@ const EditarProductores = () => {
   }, [id]);
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type } = e.target;
     if (type === 'text' || type === 'number') {
       setFormData({
         ...formData,
         [name]: value,
       });
-    } else if (type === 'checkbox') {
-      setFormData({
-        ...formData,
-        materiales_gestiona: {
-          ...formData.materiales_gestiona,
-          [name]: checked,
-        },
-      });
     }
+  };
+
+  const handleMaterialChange = (e) => {
+    const { name, value } = e.target;
+    const materiales = [...formData.materiales_recolectados];
+    const materialIndex = materiales.findIndex((material) => material.material === name);
+
+    if (materialIndex !== -1) {
+      materiales[materialIndex].cantidad = value;
+    } else {
+      materiales.push({ material: name, cantidad: value });
+    }
+
+    setFormData({
+      ...formData,
+      materiales_recolectados: materiales,
+    });
   };
 
   const handleGuardarCambios = () => {
@@ -116,81 +117,75 @@ const EditarProductores = () => {
           <label>Dirección</label>
           <input type="text" name="direccion" value={formData.direccion} onChange={handleChange} />
         </div>
-        <div className="form-group">
-          <label>Forma de Participación</label>
-          <input type="text" name="forma_participacion" value={formData.forma_participacion} onChange={handleChange} />
-        </div>
-
-
-      {/*  <div className="form-group">
-          <label>Materiales que Gestiona</label>
-          <div className="checkbox-group">
-            <label>
-              Papel
-              <input
-                type="checkbox"
-                name="papel"
-                checked={formData.materiales_gestiona.papel}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Cartón
-              <input
-                type="checkbox"
-                name="carton"
-                checked={formData.materiales_gestiona.carton}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Vidrio
-              <input
-                type="checkbox"
-                name="vidrio"
-                checked={formData.materiales_gestiona.vidrio}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Plástico Rígido
-              <input
-                type="checkbox"
-                name="plasticoRigido"
-                checked={formData.materiales_gestiona.plasticoRigido}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Plástico Flexible
-              <input
-                type="checkbox"
-                name="plasticoFlexible"
-                checked={formData.materiales_gestiona.plasticoFlexible}
-                onChange={handleChange}
-              />
-            </label>
-          </div>
-        </div> */}
-
         
         <div className="form-group">
-          <label>Peso Total Reutilizable</label>
-          <input
-            type="number"
-            name="peso_total_reutilizable"
-            value={formData.peso_total_reutilizable}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Peso Total No Reutilizable</label>
-          <input
-            type="number"
-            name="peso_total_no_reutilizable"
-            value={formData.peso_total_no_reutilizable}
-            onChange={handleChange}
-          />
+          <label>Materiales de empaques puestos en el mercado</label>
+          <table>
+            <thead>
+              <tr>
+                <th>Material</th>
+                <th>Cantidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Papel</td>
+                <td>
+                  <input
+                    type="number"
+                    name="papel"
+                    value={(formData.materiales_recolectados && formData.materiales_recolectados.find((material) => material.material === 'papel')?.cantidad) || ''}
+
+                    onChange={handleMaterialChange}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Cartón</td>
+                <td>
+                  <input
+                    type="number"
+                    name="carton"
+                    value={(formData.materiales_recolectados && formData.materiales_recolectados.find((material) => material.material === 'carton')?.cantidad) || ''}
+                    onChange={handleMaterialChange}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Vidrio</td>
+                <td>
+                  <input
+                    type="number"
+                    name="vidrio"
+                    value={(formData.materiales_recolectados && formData.materiales_recolectados.find((material) => material.material === 'vidrio')?.cantidad) || ''}
+                    onChange={handleMaterialChange}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Plástico Rígido</td>
+                <td>
+                  <input
+                    type="number"
+                    name="plasticoRigido"
+                    value={(formData.materiales_recolectados && formData.materiales_recolectados.find((material) => material.material === 'plasticoRigido')?.cantidad) || ''}
+                    onChange={handleMaterialChange}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Plástico Flexible</td>
+                <td>
+                  <input
+                    type="number"
+                    name="plasticoFlexible"
+                    value={(formData.materiales_recolectados && formData.materiales_recolectados.find((material) => material.material === 'plasticoFlexible')?.cantidad) || ''}
+                    onChange={handleMaterialChange}
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <div className="form-group">
           <button type="submit" className="submit-button">
@@ -206,3 +201,4 @@ const EditarProductores = () => {
 };
 
 export default EditarProductores;
+

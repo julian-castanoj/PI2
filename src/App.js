@@ -6,19 +6,23 @@ import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
 import Inicio from './pages/Inicio.jsx';
-import Productores from './pages/Productores.jsx';
+
+import Productores from './pages/Productores/Productores.jsx';
 import Estadisticas from './pages/Estadisticas.jsx';
 
 import Logout from './pages/Logout.jsx';
-import RegistrarProductores from './pages/RegistrarProductores.jsx';
-import Gestores from './pages/Gestores.jsx';
+import RegistrarProductores from './pages/Productores/RegistrarProductores.jsx';
+
+import Gestores from './pages/Gestores/Gestores.jsx';
 import Transformadores from './pages/Transformadores.jsx';
-import RegistrarGestores from './pages/RegistrarGestores.jsx';
+
+import RegistrarGestores from './pages/Gestores/RegistrarGestores.jsx';
+
 import RegistrarTransformadores from './pages/RegistrarTransformadores.jsx';
 
-import EditarGestor from './pages/EditarGestor';
+import EditarGestor from './pages/Gestores/EditarGestor';
 import EditarTransformador from './pages/EditarTransformador';
-import EditarProductores from './pages/EditarProductores';
+import EditarProductores from './pages/Productores/EditarProductores';
 
 import EditarTransacciones from './pages/TransGestorProductor/EditarTransaccion';
 import RegistrarTransacciones from './pages/TransGestorProductor/RegistrarTransacciones.jsx';

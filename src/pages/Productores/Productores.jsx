@@ -1,7 +1,8 @@
-import '../styles/custom-table.css';
+import '../../styles/custom-table.css';
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 
 const About = () => {
   const navigate = useNavigate();
@@ -48,17 +49,20 @@ const About = () => {
   );
 
   const deleteMember = async (id) => {
-    try {
-      const response = await fetch(`http://localhost:3000/productor/${id}`, {
-        method: 'DELETE',
-      });
-      if (response.ok) {
-        await fetchData();
-      } else {
-        console.error('Error al eliminar el productor');
+    const userConfirmed = window.confirm('¿Estás seguro de que deseas eliminar a este miembro?');
+    if (userConfirmed) {
+      try {
+        const response = await fetch(`http://localhost:3000/productor/${id}`, {
+          method: 'DELETE',
+        });
+        if (response.ok) {
+          await fetchData();
+        } else {
+          console.error('Error al eliminar el productor');
+        }
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error);
       }
-    } catch (error) {
-      console.error('Error al realizar la solicitud:', error);
     }
   };
 
@@ -82,9 +86,9 @@ const About = () => {
       <table className="custom-table">
         <thead>
           <tr>
-            <th>ID</th>
+            
             <th>Nombre</th>
-            <th>Capacidad</th>
+            <th>Correo</th>
             <th>NIT</th>
             <th>Teléfono</th>
             <th>Dirección</th>
@@ -94,9 +98,9 @@ const About = () => {
         <tbody>
           {paginatedData.map((item) => (
             <tr key={item.id}>
-              <td>{item.id}</td>
+              
               <td>{item.nombre}</td>
-              <td>{item.capacidad}</td>
+              <td>{item.correo}</td>
               <td>{item.nit}</td>
               <td>{item.telefono}</td>
               <td>{item.direccion}</td>

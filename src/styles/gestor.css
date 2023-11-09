@@ -1,0 +1,93 @@
+/* Gestores.css */
+.gestores-page {
+    text-align: center;
+  }
+  
+  .page-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 20px;
+  }
+  
+  .search-bar {
+    margin: 20px 0;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    margin: 0 auto; /* Centrar la tabla */
+  }
+  
+  .custom-table th,
+  .custom-table td {
+    padding: 8px;
+    border: 1px solid #fff;
+  }
+  
+  .custom-table th {
+    background-color: #000;
+  }
+  
+  .custom-table td {
+    background-color: #333;
+  }
+  
+  .custom-table tr:nth-child(even) td {
+    background-color: #444;
+  }
+  
+  .custom-table tr:nth-child(odd) td {
+    background-color: #555;
+  }
+  
+  .pagination {
+    margin-top: 20px;
+    text-align: center; /* Centrar las páginas */
+  }
+  
+  .pagination-button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 5px 20px; /* Ancho igualado */
+    margin: 0 5px;
+    cursor: pointer;
+  }
+  
+  .pagination-button:hover {
+    background-color: #222;
+  }
+  
+  .action-buttons {
+    margin-top: 20px;
+  }
+  
+  .register-button,
+  .edit-button {
+    background-color: #0074e4; /* Color azul */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    cursor: pointer;
+  }
+  
+  .register-button:hover,
+  .edit-button:hover {
+    background-color: #0056b3; /* Color azul más oscuro al pasar el mouse */
+  }
+  
+  

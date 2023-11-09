@@ -80,11 +80,12 @@ const About = () => {
       <table className="custom-table">
         <thead>
           <tr>
-            <th>ID</th>
+            
             <th>Razón Social</th>
             <th>Representante Legal</th>
             <th>NIT</th>
-            <th>Teléfono</th>
+            <th>Corre</th>
+            <th>Telefono</th>
             <th>Dirección Principal</th>
             <th>Acciones</th>
           </tr>
@@ -92,10 +93,11 @@ const About = () => {
         <tbody>
           {paginatedData.map((item) => (
             <tr key={item.id}>
-              <td>{item.id}</td>
+              
               <td>{item.razon_social}</td>
               <td>{item.representante_legal}</td>
               <td>{item.nit}</td>
+              <td>{item.correo}</td>
               <td>{item.telefono}</td>
               <td>{item.direccion_principal}</td>
               <td>
