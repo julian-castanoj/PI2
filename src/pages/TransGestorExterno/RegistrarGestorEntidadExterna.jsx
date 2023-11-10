@@ -5,9 +5,10 @@ import { useNavigate } from 'react-router-dom';
 
 const RegistrarGestorEntidadExterna = () => {
   const [formData, setFormData] = useState({
-    gestorId:  '',
+    gestorId: '',
+    gestor_recibe: '',
     material: '',
-    cantidad: 0,
+    cantidad: '',
     fecha: '',
     archivoImagen: null,
     entidad_externa: '',
@@ -17,12 +18,13 @@ const RegistrarGestorEntidadExterna = () => {
 
   const [registros, setRegistros] = useState([]);
   const [editandoId, setEditandoId] = useState(null);
-  const [gestorIds, setGestorIds] = useState([]);
+  const [message, setMessage] = useState(null);
   const [gestorNombres, setGestorNombres] = useState([]); // Agregar estado para nombres
   const [materiales, setMateriales] = useState([]);
   const [gestores, setGestores] = useState([]);
   const navigate = useNavigate();
   const [puntosRecoleccion, setPuntosRecoleccion] = useState([]);
+  const [cantidades, setCantidades] = useState(Array.from({ length: materiales.length }, () => ''));
 
   const fetchData = useCallback(async () => {
     try {
@@ -61,7 +63,15 @@ const RegistrarGestorEntidadExterna = () => {
         .then((data) => {
           if (data && data.materiales_recolectados) {
             const materialList = data.materiales_recolectados.split(',').map(material => material.trim());
+
+            // Actualizar el estado 'materiales'
             setMateriales(materialList);
+
+            // Actualizar el estado 'material' con la cadena de materiales separados por ", "
+            setFormData({
+              ...formData,
+              material: materialList.join(', '),
+            });
           }
         })
         .catch((error) => console.error('Error al obtener la lista de materiales:', error));
@@ -69,23 +79,31 @@ const RegistrarGestorEntidadExterna = () => {
       console.error('El ID seleccionado no es válido:', gestorId);
     }
   };
-  
+
   const handleChange = (e) => {
-    
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [name]: value,
-    });
+    }));
   };
 
   const handleCantidadChange = (index, event) => {
     const newValue = event.target.value;
-    const updatedMateriales = [...formData.materiales];
-    updatedMateriales[index] = newValue;
-    setFormData({
-      ...formData,
-      materiales: updatedMateriales,
+
+    setCantidades((prevCantidades) => {
+      const updatedCantidades = [...prevCantidades];
+      updatedCantidades[index] = newValue;
+
+      // Actualizar directamente el campo 'cantidad' en el estado formData
+      const cantidadesString = updatedCantidades.join(', ');
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        cantidad: cantidadesString,
+      }));
+
+      return updatedCantidades;
     });
   };
 
@@ -101,7 +119,11 @@ const RegistrarGestorEntidadExterna = () => {
           .then((response) => response.json())
           .then((data) => {
             console.log(data); // Agregar un log para verificar los datos
-            
+            // Actualizar el estado con el nombre del gestor seleccionado
+            setFormData({
+              ...formData,
+              gestor_recibe: data.nombre,
+            });
           })
           .catch((error) => console.error('Error al obtener los detalles del gestor:', error));
       } else {
@@ -111,17 +133,22 @@ const RegistrarGestorEntidadExterna = () => {
   };
 
   const handleSubmit = async (e) => {
-    //navigate('/gestorEntidadExterna');
+    console.log(formData);
     e.preventDefault();
 
     const userConfirmed = window.confirm("¿Estás seguro de que deseas enviar el formulario?");
 
     if (userConfirmed) {
       const form = new FormData();
+
+      // Agregar otras propiedades al formulario
       for (const key in formData) {
-        if (formData[key] !== null) { // Verificar si formData[key] no es null
+        if (formData[key] !== null) {
           if (key === 'archivoImagen') {
             form.append(key, formData[key], formData[key].name);
+          } else if (key === 'cantidad') {
+            // Agregar cantidades al formulario como string
+            form.append('cantidad', formData[key]);
           } else {
             form.append(key, formData[key]);
           }
@@ -140,17 +167,23 @@ const RegistrarGestorEntidadExterna = () => {
           console.log('Registro exitoso');
           fetchData();
         } else {
-          // Aquí accede a los detalles del error proporcionados por el servidor
-          const errorData = await response.json();
-          console.error('Error al registrar:', response.status, errorData.message);
+          if (response.status === 400) {
+            const errorData = await response.json();
+            setMessage(`Error al registrar: ${errorData.message}`);
+          } else {
+            setMessage('Error al registrar. Por favor, intenta de nuevo.');
+          }
         }
       } catch (error) {
         console.error('Error al realizar la solicitud:', error);
+        setMessage('Error de red. Por favor, verifica tu conexión.');
       }
     } else {
       console.log('Envío del formulario cancelado');
     }
   };
+
+
 
   const editarRegistro = (id) => {
     navigate('/gestorEntidadExterna');
@@ -216,13 +249,13 @@ const RegistrarGestorEntidadExterna = () => {
       .catch((error) => console.error('Error al obtener la lista de puntos de recolección:', error));
   };
 
-  
+
 
   return (
     <div className="registrar-miembros-page">
       <h2>Formulario de Registro de Transacción - Entidad Externa</h2>
       <form onSubmit={handleSubmit}>
-      <div className="form-group">
+        <div className="form-group">
           <label>Gestor ID</label>
           <select
             name="gestorId"
@@ -238,42 +271,53 @@ const RegistrarGestorEntidadExterna = () => {
           </select>
         </div>
 
-        <div className="form-group">
-  <label>Materiales Asociados</label>
-  <table>
-    <thead>
-      <tr>
-        <th>Material</th>
-        <th>Cantidad</th> {/* Agrega la segunda columna para ingresar valores numéricos */}
-      </tr>
-    </thead>
-    <tbody>
-      {materiales.map((material, index) => (
-        <tr key={index}>
-          <td>{material}</td>
-          <td>
-            <input
-              type="number"
-              value={formData.cantidad} // Aquí debes vincular el valor a tu estado o variable
-              onChange={(e) => handleCantidadChange(index, e)} // Define una función para manejar el cambio
-            />
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-</div>
-
-
-        <div className="form-group">
-          <label>Cantidad</label>
-          <input
-            type="number"
-            name="cantidad"
-            value={formData.cantidad}
-            onChange={handleChange}
-          />
+        <div className="">
+          <div className="">
+            <label>Materiales Asociados</label>
+            <table>
+              <thead>
+                <tr>
+                  <th>Material</th>
+                </tr>
+              </thead>
+              <tbody>
+                {materiales.map((material, index) => (
+                  <tr key={index}>
+                    <td>{material}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="">
+            <label>Cantidades Asociadas</label>
+            <table>
+              <thead>
+                <tr>
+                  <th>Cantidad</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* Utilizar la longitud de materiales para generar la misma cantidad de filas */}
+                {Array.from({ length: materiales.length }).map((_, index) => (
+                  <tr key={index}>
+                    <td>
+                      <input
+                        type="number"
+                        value={cantidades[index]}
+                        onChange={(e) => handleCantidadChange(index, e)}
+                        placeholder="Ingrese un número"
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
+
+
+
         <div className="form-group">
           <label>Fecha</label>
           <input
@@ -329,6 +373,8 @@ const RegistrarGestorEntidadExterna = () => {
         </div>
 
 
+        {message && <p style={{ color: message.startsWith('Error') ? 'red' : 'green' }}>{message}</p>}
+
         <div className="form-group">
           <button type="submit" className="submit-button">
             Registrar
@@ -343,10 +389,10 @@ const RegistrarGestorEntidadExterna = () => {
           </button>
         </div>
       </form>
-       
+
       <h2>Registros</h2>
       <ul>
-        {registros.map((registro) => (
+        {registros.slice(-5).map((registro) => (
           <li key={registro.id}>
             <span>{registro.material}, {registro.entidad_externa}</span>
             <button onClick={() => editarRegistro(registro.id)} className="edit-button">
@@ -357,7 +403,7 @@ const RegistrarGestorEntidadExterna = () => {
             </button>
           </li>
         ))}
-      </ul> 
+      </ul>
     </div>
   );
 
