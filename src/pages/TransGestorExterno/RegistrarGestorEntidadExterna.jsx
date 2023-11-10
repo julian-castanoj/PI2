@@ -133,14 +133,13 @@ const RegistrarGestorEntidadExterna = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log(formData);
     e.preventDefault();
-
+  
     const userConfirmed = window.confirm("¿Estás seguro de que deseas enviar el formulario?");
-
+  
     if (userConfirmed) {
       const form = new FormData();
-
+  
       // Agregar otras propiedades al formulario
       for (const key in formData) {
         if (formData[key] !== null) {
@@ -154,18 +153,31 @@ const RegistrarGestorEntidadExterna = () => {
           }
         }
       }
-
+  
       const requestOptions = {
         method: 'POST',
         body: form,
       };
-
+  
       try {
         const response = await fetch('http://localhost:3000/transaccionge', requestOptions);
-
+  
         if (response.ok) {
           console.log('Registro exitoso');
           fetchData();
+  
+          // Restablecer el estado del formulario
+          setFormData({
+            gestorId: '',
+            gestor_recibe: '',
+            material: '',
+            cantidad: '',
+            fecha: '',
+            archivoImagen: null,
+            entidad_externa: '',
+            descripcion: '',
+            ubicacion: '',
+          });
         } else {
           if (response.status === 400) {
             const errorData = await response.json();
@@ -182,6 +194,7 @@ const RegistrarGestorEntidadExterna = () => {
       console.log('Envío del formulario cancelado');
     }
   };
+  
 
 
 
@@ -256,7 +269,7 @@ const RegistrarGestorEntidadExterna = () => {
       <h2>Formulario de Registro de Transacción - Entidad Externa</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>Gestor ID</label>
+          <label>ID - Nombre del gestor</label>
           <select
             name="gestorId"
             value={formData.gestorId}
@@ -290,7 +303,7 @@ const RegistrarGestorEntidadExterna = () => {
             </table>
           </div>
           <div className="">
-            <label>Cantidades Asociadas</label>
+            <label>Cantidades</label>
             <table>
               <thead>
                 <tr>

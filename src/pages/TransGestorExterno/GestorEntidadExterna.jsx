@@ -17,6 +17,7 @@ const GestorEntidadExterna = () => {
         const result = await response.json();
         setData(result);
         setError(null); // Borra el mensaje de error si la solicitud tiene éxito
+        
       } else {
         console.error('Error al cargar datos de la API');
         setError('Error al cargar datos de la API');
@@ -97,7 +98,7 @@ const GestorEntidadExterna = () => {
               <td>
                 <Link to={`/editarGestorEntidadExterna/${item.id}`}>
                   <button>Editar</button>
-                </Link>
+                </Link> 
               </td>
             </tr>
           ))}
@@ -123,7 +124,7 @@ const GestorEntidadExterna = () => {
       <div className="action-buttons">
         <Link to="/registrarGestorEntidadExterna" className="register-button">
           Registrar Transacción Gestor Entidad Externa
-        </Link>
+        </Link> 
       </div>
     </div>
   );

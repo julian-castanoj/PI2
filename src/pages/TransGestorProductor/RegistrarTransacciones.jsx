@@ -1,96 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import '../../styles/registrarTransacciones.css';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const RegistrarTransacciones = () => {
-  const [formData, setFormData] = useState({
-    gestor_id: 0,
-    transformador_id: 0,
-    materialId: 0,
-    cantidad: 0, // Campo "cantidad" agregado
-    fecha: '',
-    descripcion: '',
-    ubicacion: '',
-    archivoImagen: null
-  });
-
-  const [gestorIds, setGestorIds] = useState([]);
-  const [transformadorIds, setTransformadorIds] = useState([]);
-  const [registros, setRegistros] = useState([]);
-  const [editandoId, setEditandoId] = useState(null);
-  const [errores, setErrores] = useState({});
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch('http://localhost:3000/gestor')
-      .then((response) => response.json())
-      .then((data) => setGestorIds(data.map((gestor) => gestor.id)))
-      .catch((error) => console.error('Error al obtener la lista de gestores:', error));
+  const [formData, setFormData] = useState({
+    gestor_id: '',
+    transformador_id: '',
+    materialId: '',
+    cantidad: '',
+    fecha: '',
+    archivoImagen: null,
+    descripcion: '',
+    ubicacion: '',
+  });
 
-    fetch('http://localhost:3000/transformador')
-      .then((response) => response.json())
-      .then((data) => setTransformadorIds(data.map((transformador) => transformador.id)))
-      .catch((error) => console.error('Error al obtener la lista de transformadores:', error));
-  }, []);
+  const [registros, setRegistros] = useState([]);
+  const [trasformadores, setTrasformadores] = useState([]);
+  const [gestores, setGestores] = useState([]);
+  const [message, setMessage] = useState(null);
+  const [materialesString, setMaterialesString] = useState([]);
+  const [materiales, setMateriales] = useState([]);
+  
+  const [puntosRecoleccion, setPuntosRecoleccion] = useState([]);
+  const [cantidades, setCantidades] = useState(Array.from({ length: materiales.length }, () => ''));
 
-  const handleChange = (e) => {
-    const { name, value, type, files } = e.target;
-    if (type === 'file') {
-      setFormData({
-        ...formData,
-        [name]: files[0],
-      });
-    } else {
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const userConfirmed = window.confirm("¿Estás seguro de que deseas enviar el formulario?");
-
-    if (userConfirmed) {
-      const form = new FormData();
-
-      for (const key in formData) {
-        if (formData[key] !== null) { // Verificar si formData[key] no es null
-          if (key === 'archivoImagen') {
-            form.append(key, formData[key], formData[key].name);
-          } else {
-            form.append(key, formData[key]);
-          }
-        }
-      }
-
-      const requestOptions = {
-        method: 'POST',
-        body: form,
-      };
-
-      try {
-        const response = await fetch('http://localhost:3000/transacciongt', requestOptions);
-
-        if (response.ok) {
-          console.log('Registro exitoso');
-          fetchData();
-        } else {
-          // Aquí accede a los detalles del error proporcionados por el servidor
-          const errorData = await response.json();
-          console.error('Error al registrar:', response.status, errorData.message);
-        }
-      } catch (error) {
-        console.error('Error al realizar la solicitud:', error);
-      }
-    } else {
-      console.log('Envío del formulario cancelado');
-    }
-  };
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const response = await fetch('http://localhost:3000/transacciongt');
       if (response.ok) {
@@ -102,137 +37,323 @@ const RegistrarTransacciones = () => {
     } catch (error) {
       console.error('Error al realizar la solicitud:', error);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchData();
+    fetch('http://localhost:3000/gestor')
+      .then((response) => response.json())
+      .then((data) => setGestores(data))
+      .catch((error) => console.error('Error al obtener la lista de gestores:', error));
   }, []);
 
-  const editarRegistro = async (id) => {
-    try {
-      const response = await fetch(`http://localhost:3000/transacciongt/${id}`);
-      if (response.ok) {
-        const data = await response.json();
-        setFormData({ ...data });
-        setEditandoId(id);
-      } else {
-        console.error('Error al obtener detalles del registro');
-      }
-    } catch (error) {
-      console.error('Error al realizar la solicitud:', error);
+  useEffect(() => {
+    fetchData();
+    fetch('http://localhost:3000/transformador')
+      .then((response) => response.json())
+      .then((data) => setTrasformadores(data)) // Cambiado de setGestores a setTrasformadores
+      .catch((error) => console.error('Error al obtener la lista de transformadores:', error));
+  }, []);
+
+  useEffect(() => {
+    if (formData.gestor_id && formData.transformador_id) {
+      const commonMaterials = gestores
+        .find((gestor) => gestor.id === formData.gestor_id)?.materiales_recolectados
+        .split(',')
+        .map((material) => material.trim())
+        .filter((material) =>
+          gestores.find((gestor) => gestor.id === formData.transformador_id)?.materiales_recolectados
+            .split(',')
+            .map((m) => m.trim())
+            .includes(material)
+        );
+
+      setMateriales(commonMaterials);
+      setCantidades(Array.from({ length: commonMaterials.length }, () => ''));
+    }
+  }, [formData.gestor_id, formData.transformador_id, gestores]);
+
+  const handleMaterialChange = (e) => {
+    const selectedMaterial = e.target.value;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      materialId: selectedMaterial,
+    }));
+
+    setMateriales((prevMateriales) => [...prevMateriales, selectedMaterial]);
+  };
+
+  const fetchMaterials = (gestorId) => {
+    const parsedId = parseInt(gestorId);
+    if (!isNaN(parsedId)) {
+      fetch(`http://localhost:3000/gestor/${parsedId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data && data.materiales_recolectados) {
+            const materialList = data.materiales_recolectados.split(',').map((materialId) => materialId.trim());
+            setMateriales(materialList);
+          }
+        })
+        .catch((error) => console.error('Error al obtener la lista de materiales:', error));
+    } else {
+      console.error('El ID seleccionado no es válido:', gestorId);
     }
   };
 
-  const guardarEdicion = async () => {
-    const requestOptions = {
-      method: 'PUT',
-      body: JSON.stringify(formData),
-      headers: { 'Content-Type': 'application/json' },
-    };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-    try {
-      const response = await fetch(`http://localhost:3000/transacciongt/${editandoId}`, requestOptions);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
 
-      if (response.ok) {
-        console.log('Edición exitosa');
-        fetchData();
+  const handleCantidadChange = (index, event) => {
+    const newValue = event.target.value;
+
+    setCantidades((prevCantidades) => {
+      const updatedCantidades = [...prevCantidades];
+      updatedCantidades[index] = newValue;
+
+      const cantidadesString = updatedCantidades.join(', ');
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        cantidad: cantidadesString,
+      }));
+
+      return updatedCantidades;
+    });
+  };
+
+  const handleGestorRealizaIdChange = async (e) => {
+    const selectedId = e.target.value;
+    if (selectedId !== '0') {
+      const parsedId = parseInt(selectedId);
+      if (!isNaN(parsedId)) {
+        try {
+          const response = await fetch(`http://localhost:3000/gestor/${parsedId}`);
+          if (response.ok) {
+            const data = await response.json();
+            setFormData({
+              ...formData,
+              gestor_id: data.id,
+            });
+            fetchMaterials(parsedId);
+          } else {
+            console.error('Error al obtener los detalles del gestor realiza:', response.status);
+          }
+        } catch (error) {
+          console.error('Error al obtener los detalles del gestor realiza:', error);
+        }
       } else {
-        console.error('Error al editar el registro');
+        console.error('El ID seleccionado no es válido:', selectedId);
       }
-    } catch (error) {
-      console.error('Error al realizar la solicitud:', error);
     }
   };
 
-  const eliminarRegistro = async (id) => {
-    try {
-      const response = await fetch(`http://localhost:3000/transacciongt/${id}`, {
-        method: 'DELETE',
-      });
-
-      if (response.ok) {
-        console.log('Eliminación exitosa');
-        fetchData();
+  const handleTransformadorRecibeIdChange = async (e) => {
+    const selectedId = e.target.value;
+    if (selectedId !== '0') {
+      const parsedId = parseInt(selectedId);
+      if (!isNaN(parsedId)) {
+        try {
+          const response = await fetch(`http://localhost:3000/gestor/${parsedId}`);
+          if (response.ok) {
+            const data = await response.json();
+            setFormData({
+              ...formData,
+              transformador_id: data.id,
+            });
+            fetchDireccionPrincipal(parsedId);
+          } else {
+            console.error('Error al obtener los detalles del gestor recibe:', response.status);
+          }
+        } catch (error) {
+          console.error('Error al obtener los detalles del gestor recibe:', error);
+        }
       } else {
-        console.error('Error al eliminar el registro');
+        console.error('El ID seleccionado no es válido:', selectedId);
       }
-    } catch (error) {
-      console.error('Error al realizar la solicitud:', error);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(formData);
+    console.log(materialesString);
+
+    if (window.confirm('¿Estás seguro de que deseas enviar el formulario?')) {
+      const form = new FormData();
+
+      for (const key in formData) {
+        if (formData[key] !== null) {
+          if (key === 'archivoImagen') {
+            form.append(key, formData[key], formData[key].name);
+          } else if (key === 'cantidad') {
+            form.append('cantidad', formData[key]);
+          } else if (key === 'materialId') {
+            // No append materialId here
+          } else if (key === 'gestor_id') {
+            form.append('gestor_id', formData[key]);
+          } else if (key === 'transformador_id') {
+            form.append('transformador_id', formData[key]);
+          } else {
+            form.append(key, formData[key]);
+          }
+        }
+      }
+
+      // Convierte el array 'materiales' a una cadena y agrégalo al formulario
+      const materialesString = materiales.join(', ');
+      form.append('materialId', materialesString);
+
+      const requestOptions = {
+        method: 'POST',
+        body: form,
+      };
+
+      try {
+        const response = await fetch('http://localhost:3000/transacciongg', requestOptions);
+
+        if (response.ok) {
+          console.log('Registro exitoso');
+          setMessage('Registro exitoso');
+          fetchData();
+
+          setFormData({
+            gestor_id: '',
+            transformador_id: '',
+            materialesString: '',
+            cantidad: '',
+            fecha: '',
+            archivoImagen: null,
+            descripcion: '',
+            ubicacion: '',
+          });
+        } else {
+          if (response.status === 400) {
+            const errorData = await response.json();
+            setMessage(`Error al registrar: ${errorData.message}`);
+          } else {
+            setMessage('Error al registrar. Por favor, intenta de nuevo.');
+          }
+        }
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error);
+        setMessage('Error de red. Por favor, verifica tu conexión.');
+      }
+    } else {
+      console.log('Envío del formulario cancelado');
     }
   };
 
   const handleCancelar = () => {
-    navigate('/transacciones');
+    navigate('/gestorGestor');
+  };
+
+  const fetchDireccionPrincipal = (transformadorId) => {
+    fetch(`http://localhost:3000/transformador/${transformadorId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data && data.direccion_principal) {
+          const direccionPrincipal = data.direccion_principal;
+          // Usa la variable direccionPrincipal como necesites
+          console.log('Direccion Principal:', direccionPrincipal);
+        } else {
+          console.log('No se encontró la dirección principal en la respuesta:', data);
+        }
+      })
+      .catch((error) => console.error('Error al obtener la dirección principal:', error));
   };
 
   return (
     <div className="registrar-miembros-page">
-      <h2>Formulario de Registro de Transacciones</h2>
+      <h2>Formulario de Registro de Transacción - Gestor Gestor</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>Gestor ID</label>
-          <select name="gestor_id" value={formData.gestor_id} onChange={handleChange}>
-            <option value={0}>Selecciona un gestor</option>
-            {gestorIds.map((gestorId) => (
-              <option key={gestorId} value={gestorId}>
-                {gestorId}
+          <label>Gestor Realiza</label>
+          <select
+            name="gestorRealizaId"
+            value={formData.gestorRealizaId}
+            onChange={handleGestorRealizaIdChange}
+          >
+            <option value="">Selecciona un gestor realiza</option>
+            {gestores.map((gestor) => (
+              <option key={gestor.id} value={gestor.id}>
+                {`${gestor.id} - ${gestor.nombre}`}
               </option>
             ))}
           </select>
         </div>
+
         <div className="form-group">
-          <label>Transformador ID</label>
-          <select name="transformador_id" value={formData.transformador_id} onChange={handleChange}>
-            <option value={0}>Selecciona un transformador</option>
-            {transformadorIds.map((transformadorId) => (
-              <option key={transformadorId} value={transformadorId}>
-                {transformadorId}
+          <label>Transformador Recibe</label>
+          <select
+            name="trasformadorRecibeId"
+            value={formData.trasformadorRecibeId}
+            onChange={handleTransformadorRecibeIdChange}
+          >
+            <option value="">Selecciona un transformador recibe</option>
+            {trasformadores.map((transformador) => (
+              <option key={transformador.id} value={transformador.id}>
+                {`${transformador.id} - ${transformador.representante_legal}`}
               </option>
             ))}
           </select>
         </div>
-        <div className="form-group">
-          <label>Material ID</label>
-          <input
-            type="number"
-            name="materialId"
-            value={formData.materialId}
-            onChange={handleChange}
-          />
+
+
+        <div className="">
+          <div className="">
+            <label>Materiales Asociados</label>
+            <table>
+              <thead>
+                <tr>
+                  <th>Material</th>
+                </tr>
+              </thead>
+              <tbody>
+                {materiales.map((materialId, index) => (
+                  <tr key={index}>
+                    <td>{materialId}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="">
+            <label>Cantidades</label>
+            <table>
+              <thead>
+                <tr>
+                  <th>Cantidad</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Array.from({ length: materiales.length }).map((_, index) => (
+                  <tr key={index}>
+                    <td>
+                      <input
+                        type="number"
+                        value={cantidades[index]}
+                        onChange={(e) => handleCantidadChange(index, e)}
+                        placeholder="Ingrese un número"
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div className="form-group">
-          <label>Cantidad</label>
-          <input
-            type="number"
-            name="cantidad"
-            value={formData.cantidad}
-            onChange={handleChange}
-          />
-        </div>
+
         <div className="form-group">
           <label>Fecha</label>
           <input
             type="date"
             name="fecha"
             value={formData.fecha}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Descripción</label>
-          <input
-            type="text"
-            name="descripcion"
-            value={formData.descripcion}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Ubicación</label>
-          <input
-            type="text"
-            name="ubicacion"
-            value={formData.ubicacion}
             onChange={handleChange}
           />
         </div>
@@ -245,37 +366,49 @@ const RegistrarTransacciones = () => {
             onChange={handleChange}
           />
         </div>
+        <div className="form-group">
+          <label>Descripción</label>
+          <input
+            type="text"
+            name="descripcion"
+            value={formData.descripcion}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Ubicación</label>
+          <select
+            name="ubicacion"
+            value={formData.ubicacion}
+            onChange={handleChange}
+          >
+            <option value="">Selecciona un punto de recolección</option>
+            {puntosRecoleccion.map((punto, index) => (
+              <option key={index} value={punto}>
+                {punto}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {message && <p style={{ color: message.startsWith('Error') ? 'red' : 'green' }}>{message}</p>}
 
         <div className="form-group">
           <button type="submit" className="submit-button">
             Registrar
           </button>
-          {editandoId ? (
-            <button onClick={guardarEdicion} className="edit-button">
-              Guardar Edición
-            </button>
-          ) : null}
+          
           <button type="button" className="register-button" onClick={handleCancelar}>
             Cancelar
           </button>
         </div>
       </form>
-      <h2>Registros</h2>
-      <ul>
-        {registros.map((registro) => (
-          <li key={registro.id}>
-            <span>{registro.transformador.nombre}</span>
-            <button onClick={() => editarRegistro(registro.id)} className="edit-button">
-              Editar
-            </button>
-            <button onClick={() => eliminarRegistro(registro.id)} className="delete-button">
-              Eliminar
-            </button>
-          </li>
-        ))}
-      </ul>
+
     </div>
+
   );
 };
+
 
 export default RegistrarTransacciones;

@@ -1,19 +1,8 @@
-
-/*useEffect(() => {
-  // Al cargar el componente, obtener la lista de transformadores existentes
-  fetch('http://localhost:3000/transformadores')
-    .then((response) => response.json())
-    .then((data) => setRegistros(data))
-    .catch((error) => console.error('Error al obtener los transformadores:', error));
-}, []);*/
-
 import React, { useState, useEffect } from 'react';
-import '../styles/registrarMiembros.css';
-import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+
 
 const RegistrarTransformadores = () => {
-  
+
   const [formData, setFormData] = useState({
     razon_social: '',
     representante_legal: '',
@@ -24,50 +13,33 @@ const RegistrarTransformadores = () => {
     departamento: '',
     municipio: '',
     correo: '',
-    materiales: {
-      Papel: {
-        reciclaje: false,
-        valoracion: false,
-        gastoEnergetico: false,
-        otro: false,
-      },
-      Carton: {
-        reciclaje: false,
-        valoracion: false,
-        gastoEnergetico: false,
-        otro: false,
-      },
-      Vidrio: {
-        reciclaje: false,
-        valoracion: false,
-        gastoEnergetico: false,
-        otro: false,
-      },
-      PlasticoRigido: {
-        reciclaje: false,
-        valoracion: false,
-        gastoEnergetico: false,
-        otro: false,
-      },
-      PlasticoFlexible: {
-        reciclaje: false,
-        valoracion: false,
-        gastoEnergetico: false,
-        otro: false,
-      },
-    },
+    material_produce: '',
     registro_anla: false,
     numero_certificado: 0,
   });
+
+
+  const materiales = [
+    'Papel',
+    'Cartón',
+    'Vidrio',
+    'Plástico Rígido',
+    'Plástico Flexible',
+  ];
+
+  const [registros, setRegistros] = useState([]);
+  const [editandoId, setEditandoId] = useState(null);
+  const [message, setMessage] = useState(null);
+
 
   const fetchData = async () => {
     try {
       const response = await fetch('http://localhost:3000/transformador');
       if (response.ok) {
-        const data = await response.json();
-        setRegistros(data);
+        const result = await response.json();
+        setRegistros(result);
       } else {
-        console.error('Error al obtener registros');
+        console.error('Error al cargar datos de la API');
       }
     } catch (error) {
       console.error('Error al realizar la solicitud:', error);
@@ -78,54 +50,40 @@ const RegistrarTransformadores = () => {
     fetchData();
   }, []);
 
-
-  const [registros, setRegistros] = useState([]);
-  const [editandoId, setEditandoId] = useState(null);
-  const [message, setMessage] = useState(null);
-
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    const newValue = type === 'checkbox' ? checked : value;
-
-    if (name in formData.materiales) {
-      setFormData({
-        ...formData,
-        materiales: {
-          ...formData.materiales,
-          [name]: {
-            ...formData.materiales[name],
-            [value]: newValue,
-          },
-        },
-      });
-    } else {
-      setFormData({
-        ...formData,
-        [name]: newValue,
-      });
-    }
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
+
   const handleSubmit = async (e) => {
+    console.log(formData);
     e.preventDefault();
-  
-    const userConfirmed = window.confirm("¿Estás seguro de que deseas enviar el formulario?");
-  
-    if (userConfirmed) {
+
+    const isEmailDuplicate = registros.some((registro) => registro.correo === formData.correo);
+    const isNitDuplicate = registros.some((registro) => registro.nit === formData.nit);
+
+    if (isEmailDuplicate || isNitDuplicate) {
+      setMessage('Error: Correo o NIT ya existen en los registros.');
+    } else {
       try {
-        setMessage(null); // Limpiar mensajes previos
         const requestOptions = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData),
         };
-  
+
         const response = await fetch('http://localhost:3000/transformador/registrar', requestOptions);
-  
+
         if (response.ok) {
           console.log('Registro exitoso');
           setMessage('Registro exitoso');
-          
+          fetchData();
+
+          // Limpia el formulario después del registro exitoso
           setFormData({
             razon_social: '',
             representante_legal: '',
@@ -136,90 +94,37 @@ const RegistrarTransformadores = () => {
             departamento: '',
             municipio: '',
             correo: '',
-            materiales: {
-              Papel: {
-                reciclaje: false,
-                valoracion: false,
-                gastoEnergetico: false,
-                otro: false,
-              },
-              Carton: {
-                reciclaje: false,
-                valoracion: false,
-                gastoEnergetico: false,
-                otro: false,
-              },
-              Vidrio: {
-                reciclaje: false,
-                valoracion: false,
-                gastoEnergetico: false,
-                otro: false,
-              },
-              PlasticoRigido: {
-                reciclaje: false,
-                valoracion: false,
-                gastoEnergetico: false,
-                otro: false,
-              },
-              PlasticoFlexible: {
-                reciclaje: false,
-                valoracion: false,
-                gastoEnergetico: false,
-                otro: false,
-              },
-            },
+            material_produce: '',
             registro_anla: false,
             numero_certificado: 0,
           });
-        
+
         } else {
-          const errorData = await response.json();
-          setMessage('Error al registrar: ' + errorData.message);
-          console.error('Error al registrar:', errorData.message);
+          if (response.status === 400) {
+            const errorData = await response.json();
+            setMessage('Error: ' + errorData.message); // Muestra el mensaje del servidor
+            console.error('Error al registrar:', errorData.message);
+
+          } else if (response.status === 500) {
+            setMessage('Error inesperado al registrar');
+            console.error('Error inesperado al registrar');
+          } else {
+            setMessage('Error inesperado al registrar');
+            console.error('Error inesperado al registrar');
+          }
         }
       } catch (error) {
         setMessage('Error al realizar la solicitud: ' + error.message);
         console.error('Error al realizar la solicitud:', error);
       }
-    } else {
-      console.log('Envío del formulario cancelado');
     }
   };
 
- /* const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const userConfirmed = window.confirm("¿Estás seguro de que deseas enviar el formulario?");
-
-    if (userConfirmed) {
-      const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      };
-
-      try {
-        console.log(formData);
-        const response = await fetch('http://localhost:3000/transformador/registrar', requestOptions);
-
-        if (response.ok) {
-          console.log('Registro exitoso');
-          navigate('/transformadores');
-        } else {
-          console.error('Error al registrar');
-        }
-      } catch (error) {
-        console.error('Error al realizar la solicitud:', error);
-      }
-    } else {
-      console.log('Envío del formulario cancelado');
-    }
-  };*/
 
   const handleCancelar = () => {
     const confirmCancel = window.confirm('¿Seguro que quieres cancelar?');
     if (confirmCancel) {
-      window.location.href = '/transformadores';
+      window.location.href = '/transformador';
     }
   };
 
@@ -231,8 +136,7 @@ const RegistrarTransformadores = () => {
         setFormData({ ...data });
         setEditandoId(id);
       } else {
-        const errorData = await response.json();
-        console.error('Error al obtener detalles del registro: ' + errorData.message);
+        console.error('Error al obtener detalles del registro');
       }
     } catch (error) {
       console.error('Error al realizar la solicitud:', error);
@@ -240,89 +144,69 @@ const RegistrarTransformadores = () => {
   };
 
   const guardarEdicion = async () => {
-    const indiceEdicion = registros.findIndex((registro) => registro.id === editandoId);
-    if (indiceEdicion !== -1) {
-      try {
-        setMessage(null); // Limpiar mensajes previos
-        const response = await fetch(`http://localhost:3000/transformadores/${editandoId}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
-        });
+    const requestOptions = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...formData, id: editandoId }),
+    };
 
-        if (response.ok) {
-          const nuevosRegistros = [...registros];
-          nuevosRegistros[indiceEdicion] = formData;
+    try {
+      setMessage(null); // Limpia mensajes previos
+      const response = await fetch(`http://localhost:3000/transformador/${editandoId}`, requestOptions);
+
+      if (response.ok) {
+        const nuevosRegistros = [...registros];
+        const indiceEdicion = nuevosRegistros.findIndex((registro) => registro.id === editandoId);
+
+        if (indiceEdicion !== -1) {
+          nuevosRegistros[indiceEdicion] = { ...formData, id: editandoId };
           setRegistros(nuevosRegistros);
+        }
 
-          setFormData({
-            razon_social: '',
-            representante_legal: '',
-            nit: 0,
-            telefono: 0,
-            direccion_principal: '',
-            direccion_planta: '',
-            departamento: '',
-            municipio: '',
-            correo: '',
-            materiales: {
-              Papel: {
-                reciclaje: false,
-                valoracion: false,
-                gastoEnergetico: false,
-                otro: false,
-              },
-              Carton: {
-                reciclaje: false,
-                valoracion: false,
-                gastoEnergetico: false,
-                otro: false,
-              },
-              Vidrio: {
-                reciclaje: false,
-                valoracion: false,
-                gastoEnergetico: false,
-                otro: false,
-              },
-              PlasticoRigido: {
-                reciclaje: false,
-                valoracion: false,
-                gastoEnergetico: false,
-                otro: false,
-              },
-              PlasticoFlexible: {
-                reciclaje: false,
-                valoracion: false,
-                gastoEnergetico: false,
-                otro: false,
-              },
-            },
-            registro_anla: false,
-            numero_certificado: 0,
-          });
-          setEditandoId(null);
+        setFormData({
+          razon_social: '',
+          representante_legal: '',
+          nit: 0,
+          telefono: 0,
+          direccion_principal: '',
+          direccion_planta: '',
+          departamento: '',
+          municipio: '',
+          correo: '',
+          material_produce: '',
+          registro_anla: false,
+          numero_certificado: 0,
 
-          console.log('Edición exitosa');
-          setMessage('Edición exitosa');
-        } else {
+        });
+        setEditandoId(null);
+
+        console.log('Edición exitosa');
+        setMessage('Edición exitosa');
+        fetchData();
+      } else {
+        if (response.status === 400) {
           const errorData = await response.json();
           setMessage('Error al editar el registro: ' + errorData.message);
           console.error('Error al editar el registro:', errorData.message);
+        } else if (response.status === 500) {
+          setMessage('Error inesperado al editar el registro');
+          console.error('Error inesperado al editar el registro');
+        } else {
+          setMessage('Error inesperado al editar el registro');
+          console.error('Error inesperado al editar el registro');
         }
-      } catch (error) {
-        setMessage('Error al realizar la solicitud: ' + error.message);
-        console.error('Error al realizar la solicitud:', error);
       }
+    } catch (error) {
+      setMessage('Error al realizar la solicitud: ' + error.message);
+      console.error('Error al realizar la solicitud:', error);
     }
   };
 
   const eliminarRegistro = async (id) => {
     try {
-      setMessage(null); // Limpiar mensajes previos
-      const response = await fetch(`http://localhost:3000/transformadores/${id}`, {
+      const response = await fetch(`http://localhost:3000/transformador/${id}`, {
         method: 'DELETE',
       });
-
       if (response.ok) {
         const registrosActualizados = registros.filter((registro) => registro.id !== id);
         setRegistros(registrosActualizados);
@@ -338,49 +222,26 @@ const RegistrarTransformadores = () => {
             departamento: '',
             municipio: '',
             correo: '',
-            materiales: {
-              Papel: {
-                reciclaje: false,
-                valoracion: false,
-                gastoEnergetico: false,
-                otro: false,
-              },
-              Carton: {
-                reciclaje: false,
-                valoracion: false,
-                gastoEnergetico: false,
-                otro: false,
-              },
-              Vidrio: {
-                reciclaje: false,
-                valoracion: false,
-                gastoEnergetico: false,
-                otro: false,
-              },
-              PlasticoRigido: {
-                reciclaje: false,
-                valoracion: false,
-                gastoEnergetico: false,
-                otro: false,
-              },
-              PlasticoFlexible: {
-                reciclaje: false,
-                valoracion: false,
-                gastoEnergetico: false,
-                otro: false,
-              },
-            },
+            material_produce: '',
             registro_anla: false,
             numero_certificado: 0,
           });
           setEditandoId(null);
+        }
 
-          console.log('Eliminación exitosa');
-          setMessage('Eliminación exitosa');
-        } else {
+        console.log('Eliminación exitosa');
+        setMessage('Eliminación exitosa');
+      } else {
+        if (response.status === 400) {
           const errorData = await response.json();
-          setMessage('Error al eliminar el registro: ' + errorData.message);
-          console.error('Error al eliminar el registro:', errorData.message);
+          setMessage('Error al eliminar el registro: ' + errorData.errors);
+          console.error('Error al eliminar el registro:', errorData.errors);
+        } else if (response.status === 500) {
+          setMessage('Error inesperado al eliminar el registro');
+          console.error('Error inesperado al eliminar el registro');
+        } else {
+          setMessage('Error inesperado al eliminar el registro');
+          console.error('Error inesperado al eliminar el registro');
         }
       }
     } catch (error) {
@@ -389,7 +250,52 @@ const RegistrarTransformadores = () => {
     }
   };
 
+  const [materialesSeleccionados, setMaterialesSeleccionados] = useState([])
 
+  const handleMaterialChange = (e) => {
+    const { name, checked } = e.target;
+    const updatedMaterialesSeleccionados = formData.material_produce.split(', ');
+
+    if (checked) {
+      if (!updatedMaterialesSeleccionados.includes(name)) {
+        updatedMaterialesSeleccionados.push(name);
+      }
+    } else {
+      const index = updatedMaterialesSeleccionados.indexOf(name);
+      if (index !== -1) {
+        updatedMaterialesSeleccionados.splice(index, 1);
+      }
+    }
+
+    const materialesRecolectadosString = updatedMaterialesSeleccionados.join(', ');
+
+    setFormData({
+      ...formData,
+      material_produce: materialesRecolectadosString,
+    });
+  };
+
+
+
+  const handleAgregarPuntoRecoleccion = () => {
+    setFormData((prevData) => ({
+      ...prevData,
+      puntos_recoleccion: prevData.puntos_recoleccion
+        ? `${prevData.puntos_recoleccion}, ''`
+        : "''", // Agrega un campo vacío
+    }));
+  };
+
+  const handleEliminarPuntoRecoleccion = (index) => {
+    const puntosRecoleccionArray = formData.puntos_recoleccion.split(', ');
+    if (puntosRecoleccionArray.length > index) {
+      puntosRecoleccionArray.splice(index, 1);
+      setFormData((prevData) => ({
+        ...prevData,
+        puntos_recoleccion: puntosRecoleccionArray.join(', '),
+      }));
+    }
+  };
 
   return (
     <div className="registrar-miembros-page">
@@ -478,55 +384,27 @@ const RegistrarTransformadores = () => {
         </div>
 
 
+
+
         <div className="form-group">
+          <label>Materiales Recolectados</label>
           <table>
             <thead>
               <tr>
                 <th>Material</th>
-                <th>Reciclaje</th>
-                <th>Valoración</th>
-                <th>Gasto Energético</th>
-                <th>Otro</th>
+                <th>Seleccionar</th>
               </tr>
             </thead>
             <tbody>
-              {Object.keys(formData.materiales).map((material) => (
+              {materiales.map((material) => (
                 <tr key={material}>
                   <td>{material}</td>
                   <td>
                     <input
                       type="checkbox"
-                      checked={formData.materiales[material].reciclaje}
-                      onChange={(e) => handleChange(e)}
                       name={material}
-                      value="reciclaje"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="checkbox"
-                      checked={formData.materiales[material].valoracion}
-                      onChange={(e) => handleChange(e)}
-                      name={material}
-                      value="valoracion"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="checkbox"
-                      checked={formData.materiales[material].gastoEnergetico}
-                      onChange={(e) => handleChange(e)}
-                      name={material}
-                      value="gastoEnergetico"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="checkbox"
-                      checked={formData.materiales[material].otro}
-                      onChange={(e) => handleChange(e)}
-                      name={material}
-                      value="otro"
+                      checked={formData.material_produce.includes(material)}
+                      onChange={handleMaterialChange}
                     />
                   </td>
                 </tr>
@@ -596,5 +474,3 @@ const RegistrarTransformadores = () => {
 };
 
 export default RegistrarTransformadores;
-
-
