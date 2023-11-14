@@ -173,7 +173,7 @@ const RegistrarGestores = () => {
           categoria_municipio: '',
           municipio: '',
           correo: '',
-          toneladas_recolectadas: '',
+          
           puntos_recoleccion: '',
           mecanismos_recoleccion: '',
           materiales_recolectados: '',
@@ -251,15 +251,18 @@ const RegistrarGestores = () => {
     }
   };
 
-  const [materialesSeleccionados, setMaterialesSeleccionados] = useState([])
+  
 
   const handleMaterialChange = (e) => {
     const { name, checked } = e.target;
-    const updatedMaterialesSeleccionados = formData.materiales_recolectados.split(', ');
+
+    // Asegúrate de que formData.materiales_recolectados tenga un valor definido
+    const currentMaterialProduce = formData.materiales_recolectados || '';
+    let updatedMaterialesSeleccionados = currentMaterialProduce.split(',').map(material => material.trim());
 
     if (checked) {
       if (!updatedMaterialesSeleccionados.includes(name)) {
-        updatedMaterialesSeleccionados.push(name);
+        updatedMaterialesSeleccionados.push(name.trim());
       }
     } else {
       const index = updatedMaterialesSeleccionados.indexOf(name);
@@ -267,6 +270,8 @@ const RegistrarGestores = () => {
         updatedMaterialesSeleccionados.splice(index, 1);
       }
     }
+
+    updatedMaterialesSeleccionados = updatedMaterialesSeleccionados.filter(material => material.length > 0);
 
     const materialesRecolectadosString = updatedMaterialesSeleccionados.join(', ');
 
@@ -403,15 +408,7 @@ const RegistrarGestores = () => {
           </select>
         </div>
 
-        <div className="form-group">
-          <label>Capacidad total que gestionas</label>
-          <input
-            type="text"
-            name="toneladas_recolectadas"
-            value={formData.toneladas_recolectadas}
-            onChange={handleChange}
-          />
-        </div>
+        
 
         <div className="form-group">
           <label>Puntos de Recolección</label>

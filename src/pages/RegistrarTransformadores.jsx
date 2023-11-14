@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 
 const RegistrarTransformadores = () => {
+  
 
   const [formData, setFormData] = useState({
     razon_social: '',
@@ -124,7 +125,7 @@ const RegistrarTransformadores = () => {
   const handleCancelar = () => {
     const confirmCancel = window.confirm('¿Seguro que quieres cancelar?');
     if (confirmCancel) {
-      window.location.href = '/transformador';
+      window.location.href = '/transformadores';
     }
   };
 
@@ -250,15 +251,15 @@ const RegistrarTransformadores = () => {
     }
   };
 
-  const [materialesSeleccionados, setMaterialesSeleccionados] = useState([])
+  
 
   const handleMaterialChange = (e) => {
     const { name, checked } = e.target;
-    const updatedMaterialesSeleccionados = formData.material_produce.split(', ');
-
+    let updatedMaterialesSeleccionados = formData.material_produce.split(',').map(material => material.trim());
+  
     if (checked) {
       if (!updatedMaterialesSeleccionados.includes(name)) {
-        updatedMaterialesSeleccionados.push(name);
+        updatedMaterialesSeleccionados.push(name.trim());
       }
     } else {
       const index = updatedMaterialesSeleccionados.indexOf(name);
@@ -266,36 +267,21 @@ const RegistrarTransformadores = () => {
         updatedMaterialesSeleccionados.splice(index, 1);
       }
     }
-
+  
+    // Filtra elementos vacíos antes de unirlos para evitar la coma inicial
+    updatedMaterialesSeleccionados = updatedMaterialesSeleccionados.filter(material => material.length > 0);
+  
     const materialesRecolectadosString = updatedMaterialesSeleccionados.join(', ');
-
+  
     setFormData({
       ...formData,
       material_produce: materialesRecolectadosString,
     });
   };
+  
+  
 
-
-
-  const handleAgregarPuntoRecoleccion = () => {
-    setFormData((prevData) => ({
-      ...prevData,
-      puntos_recoleccion: prevData.puntos_recoleccion
-        ? `${prevData.puntos_recoleccion}, ''`
-        : "''", // Agrega un campo vacío
-    }));
-  };
-
-  const handleEliminarPuntoRecoleccion = (index) => {
-    const puntosRecoleccionArray = formData.puntos_recoleccion.split(', ');
-    if (puntosRecoleccionArray.length > index) {
-      puntosRecoleccionArray.splice(index, 1);
-      setFormData((prevData) => ({
-        ...prevData,
-        puntos_recoleccion: puntosRecoleccionArray.join(', '),
-      }));
-    }
-  };
+  
 
   return (
     <div className="registrar-miembros-page">

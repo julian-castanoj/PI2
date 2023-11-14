@@ -158,7 +158,7 @@ const RegistrarTransacciones = () => {
       const parsedId = parseInt(selectedId);
       if (!isNaN(parsedId)) {
         try {
-          const response = await fetch(`http://localhost:3000/gestor/${parsedId}`);
+          const response = await fetch(`http://localhost:3000/transformador/${parsedId}`);
           if (response.ok) {
             const data = await response.json();
             setFormData({
@@ -167,10 +167,10 @@ const RegistrarTransacciones = () => {
             });
             fetchDireccionPrincipal(parsedId);
           } else {
-            console.error('Error al obtener los detalles del gestor recibe:', response.status);
+            console.error('Error al obtener los detalles del transformador recibe:', response.status);
           }
         } catch (error) {
-          console.error('Error al obtener los detalles del gestor recibe:', error);
+          console.error('Error al obtener los detalles del transformador recibe:', error);
         }
       } else {
         console.error('El ID seleccionado no es válido:', selectedId);
@@ -214,7 +214,7 @@ const RegistrarTransacciones = () => {
       };
 
       try {
-        const response = await fetch('http://localhost:3000/transacciongg', requestOptions);
+        const response = await fetch('http://localhost:3000/transacciongt', requestOptions);
 
         if (response.ok) {
           console.log('Registro exitoso');
@@ -269,7 +269,7 @@ const RegistrarTransacciones = () => {
 
   return (
     <div className="registrar-miembros-page">
-      <h2>Formulario de Registro de Transacción - Gestor Gestor</h2>
+      <h2>Formulario de Registro de Transacción - Transformador</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Gestor Realiza</label>

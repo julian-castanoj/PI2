@@ -14,18 +14,16 @@ const EditarGestorEntidadExterna = () => {
     descripcion: '',
     ubicacion: '',
   });
-  const [gestorIds, setGestorIds] = useState([]); // Agregado gestorIds
+  const [gestorIds, setGestorIds] = useState([]);
+  const [materiales, setMateriales] = useState([]);
+  const [cantidades, setCantidades] = useState([]);
+
 
   useEffect(() => {
-    // Aquí puedes realizar una solicitud para cargar los datos del registro con el ID especificado
-    // Usando la variable 'id' que proviene de los parámetros de la URL.
-    // Llena el estado 'formData' con los datos del registro.
-
-    // También, realiza una solicitud para cargar los IDs de los gestores.
-    fetch('http://localhost:3000/gestor') // Reemplaza 'gestores' con tu ruta correcta
+    fetch('http://localhost:3000/materiales')
       .then((response) => response.json())
-      .then((data) => setGestorIds(data.map((gestor) => gestor.id)))
-      .catch((error) => console.error('Error al obtener la lista de gestores:', error));
+      .then((data) => setMateriales(data))
+      .catch((error) => console.error('Error al obtener la lista de materiales:', error));
   }, [id]);
 
   const handleChange = (e) => {
@@ -44,8 +42,7 @@ const EditarGestorEntidadExterna = () => {
   };
 
   const guardarEdicion = async () => {
-    // Realiza una solicitud para actualizar el registro con los datos de 'formData'.
-    // Usa 'id' para identificar el registro que se está editando.
+
 
     const form = new FormData();
     for (const key in formData) {
@@ -79,6 +76,24 @@ const EditarGestorEntidadExterna = () => {
     navigate('/gestorEntidadExterna');
   };
 
+  const handleCantidadChange = (index, event) => {
+    const newValue = event.target.value;
+
+    setCantidades((prevCantidades) => {
+      const updatedCantidades = [...prevCantidades];
+      updatedCantidades[index] = newValue;
+
+      // Actualizar directamente el campo 'cantidad' en el estado formData
+      const cantidadesString = updatedCantidades.join(', ');
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        cantidad: cantidadesString,
+      }));
+
+      return updatedCantidades;
+    });
+  };
+
   return (
     <div className="editar-registro-page">
       <h2>Editar Registro de Transacción - Entidad Externa</h2>
@@ -94,24 +109,54 @@ const EditarGestorEntidadExterna = () => {
             ))}
           </select>
         </div>
-        <div className="form-group">
-          <label>Material</label>
-          <input
-            type="text"
-            name="material"
-            value={formData.material}
-            onChange={handleChange}
-          />
+
+
+        <div className="">
+          <div className="">
+            <label>Materiales Asociados</label>
+            <table>
+              <thead>
+                <tr>
+                  <th>Material</th>
+                </tr>
+              </thead>
+              <tbody>
+                {materiales.map((material, index) => (
+                  <tr key={index}>
+                    <td>{material}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="">
+            <label>Cantidades</label>
+            <table>
+              <thead>
+                <tr>
+                  <th>Cantidad</th>
+                </tr>
+              </thead>
+              <tbody>
+                {cantidades.map((cantidad, index) => (
+                  <tr key={index}>
+                    <td>
+                      <input
+                        type="number"
+                        value={cantidad}
+                        onChange={(e) => handleCantidadChange(index, e)}
+                        placeholder="Ingrese un número"
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div className="form-group">
-          <label>Cantidad</label>
-          <input
-            type="number"
-            name="cantidad"
-            value={formData.cantidad}
-            onChange={handleChange}
-          />
-        </div>
+
+
+
         <div className="form-group">
           <label>Fecha</label>
           <input

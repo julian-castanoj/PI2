@@ -9,6 +9,22 @@ const GestorGestor = () => {
   const itemsPerPage = 10;
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const [filteredData, setFilteredData] = useState([]);
+  const [gestoresData, setGestoresData] = useState([]);
+
+  const fetchGestoresData = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/gestor');
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Gestores Data:', result); // Agrega este console log
+        setGestoresData(result);
+      } else {
+        console.error('Error al cargar datos de la API de gestores');
+      }
+    } catch (error) {
+      console.error('Error al realizar la solicitud de gestores:', error);
+    }
+  };
 
   const fetchData = async () => {
     try {
@@ -17,15 +33,39 @@ const GestorGestor = () => {
         const result = await response.json();
         setData(result);
       } else {
-        console.error('Error al cargar datos de la API');
+        console.error('Error al cargar datos de la API de transaccionesgg');
       }
     } catch (error) {
-      console.error('Error al realizar la solicitud:', error);
+      console.error('Error al realizar la solicitud de transaccionesgg:', error);
     }
   };
 
   useEffect(() => {
-    fetchData();
+    const fetchDataAndGestores = async () => {
+      try {
+        const [transaccionesResponse, gestoresResponse] = await Promise.all([
+          fetch('http://localhost:3000/transacciongg'),
+          fetch('http://localhost:3000/gestor')
+        ]);
+
+        if (transaccionesResponse.ok && gestoresResponse.ok) {
+          const transaccionesResult = await transaccionesResponse.json();
+          const gestoresResult = await gestoresResponse.json();
+
+          setData(transaccionesResult);
+          setGestoresData(gestoresResult);
+
+          console.log('Transacciones Data:', transaccionesResult);
+          console.log('Gestores Data:', gestoresResult);
+        } else {
+          console.error('Error al cargar datos de la API');
+        }
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error);
+      }
+    };
+
+    fetchDataAndGestores();
   }, []);
 
   const handlePageChange = (newPage) => {
@@ -45,6 +85,10 @@ const GestorGestor = () => {
     currentPage * itemsPerPage
   );
 
+  const getGestorNameById = (gestor) => {
+    return gestor ? gestor.nombre : 'Nombre no encontrado';
+  };
+
   return (
     <div className="about-page">
       <h1 className="page-title">Gestor Gestor</h1>
@@ -60,10 +104,9 @@ const GestorGestor = () => {
       <table className="custom-table">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Gestor Realiza ID</th>
-            <th>Gestor Recibe ID</th>
-            <th>Material ID</th>
+            <th>Gestor Realiza</th>
+            <th>Gestor Recibe</th>
+            <th>Material</th>
             <th>Cantidad</th>
             <th>Fecha</th>
             <th>Descripción</th>
@@ -74,9 +117,8 @@ const GestorGestor = () => {
         <tbody>
           {paginatedData.map((item) => (
             <tr key={item.id}>
-              <td>{item.id}</td>
-              <td>{item.gestorRealizaId}</td>
-              <td>{item.gestorRecibeId}</td>
+              <td>{getGestorNameById(item.gestorRealiza)}</td>
+              <td>{getGestorNameById(item.gestorRecibe)}</td>
               <td>{item.materialId}</td>
               <td>{item.cantidad}</td>
               <td>{item.fecha}</td>
@@ -118,6 +160,7 @@ const GestorGestor = () => {
 };
 
 export default GestorGestor;
+
 
 
 

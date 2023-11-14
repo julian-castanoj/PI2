@@ -237,7 +237,7 @@ const RegistrarGestorGestor = () => {
       const materialesString = materiales.join(', ');
       form.append('materialId', materialesString);
       console.log(materiales);
-      console.log(materialesString);
+      console.log(materialesString)
   
       const requestOptions = {
         method: 'POST',

@@ -3,21 +3,30 @@ import { Link } from 'react-router-dom';
 
 const GestorEntidadExterna = () => {
   const [data, setData] = useState([]);
+  const [gestoresData, setGestoresData] = useState([]); // Estado para almacenar los datos de los gestores
   const [currentPage, setCurrentPage] = useState(1);
   const [searchId, setSearchId] = useState('');
   const itemsPerPage = 10;
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const [filteredData, setFilteredData] = useState([]);
-  const [error, setError] = useState(null); // Estado para manejar errores
+  const [error, setError] = useState(null);
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:3000/transaccionge'); // Reemplaza con la URL correcta
-      if (response.ok) {
-        const result = await response.json();
-        setData(result);
-        setError(null); // Borra el mensaje de error si la solicitud tiene éxito
-        
+      const transacciongeResponse = await fetch('http://localhost:3000/transaccionge');
+      const gestoresResponse = await fetch('http://localhost:3000/gestor'); // Reemplaza con la URL correcta para obtener gestores
+  
+      if (transacciongeResponse.ok && gestoresResponse.ok) {
+        const transacciongeResult = await transacciongeResponse.json();
+        const gestoresResult = await gestoresResponse.json();
+  
+        setData(transacciongeResult);
+        setGestoresData(gestoresResult);
+  
+        console.log('Datos de transaccionge:', transacciongeResult);
+        console.log('Datos de gestores:', gestoresResult);
+  
+        setError(null);
       } else {
         console.error('Error al cargar datos de la API');
         setError('Error al cargar datos de la API');
@@ -27,10 +36,11 @@ const GestorEntidadExterna = () => {
       setError('Error al realizar la solicitud');
     }
   };
+  
 
   useEffect(() => {
     fetchData();
-  }, [data]);
+  }, []);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -49,11 +59,16 @@ const GestorEntidadExterna = () => {
     currentPage * itemsPerPage
   );
 
+  const getGestorNameById = (gestorId) => {
+    const gestor = gestoresData.find((gestor) => gestor.id === Number(gestorId));
+    return gestor ? gestor.nombre : 'Nombre no encontrado';
+  };
+
   return (
     <div className="about-page">
       <h1 className="page-title">Gestor Entidad Externa</h1>
 
-      {error && ( // Muestra el mensaje de error si existe
+      {error && (
         <div className="error-message">
           Error: {error}
         </div>
@@ -71,8 +86,7 @@ const GestorEntidadExterna = () => {
       <table className="custom-table">
         <thead>
           <tr>
-            
-            <th>ID Gestor</th>
+            <th>Gestor</th>
             <th>Material</th>
             <th>Cantidad</th>
             <th>Fecha</th>
@@ -86,8 +100,7 @@ const GestorEntidadExterna = () => {
         <tbody>
           {paginatedData.map((item) => (
             <tr key={item.id}>
-              
-              <td>{item.gestor_id}</td>
+              <td>{item.gestor ? item.gestor.nombre : 'Nombre no encontrado'}</td>
               <td>{item.material}</td>
               <td>{item.cantidad}</td>
               <td>{item.fecha}</td>
@@ -98,7 +111,7 @@ const GestorEntidadExterna = () => {
               <td>
                 <Link to={`/editarGestorEntidadExterna/${item.id}`}>
                   <button>Editar</button>
-                </Link> 
+                </Link>
               </td>
             </tr>
           ))}
@@ -124,11 +137,12 @@ const GestorEntidadExterna = () => {
       <div className="action-buttons">
         <Link to="/registrarGestorEntidadExterna" className="register-button">
           Registrar Transacción Gestor Entidad Externa
-        </Link> 
+        </Link>
       </div>
     </div>
   );
 };
 
 export default GestorEntidadExterna;
+
 

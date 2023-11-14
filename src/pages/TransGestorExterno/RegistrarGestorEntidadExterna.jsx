@@ -134,7 +134,10 @@ const RegistrarGestorEntidadExterna = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+    console.log(formData);
+    console.log(materiales);
+    console.log(cantidades);
+
     const userConfirmed = window.confirm("¿Estás seguro de que deseas enviar el formulario?");
   
     if (userConfirmed) {
@@ -148,6 +151,7 @@ const RegistrarGestorEntidadExterna = () => {
           } else if (key === 'cantidad') {
             // Agregar cantidades al formulario como string
             form.append('cantidad', formData[key]);
+            
           } else {
             form.append(key, formData[key]);
           }
@@ -157,6 +161,7 @@ const RegistrarGestorEntidadExterna = () => {
       const requestOptions = {
         method: 'POST',
         body: form,
+        
       };
   
       try {
@@ -199,9 +204,39 @@ const RegistrarGestorEntidadExterna = () => {
 
 
   const editarRegistro = (id) => {
-    navigate('/gestorEntidadExterna');
     setEditandoId(id);
     // Aquí puedes cargar los datos del registro seleccionado para edición si es necesario.
+    // Por ejemplo, puedes realizar una solicitud a la API para obtener los detalles del registro.
+    fetch(`http://localhost:3000/transaccionge/${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Verifica la estructura de datos y ajusta la lógica según sea necesario
+        const {
+          gestorId,
+          gestor_recibe,
+          material,
+          cantidad,
+          fecha,
+          archivoImagen,
+          entidad_externa,
+          descripcion,
+          ubicacion,
+        } = data;
+  
+        // Actualiza el estado formData con los datos del registro seleccionado
+        setFormData({
+          gestorId,
+          gestor_recibe,
+          material,
+          cantidad,
+          fecha,
+          archivoImagen,
+          entidad_externa,
+          descripcion,
+          ubicacion,
+        });
+      })
+      .catch((error) => console.error('Error al cargar los datos del registro:', error));
   };
 
   const guardarEdicion = async () => {
@@ -387,22 +422,22 @@ const RegistrarGestorEntidadExterna = () => {
 
 
         {message && <p style={{ color: message.startsWith('Error') ? 'red' : 'green' }}>{message}</p>}
-
         <div className="form-group">
-          <button type="submit" className="submit-button">
-            Registrar
-          </button>
+
           {editandoId ? (
-            <button onClick={guardarEdicion} className="edit-button">
+            <button type="button" className="submit-button" onClick={guardarEdicion}>
               Guardar Edición
             </button>
-          ) : null}
+          ) : (
+            <button type="submit" className="submit-button">
+              Registrar
+            </button>
+          )}
           <button type="button" className="register-button" onClick={handleCancelar}>
             Cancelar
           </button>
         </div>
       </form>
-
       <h2>Registros</h2>
       <ul>
         {registros.slice(-5).map((registro) => (
@@ -419,7 +454,6 @@ const RegistrarGestorEntidadExterna = () => {
       </ul>
     </div>
   );
-
 };
 
 export default RegistrarGestorEntidadExterna;

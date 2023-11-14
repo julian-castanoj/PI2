@@ -11,22 +11,18 @@ const EditarProductores = () => {
     nit: 0,
     telefono: 0,
     direccion: '',
-    
-    materiales_recolectados: [],
+    materiales_recolectados: '',
+    cantidad: '',
   });
 
   useEffect(() => {
     const fetchProductorDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/productor/${id}`);
-        if (response.ok) {
-          const data = await response.json();
-          setFormData(data);
-        } else {
-          console.error('Error al cargar los detalles del productor');
-        }
+        const productorDetails = await getProductorDetails(id);
+        const formDataWithCantidades = mapDataToFormDataWithCantidades(productorDetails);
+        setFormData(formDataWithCantidades);
       } catch (error) {
-        console.error('Error al realizar la solicitud:', error);
+        console.error('Error al cargar los detalles del productor:', error);
       }
     };
     fetchProductorDetails();
@@ -42,23 +38,6 @@ const EditarProductores = () => {
     }
   };
 
-  const handleMaterialChange = (e) => {
-    const { name, value } = e.target;
-    const materiales = [...formData.materiales_recolectados];
-    const materialIndex = materiales.findIndex((material) => material.material === name);
-
-    if (materialIndex !== -1) {
-      materiales[materialIndex].cantidad = value;
-    } else {
-      materiales.push({ material: name, cantidad: value });
-    }
-
-    setFormData({
-      ...formData,
-      materiales_recolectados: materiales,
-    });
-  };
-
   const handleGuardarCambios = () => {
     navigate('/productores');
 
@@ -69,17 +48,17 @@ const EditarProductores = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify({
+            ...formData,
+            cantidad: getCantidadesString(),
+          }),
         });
 
         if (response.ok) {
-          // Cambios exitosos, puedes redirigir
-          navigate('/productores'); // Redirige a /productores después de guardar cambios
+          navigate('/productores');
         } else {
-          const responseData = await response.json(); // Si la API devuelve detalles del error
+          const responseData = await response.json();
           console.error('Error al actualizar el productor:', responseData.error);
-          // Además, podrías mostrar el mensaje de error en tu interfaz de usuario
-          // Ejemplo: setErrorMsg(responseData.error);
         }
       } catch (error) {
         console.error('Error al realizar la solicitud:', error);
@@ -93,17 +72,83 @@ const EditarProductores = () => {
     navigate('/productores');
   };
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  
+
+  const getProductorDetails = async (productId) => {
+    try {
+      const response = await fetch(`http://localhost:3000/productor/${productId}`);
+      
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Error al cargar los detalles del productor');
+      }
+    } catch (error) {
+      console.error('Error al obtener los detalles del productor:', error);
+      throw error;
+    }
+  };
+  
+
+  const mapDataToFormDataWithCantidades = (data) => {
+    if (!data) {
+      return {};
+    }
+  
+    const cantidadesArray = (data.cantidad || '').split(',').map(str => str.trim());
+  
+    return {
+      ...data,
+      cantidad: '',
+      nombre: data.nombre || '',
+      correo: data.correo || '',
+      nit: data.nit || 0,
+      telefono: data.telefono || 0,
+      direccion: data.direccion || '',
+      papel: cantidadesArray[0] || '',
+      carton: cantidadesArray[1] || '',
+      vidrio: cantidadesArray[2] || '',
+      plasticoRigido: cantidadesArray[3] || '',
+      plasticoFlexible: cantidadesArray[4] || '',
+    };
+  };
+
+const getCantidadesString = (formData) => {
+  const cantidades = [
+    formData.papel || 0,
+    formData.carton || 0,
+    formData.vidrio || 0,
+    formData.plasticoRigido || 0,
+    formData.plasticoFlexible || 0,
+  ];
+
+  const cantidadesString = cantidades.map(String).join(', ');
+
+  return cantidadesString;
+};
+
+
+
+
   return (
     <div className="registrar-miembros-page">
-      <h2>Formulario de Edición de Productores</h2>
+      <h2>Formulario de Registro de productores</h2>
       <form onSubmit={handleGuardarCambios}>
-        <div className="form-group">
-          <label>Correo</label>
-          <input type="text" name="correo" value={formData.correo} onChange={handleChange} />
-        </div>
         <div className="form-group">
           <label>Nombre</label>
           <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} />
+        </div>
+        <div className="form-group">
+          <label>Correo</label>
+          <input type="text" name="correo" value={formData.correo} onChange={handleChange} />
         </div>
         <div className="form-group">
           <label>NIT</label>
@@ -117,70 +162,91 @@ const EditarProductores = () => {
           <label>Dirección</label>
           <input type="text" name="direccion" value={formData.direccion} onChange={handleChange} />
         </div>
-        
+
         <div className="form-group">
           <label>Materiales de empaques puestos en el mercado</label>
+
           <table>
             <thead>
               <tr>
                 <th>Material</th>
-                <th>Cantidad</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>Papel</td>
-                <td>
-                  <input
-                    type="number"
-                    name="papel"
-                    value={(formData.materiales_recolectados && formData.materiales_recolectados.find((material) => material.material === 'papel')?.cantidad) || ''}
-
-                    onChange={handleMaterialChange}
-                  />
-                </td>
               </tr>
               <tr>
                 <td>Cartón</td>
-                <td>
-                  <input
-                    type="number"
-                    name="carton"
-                    value={(formData.materiales_recolectados && formData.materiales_recolectados.find((material) => material.material === 'carton')?.cantidad) || ''}
-                    onChange={handleMaterialChange}
-                  />
-                </td>
               </tr>
               <tr>
                 <td>Vidrio</td>
-                <td>
-                  <input
-                    type="number"
-                    name="vidrio"
-                    value={(formData.materiales_recolectados && formData.materiales_recolectados.find((material) => material.material === 'vidrio')?.cantidad) || ''}
-                    onChange={handleMaterialChange}
-                  />
-                </td>
               </tr>
               <tr>
                 <td>Plástico Rígido</td>
+              </tr>
+              <tr>
+                <td>Plástico Flexible</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div className="form-group">
+          <table>
+            <thead>
+              <tr>
+                <th>Cantidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
                 <td>
                   <input
-                    type="number"
-                    name="plasticoRigido"
-                    value={(formData.materiales_recolectados && formData.materiales_recolectados.find((material) => material.material === 'plasticoRigido')?.cantidad) || ''}
-                    onChange={handleMaterialChange}
+                    type="text"
+                    name="papel"
+                    value={formData.papel || ''}
+                    onChange={handleInputChange}
                   />
                 </td>
               </tr>
               <tr>
-                <td>Plástico Flexible</td>
                 <td>
                   <input
-                    type="number"
+                    type="text"
+                    name="carton"
+                    value={formData.carton || ''}
+                    onChange={handleInputChange}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input
+                    type="text"
+                    name="vidrio"
+                    value={formData.vidrio || ''}
+                    onChange={handleInputChange}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input
+                    type="text"
+                    name="plasticoRigido"
+                    value={formData.plasticoRigido || ''}
+                    onChange={handleInputChange}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input
+                    type="text"
                     name="plasticoFlexible"
-                    value={(formData.materiales_recolectados && formData.materiales_recolectados.find((material) => material.material === 'plasticoFlexible')?.cantidad) || ''}
-                    onChange={handleMaterialChange}
+                    value={formData.plasticoFlexible || ''}
+                    onChange={handleInputChange}
                   />
                 </td>
               </tr>
