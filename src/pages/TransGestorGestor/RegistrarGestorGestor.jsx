@@ -213,51 +213,33 @@ const RegistrarGestorGestor = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //console.log(formData);
-    
+    console.log(formData);
   
     if (window.confirm("¿Estás seguro de que deseas enviar el formulario?")) {
-      const form = new FormData();
-  
-      for (const key in formData) {
-        if (formData[key] !== null) {
-          if (key === 'archivoImagen') {
-            form.append(key, formData[key], formData[key].name);
-          } else if (key === 'cantidad') {
-            form.append('cantidad', formData[key]);
-          } else if (key === 'material') {
-            form.append('material', formData[key]);
-          } else {
-            form.append(key, formData[key]);
-          }
-        }
-      }
-  
-      // Convierte el array 'materiales' a una cadena y agrégalo al formulario
-      const materialesString = materiales.join(', ');
-      const cantidadesString = cantidades.join(', ');
-      fform.append('materialId', materialesString);
-      form.append('cantidad', cantidadesString);
-      console.log(materiales);
-      console.log(materialesString)
-  
-      const requestOptions = {
-        method: 'POST',
-        body: form,
-      };
-  
       try {
-        const response = await fetch('http://localhost:3000/transacciongg', requestOptions);
+        const requestBody = {
+          ...formData,
+          cantidad: cantidades.join(', '),
+          material: materiales.join(', '),
+        };
+  
+        const requestOptions = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody),
+        };
+  
+        const response = await fetch('http://localhost:3000/transacciones', requestOptions);
   
         if (response.ok) {
           console.log('Registro exitoso');
-          
           fetchData();
   
           setFormData({
             gestor_realiza: '',
             gestor_recibe: '',
-            materialesString: '',
             cantidad: '',
             fecha: '',
             archivoImagen: null,
@@ -280,6 +262,10 @@ const RegistrarGestorGestor = () => {
       console.log('Envío del formulario cancelado');
     }
   };
+  
+  
+  
+  
   
   const editarRegistro = (id) => {
     
@@ -468,7 +454,7 @@ const RegistrarGestorGestor = () => {
           </select>
         </div>
 
-        {message && <p style={{ color: message.startsWith('Error') ? 'red' : 'green' }}>{message}</p>}
+        {/*message && <p style={{ color: message.startsWith('Error') ? 'red' : 'green' }}>{message}</p>*/}
 
         <div className="form-group">
           <button type="submit" className="submit-button">

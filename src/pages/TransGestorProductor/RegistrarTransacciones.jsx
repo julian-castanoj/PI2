@@ -27,7 +27,7 @@ const RegistrarTransacciones = () => {
 
   const fetchData = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:3000/transacciongt');
+      const response = await fetch('http://localhost:3000/transacciones');
       if (response.ok) {
         const result = await response.json();
         setRegistros(result);
@@ -181,65 +181,68 @@ const RegistrarTransacciones = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
-
+  
     if (window.confirm('¿Estás seguro de que deseas enviar el formulario?')) {
-      const form = new FormData();
-
-      for (const key in formData) {
-        if (formData[key] !== null) {
-          if (key === 'archivoImagen') {
-            form.append(key, formData[key], formData[key].name);
-          } else if (key === 'cantidad') {
-            form.append('cantidad', formData[key]);
+      const numericGestorRecibe = isNaN(formData.gestor_recibe) ? formData.gestor_recibe : parseFloat(formData.gestor_recibe);
+  
+      const userConfirmed = window.confirm("¿Estás seguro de que deseas enviar el formulario?");
+  
+      if (userConfirmed) {
+        try {
+          const requestBody = {
+            gestor_realiza: formData.gestor_id,
+            transformador: formData.transformador_id,
+            material: formData.material,
+            cantidad: formData.cantidad,
+            fecha: formData.fecha,
+            archivoImagen: formData.archivoImagen,
+            descripcion: formData.descripcion,
+            ubicacion: formData.ubicacion,
+          };
+  
+          const requestOptions = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestBody),
+          };
+  
+          const response = await fetch('http://localhost:3000/transacciones', requestOptions);
+  
+          if (response.ok) {
+            console.log('Registro exitoso');
+            setMessage('Registro exitoso');
+            fetchData();
+  
+            setFormData({
+              gestor_realiza: '',
+              gestor_recibe: '',
+              material: '',
+              cantidad: '',
+              fecha: '',
+              archivoImagen: null,
+              descripcion: '',
+              ubicacion: '',
+            });
           } else {
-            form.append(key, formData[key]);
+            if (response.status === 400) {
+              const errorData = await response.json();
+              setMessage(`Error al registrar: ${errorData.message}`);
+            } else {
+              setMessage('Error al registrar. Por favor, intenta de nuevo.');
+            }
           }
+        } catch (error) {
+          console.error('Error al realizar la solicitud:', error);
+          setMessage('Error de red. Por favor, verifica tu conexión.');
         }
+      } else {
+        console.log('Envío del formulario cancelado');
       }
-
-      
-      const materialesString = materiales.join(', ');
-      form.append('material', materialesString); 
-
-      const requestOptions = {
-        method: 'POST',
-        body: form,
-      };
-
-      try {
-        const response = await fetch('http://localhost:3000/transacciongt', requestOptions);
-
-        if (response.ok) {
-          console.log('Registro exitoso');
-          setMessage('Registro exitoso');
-          fetchData();
-
-          setFormData({
-            gestor_realiza: '', 
-            transformador: '', 
-            material: '', 
-            cantidad: '',
-            fecha: '',
-            archivoImagen: null,
-            descripcion: '',
-            ubicacion: '',
-          });
-        } else {
-          if (response.status === 400) {
-            const errorData = await response.json();
-            setMessage(`Error al registrar: ${errorData.message}`);
-          } else {
-            setMessage('Error al registrar. Por favor, intenta de nuevo.');
-          }
-        }
-      } catch (error) {
-        console.error('Error al realizar la solicitud:', error);
-        setMessage('Error de red. Por favor, verifica tu conexión.');
-      }
-    } else {
-      console.log('Envío del formulario cancelado');
     }
   };
+  
 
   const handleCancelar = () => {
     navigate('/gestorGestor');
@@ -262,7 +265,7 @@ const RegistrarTransacciones = () => {
 
   return (
     <div className="registrar-miembros-page">
-      <h2>Formulario de Registro de Transacción - Transformador</h2>
+      <h2>Formulario de Registro de Gestor - Transformador</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Gestor Realiza</label>
@@ -385,7 +388,7 @@ const RegistrarTransacciones = () => {
           </select>
         </div>
 
-        {message && <p style={{ color: message.startsWith('Error') ? 'red' : 'green' }}>{message}</p>}
+        {/*message && <p style={{ color: message.startsWith('Error') ? 'red' : 'green' }}>{message}</p>*/}
 
         <div className="form-group">
           <button type="submit" className="submit-button">

@@ -137,40 +137,37 @@ const RegistrarGestorEntidadExterna = () => {
     console.log(formData);
     console.log(materiales);
     console.log(cantidades);
-  
+    const numericGestorRecibe = isNaN(formData.gestor_recibe) ? formData.gestor_recibe : parseFloat(formData.gestor_recibe);
+    
     const userConfirmed = window.confirm("¿Estás seguro de que deseas enviar el formulario?");
-  
+    
     if (userConfirmed) {
-      const form = new FormData();
-  
-      // Agregar otras propiedades al formulario
-      for (const key in formData) {
-        if (formData[key] !== null) {
-          if (key === 'archivoImagen') {
-            form.append(key, formData[key], formData[key].name);
-          } else if (key === 'cantidad') {
-            // Agregar cantidades al formulario como string
-            form.append('cantidad', formData[key]);
-          } else if (key === 'material') {
-            // Concatenar materiales en una cadena y agregar al formulario
-            const materialesString = materiales.join(', ');
-            form.append('material', materialesString);
-          } else {
-            form.append(key, formData[key]);
-          }
-        }
-      }
-  
-      const requestOptions = {
-        method: 'POST',
-        body: form,
-      };
-  
       try {
-        const response = await fetch('http://localhost:3000/transaccionge', requestOptions);
+        const requestBody = {
+          gestor_recibe: formData.gestorId, // Cambié gestorId a gestor_recibe
+          gestorId: '', // Puedes mantener este valor en blanco si es necesario
+          material: materiales.join(', '),
+          cantidad: cantidades.join(', '),
+          fecha: formData.fecha,
+          archivoImagen: formData.archivoImagen,
+          entidad_externa: formData.entidad_externa,
+          descripcion: formData.descripcion,
+          ubicacion: formData.ubicacion,
+        };
+  
+        const requestOptions = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody),
+        };
+  
+        const response = await fetch('http://localhost:3000/transacciones', requestOptions);
   
         if (response.ok) {
           console.log('Registro exitoso');
+          console.log("gestor_recibe: ", numericGestorRecibe);
           fetchData();
   
           // Restablecer el estado del formulario
@@ -201,6 +198,7 @@ const RegistrarGestorEntidadExterna = () => {
       console.log('Envío del formulario cancelado');
     }
   };
+  
   
   
 
@@ -424,7 +422,7 @@ const RegistrarGestorEntidadExterna = () => {
         </div>
 
 
-        {message && <p style={{ color: message.startsWith('Error') ? 'red' : 'green' }}>{message}</p>}
+         {/*message && <p style={{ color: message.startsWith('Error') ? 'red' : 'green' }}>{message}</p>*/}
         <div className="form-group">
 
           {editandoId ? (
