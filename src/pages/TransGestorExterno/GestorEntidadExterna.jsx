@@ -14,7 +14,7 @@ const GestorEntidadExterna = () => {
   const fetchData = async () => {
     try {
       const transacciongeResponse = await fetch('http://localhost:3000/transaccionge');
-      const gestoresResponse = await fetch('http://localhost:3000/gestor'); // Reemplaza con la URL correcta para obtener gestores
+      const gestoresResponse = await fetch('http://localhost:3000/gestor'); 
   
       if (transacciongeResponse.ok && gestoresResponse.ok) {
         const transacciongeResult = await transacciongeResponse.json();
@@ -23,8 +23,7 @@ const GestorEntidadExterna = () => {
         setData(transacciongeResult);
         setGestoresData(gestoresResult);
   
-        console.log('Datos de transaccionge:', transacciongeResult);
-        console.log('Datos de gestores:', gestoresResult);
+        
   
         setError(null);
       } else {

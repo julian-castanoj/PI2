@@ -93,6 +93,8 @@ const EditarTransformador = () => {
     navigate('/transformadores');
   };
 
+  
+  
   const materiales = [
     'Papel',
     'Cartón',

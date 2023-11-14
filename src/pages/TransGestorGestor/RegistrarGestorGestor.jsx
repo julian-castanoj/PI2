@@ -288,7 +288,7 @@ const RegistrarGestorGestor = () => {
 
 
   const editarRegistro = (id) => {
-    navigate('/gestorGestor');
+    
     setEditandoId(id);
   };
 

@@ -534,6 +534,7 @@ const RegistrarGestores = () => {
     </div>
   );
 };
+
 export default RegistrarGestores;
 
 
