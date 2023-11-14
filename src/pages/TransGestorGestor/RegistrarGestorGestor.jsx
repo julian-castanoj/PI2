@@ -45,9 +45,9 @@ import { useNavigate } from 'react-router-dom';
 
 const RegistrarGestorGestor = () => {
   const [formData, setFormData] = useState({
-    gestorRealizaId: '',
-    gestorRecibeId: '',
-    materialId: '',
+    gestor_realiza: '',
+    gestor_recibe: '',
+    material: '',
     cantidad: '',
     fecha: '',
     archivoImagen: null,
@@ -88,13 +88,13 @@ const RegistrarGestorGestor = () => {
   }, []);
 
   useEffect(() => {
-    if (formData.gestorRealizaId && formData.gestorRecibeId) {
+    if (formData.gestor_realiza && formData.gestor_recibe) {
       const commonMaterials = gestores
-        .find((gestor) => gestor.id === formData.gestorRealizaId)?.materiales_recolectados
+        .find((gestor) => gestor.id === formData.gestor_realiza)?.materiales_recolectados
         .split(',')
         .map((material) => material.trim())
         .filter((material) =>
-          gestores.find((gestor) => gestor.id === formData.gestorRecibeId)?.materiales_recolectados
+          gestores.find((gestor) => gestor.id === formData.gestor_recibe)?.materiales_recolectados
             .split(',')
             .map((m) => m.trim())
             .includes(material)
@@ -103,13 +103,13 @@ const RegistrarGestorGestor = () => {
       setMateriales(commonMaterials);
       setCantidades(Array.from({ length: commonMaterials.length }, () => ''));
     }
-  }, [formData.gestorRealizaId, formData.gestorRecibeId, gestores]);
+  }, [formData.gestor_realiza, formData.gestor_recibe, gestores]);
 
   const handleMaterialChange = (e) => {
     const selectedMaterial = e.target.value;
     setFormData((prevFormData) => ({
       ...prevFormData,
-      materialId: selectedMaterial,
+      material: selectedMaterial,
     }));
   
     setMateriales((prevMateriales) => [...prevMateriales, selectedMaterial]);
@@ -170,7 +170,7 @@ const RegistrarGestorGestor = () => {
             const data = await response.json();
             setFormData({
               ...formData,
-              gestorRealizaId: data.id,
+              gestor_realiza: data.id,
             });
             fetchMaterials(parsedId);
           } else {
@@ -196,7 +196,7 @@ const RegistrarGestorGestor = () => {
             const data = await response.json();
             setFormData({
               ...formData,
-              gestorRecibeId: data.id,
+              gestor_recibe: data.id,
             });
             fetchPuntosRecoleccion(parsedId);
           } else {
@@ -225,8 +225,8 @@ const RegistrarGestorGestor = () => {
             form.append(key, formData[key], formData[key].name);
           } else if (key === 'cantidad') {
             form.append('cantidad', formData[key]);
-          } else if (key === 'materialId') {
-            // No apendizamos materialId aquí
+          } else if (key === 'material') {
+            form.append('material', formData[key]);
           } else {
             form.append(key, formData[key]);
           }
@@ -235,7 +235,9 @@ const RegistrarGestorGestor = () => {
   
       // Convierte el array 'materiales' a una cadena y agrégalo al formulario
       const materialesString = materiales.join(', ');
-      form.append('materialId', materialesString);
+      const cantidadesString = cantidades.join(', ');
+      fform.append('materialId', materialesString);
+      form.append('cantidad', cantidadesString);
       console.log(materiales);
       console.log(materialesString)
   
@@ -253,8 +255,8 @@ const RegistrarGestorGestor = () => {
           fetchData();
   
           setFormData({
-            gestorRealizaId: '',
-            gestorRecibeId: '',
+            gestor_realiza: '',
+            gestor_recibe: '',
             materialesString: '',
             cantidad: '',
             fecha: '',
@@ -279,14 +281,6 @@ const RegistrarGestorGestor = () => {
     }
   };
   
-  
-  
-  
-
-
-
-
-
   const editarRegistro = (id) => {
     
     setEditandoId(id);
@@ -357,8 +351,8 @@ const RegistrarGestorGestor = () => {
         <div className="form-group">
           <label>Gestor Realiza</label>
           <select
-            name="gestorRealizaId"
-            value={formData.gestorRealizaId}
+            name="gestor_realiza"
+            value={formData.gestor_realiza}
             onChange={handleGestorRealizaIdChange}
           >
             <option value="">Selecciona un gestor realiza</option>
@@ -373,8 +367,8 @@ const RegistrarGestorGestor = () => {
         <div className="form-group">
           <label>Gestor Recibe</label>
           <select
-            name="gestorRecibeId"
-            value={formData.gestorRecibeId}
+            name="gestor_recibe"
+            value={formData.gestor_recibe}
             onChange={handleGestorRecibeIdChange}
           >
             <option value="">Selecciona un gestor recibe</option>

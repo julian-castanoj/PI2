@@ -117,8 +117,8 @@ const GestorGestor = () => {
         <tbody>
           {paginatedData.map((item) => (
             <tr key={item.id}>
-              <td>{getGestorNameById(item.gestorRealiza)}</td>
-              <td>{getGestorNameById(item.gestorRecibe)}</td>
+              <td>{getGestorNameById(item.gestor_realiza)}</td>
+              <td>{getGestorNameById(item.gestor_recibe)}</td>
               <td>{item.materialId}</td>
               <td>{item.cantidad}</td>
               <td>{item.fecha}</td>

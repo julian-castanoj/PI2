@@ -58,8 +58,8 @@ const GestorEntidadExterna = () => {
     currentPage * itemsPerPage
   );
 
-  const getGestorNameById = (gestorId) => {
-    const gestor = gestoresData.find((gestor) => gestor.id === Number(gestorId));
+  const getGestorNameById = (gestor_recibe) => {
+    const gestor = gestoresData.find((gestor) => gestor.id === Number(gestor_recibe));
     return gestor ? gestor.nombre : 'Nombre no encontrado';
   };
 

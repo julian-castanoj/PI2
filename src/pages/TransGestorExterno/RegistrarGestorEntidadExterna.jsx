@@ -137,7 +137,7 @@ const RegistrarGestorEntidadExterna = () => {
     console.log(formData);
     console.log(materiales);
     console.log(cantidades);
-
+  
     const userConfirmed = window.confirm("¿Estás seguro de que deseas enviar el formulario?");
   
     if (userConfirmed) {
@@ -151,7 +151,10 @@ const RegistrarGestorEntidadExterna = () => {
           } else if (key === 'cantidad') {
             // Agregar cantidades al formulario como string
             form.append('cantidad', formData[key]);
-            
+          } else if (key === 'material') {
+            // Concatenar materiales en una cadena y agregar al formulario
+            const materialesString = materiales.join(', ');
+            form.append('material', materialesString);
           } else {
             form.append(key, formData[key]);
           }
@@ -161,7 +164,6 @@ const RegistrarGestorEntidadExterna = () => {
       const requestOptions = {
         method: 'POST',
         body: form,
-        
       };
   
       try {
@@ -199,6 +201,7 @@ const RegistrarGestorEntidadExterna = () => {
       console.log('Envío del formulario cancelado');
     }
   };
+  
   
 
 

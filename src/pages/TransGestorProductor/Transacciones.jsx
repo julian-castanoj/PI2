@@ -35,7 +35,7 @@ const Transactions = () => {
           setData(transaccionesResult);
           setFilteredData(transaccionesResult);
           setGestoresData(gestoresResult);
-          setTransformadoresData(transformadoresResult); // Almacena los datos del transformador
+          setTransformadoresData(transformadoresResult); 
         } else {
           console.error('Error al cargar datos de la API');
           setError('Error al cargar datos de la API');

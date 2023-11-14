@@ -5,9 +5,9 @@ const RegistrarTransacciones = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    gestor_id: '',
-    transformador_id: '',
-    materialId: '',
+    gestor_realiza: '',
+    transformador: '',
+    material: '',
     cantidad: '',
     fecha: '',
     archivoImagen: null,
@@ -181,7 +181,6 @@ const RegistrarTransacciones = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
-    console.log(materialesString);
 
     if (window.confirm('¿Estás seguro de que deseas enviar el formulario?')) {
       const form = new FormData();
@@ -192,21 +191,15 @@ const RegistrarTransacciones = () => {
             form.append(key, formData[key], formData[key].name);
           } else if (key === 'cantidad') {
             form.append('cantidad', formData[key]);
-          } else if (key === 'materialId') {
-            // No append materialId here
-          } else if (key === 'gestor_id') {
-            form.append('gestor_id', formData[key]);
-          } else if (key === 'transformador_id') {
-            form.append('transformador_id', formData[key]);
           } else {
             form.append(key, formData[key]);
           }
         }
       }
 
-      // Convierte el array 'materiales' a una cadena y agrégalo al formulario
+      
       const materialesString = materiales.join(', ');
-      form.append('materialId', materialesString);
+      form.append('material', materialesString); 
 
       const requestOptions = {
         method: 'POST',
@@ -222,9 +215,9 @@ const RegistrarTransacciones = () => {
           fetchData();
 
           setFormData({
-            gestor_id: '',
-            transformador_id: '',
-            materialesString: '',
+            gestor_realiza: '', 
+            transformador: '', 
+            material: '', 
             cantidad: '',
             fecha: '',
             archivoImagen: null,
@@ -258,7 +251,7 @@ const RegistrarTransacciones = () => {
       .then((data) => {
         if (data && data.direccion_principal) {
           const direccionPrincipal = data.direccion_principal;
-          // Usa la variable direccionPrincipal como necesites
+          
           console.log('Direccion Principal:', direccionPrincipal);
         } else {
           console.log('No se encontró la dirección principal en la respuesta:', data);
