@@ -265,8 +265,6 @@ const RegistrarGestorGestor = () => {
   
   
   
-  
-  
   const editarRegistro = (id) => {
     
     setEditandoId(id);
@@ -466,7 +464,7 @@ const RegistrarGestorGestor = () => {
             </button>
           ) : null}
           <button type="button" className="register-button" onClick={handleCancelar}>
-            Cancelar
+            Salir
           </button>
         </div>
       </form>

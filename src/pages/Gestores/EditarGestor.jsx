@@ -242,16 +242,6 @@ const EditarGestor = () => {
         </div>
 
         <div className="form-group">
-          <label>Capacidad total que gestionas</label>
-          <input
-            type="text"
-            name="toneladas_recolectadas"
-            value={formData.toneladas_recolectadas}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="form-group">
           <label>Puntos de Recolección</label>
           <table>
             <thead>
@@ -341,7 +331,7 @@ const EditarGestor = () => {
             Guardar Cambios
           </button>
           <button type="button" className="register-button" onClick={handleCancelar}>
-            Cancelar
+            Salir
           </button>
         </div>
       </form>

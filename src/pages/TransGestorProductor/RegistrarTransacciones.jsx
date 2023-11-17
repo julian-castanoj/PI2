@@ -21,7 +21,7 @@ const RegistrarTransacciones = () => {
   const [message, setMessage] = useState(null);
   const [materialesString, setMaterialesString] = useState([]);
   const [materiales, setMateriales] = useState([]);
-  
+
   const [puntosRecoleccion, setPuntosRecoleccion] = useState([]);
   const [cantidades, setCantidades] = useState(Array.from({ length: materiales.length }, () => ''));
 
@@ -182,67 +182,66 @@ const RegistrarTransacciones = () => {
     e.preventDefault();
     console.log(formData);
   
-    if (window.confirm('¿Estás seguro de que deseas enviar el formulario?')) {
-      const numericGestorRecibe = isNaN(formData.gestor_recibe) ? formData.gestor_recibe : parseFloat(formData.gestor_recibe);
+    // Eliminamos la confirmación
+    // if (window.confirm('¿Estás seguro de que deseas enviar el formulario?')) {
   
-      const userConfirmed = window.confirm("¿Estás seguro de que deseas enviar el formulario?");
+    const numericGestorRecibe = isNaN(formData.gestor_recibe)
+      ? formData.gestor_recibe
+      : parseFloat(formData.gestor_recibe);
   
-      if (userConfirmed) {
-        try {
-          const requestBody = {
-            gestor_realiza: formData.gestor_id,
-            transformador: formData.transformador_id,
-            material: formData.material,
-            cantidad: formData.cantidad,
-            fecha: formData.fecha,
-            archivoImagen: formData.archivoImagen,
-            descripcion: formData.descripcion,
-            ubicacion: formData.ubicacion,
-          };
+    // Eliminamos la condición userConfirmed y el bloque if (userConfirmed)
+    try {
+      const requestBody = {
+        gestor_realiza: formData.gestor_id,
+        transformador: formData.transformador_id,
+        material: formData.material,
+        cantidad: formData.cantidad,
+        fecha: formData.fecha,
+        archivoImagen: formData.archivoImagen,
+        descripcion: formData.descripcion,
+        ubicacion: formData.ubicacion,
+      };
   
-          const requestOptions = {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(requestBody),
-          };
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      };
   
-          const response = await fetch('http://localhost:3000/transacciones', requestOptions);
+      const response = await fetch('http://localhost:3000/transacciones', requestOptions);
   
-          if (response.ok) {
-            console.log('Registro exitoso');
-            setMessage('Registro exitoso');
-            fetchData();
+      if (response.ok) {
+        console.log('Registro exitoso');
+        setMessage('Registro exitoso');
+        fetchData();
   
-            setFormData({
-              gestor_realiza: '',
-              gestor_recibe: '',
-              material: '',
-              cantidad: '',
-              fecha: '',
-              archivoImagen: null,
-              descripcion: '',
-              ubicacion: '',
-            });
-          } else {
-            if (response.status === 400) {
-              const errorData = await response.json();
-              setMessage(`Error al registrar: ${errorData.message}`);
-            } else {
-              setMessage('Error al registrar. Por favor, intenta de nuevo.');
-            }
-          }
-        } catch (error) {
-          console.error('Error al realizar la solicitud:', error);
-          setMessage('Error de red. Por favor, verifica tu conexión.');
-        }
+        setFormData({
+          gestor_realiza: '',
+          gestor_recibe: '',
+          material: '',
+          cantidad: '',
+          fecha: '',
+          archivoImagen: null,
+          descripcion: '',
+          ubicacion: '',
+        });
       } else {
-        console.log('Envío del formulario cancelado');
+        if (response.status === 400) {
+          const errorData = await response.json();
+          setMessage(`Error al registrar: ${errorData.message}`);
+        } else {
+          setMessage('Error al registrar. Por favor, intenta de nuevo.');
+        }
       }
+    } catch (error) {
+      console.error('Error al realizar la solicitud:', error);
+      setMessage('Error de red. Por favor, verifica tu conexión.');
     }
+    
   };
-  
+
 
   const handleCancelar = () => {
     navigate('/gestorGestor');
@@ -254,7 +253,7 @@ const RegistrarTransacciones = () => {
       .then((data) => {
         if (data && data.direccion_principal) {
           const direccionPrincipal = data.direccion_principal;
-          
+
           console.log('Direccion Principal:', direccionPrincipal);
         } else {
           console.log('No se encontró la dirección principal en la respuesta:', data);
@@ -373,19 +372,14 @@ const RegistrarTransacciones = () => {
         </div>
 
         <div className="form-group">
-          <label>Ubicación</label>
-          <select
-            name="ubicacion"
-            value={formData.ubicacion}
-            onChange={handleChange}
-          >
-            <option value="">Selecciona un punto de recolección</option>
-            {puntosRecoleccion.map((punto, index) => (
-              <option key={index} value={punto}>
-                {punto}
-              </option>
+          <label>Direccion principal</label>
+          <span>
+            {trasformadores.map((transformador) => (
+              <span key={transformador.direccion_principal}>
+                {transformador.direccion_principal}
+              </span>
             ))}
-          </select>
+          </span>
         </div>
 
         {/*message && <p style={{ color: message.startsWith('Error') ? 'red' : 'green' }}>{message}</p>*/}
@@ -394,9 +388,9 @@ const RegistrarTransacciones = () => {
           <button type="submit" className="submit-button">
             Registrar
           </button>
-          
+
           <button type="button" className="register-button" onClick={handleCancelar}>
-            Cancelar
+            Salir
           </button>
         </div>
       </form>

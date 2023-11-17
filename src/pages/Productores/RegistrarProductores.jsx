@@ -49,35 +49,35 @@ const RegistrarProductores = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
-  
+
     const userConfirmed = window.confirm('¿Estás seguro de que deseas enviar el formulario?');
-  
+
     if (userConfirmed) {
       const cantidadesString = getCantidadesString();
       const materialesRecolectadosDefault = 'Papel, Cartón, Vidrio, Plástico Rígido, Plástico Flexible';
-  
+
       console.log('Cantidad a enviar:', cantidadesString);
-  
+
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
           cantidad: cantidadesString,
-          
+
           materiales_recolectados: materialesRecolectadosDefault, // Siempre establece la cadena predeterminada
         }),
       };
-  
+
       try {
         setMessage(null); // Limpiamos mensajes previos
         const response = await fetch('http://localhost:3000/productor/registrar', requestOptions);
-  
+
         if (response.ok) {
           console.log('Registro exitoso');
           setMessage('Registro exitoso');
           fetchData();
-  
+
           // Limpia el formulario después del registro exitoso
           setFormData({
             correo: '',
@@ -107,8 +107,8 @@ const RegistrarProductores = () => {
       console.log('Envío del formulario cancelado');
     }
   };
-  
-  
+
+
 
   const handleCancelar = () => {
     const confirmCancel = window.confirm('¿Seguro que quieres cancelar?');
@@ -122,10 +122,10 @@ const RegistrarProductores = () => {
       const response = await fetch(`http://localhost:3000/productor/${id}`);
       if (response.ok) {
         const data = await response.json();
-        
+
         // Convierte la cadena de cantidades a un arreglo
         const cantidadesArray = data.cantidad.split(',').map(str => str.trim());
-  
+
         // Establece los valores de cantidades en el estado del formulario
         setFormData({
           ...data,
@@ -142,11 +142,11 @@ const RegistrarProductores = () => {
       console.error('Error al realizar la solicitud:', error);
     }
   };
-  
+
 
   const guardarEdicion = async () => {
     const indiceEdicion = registros.findIndex((registro) => registro.id === editandoId);
-    
+
     if (indiceEdicion !== -1) {
       try {
         setMessage(null); // Limpia mensajes previos
@@ -158,12 +158,12 @@ const RegistrarProductores = () => {
             cantidad: getCantidadesString(), // Actualiza la cantidad al editar
           }),
         });
-  
+
         if (response.ok) {
           const nuevosRegistros = [...registros];
           nuevosRegistros[indiceEdicion] = formData;
           setRegistros(nuevosRegistros);
-  
+
           setFormData({
             correo: '',
             nombre: '',
@@ -174,7 +174,7 @@ const RegistrarProductores = () => {
             materiales_recolectados: '', // Puedes ajustar este valor según tus necesidades
           });
           setEditandoId(null);
-  
+
           console.log('Edición exitosa:');
           setMessage('Edicion exitosa');
         } else if (response.status === 400) {
@@ -211,14 +211,14 @@ const RegistrarProductores = () => {
       formData.plasticoRigido || 0,
       formData.plasticoFlexible || 0,
     ];
-  
+
     // Convierte cada cantidad a cadena y luego únelas con ', '
     const cantidadesString = cantidades.map(String).join(', ');
-  
+
     // Devuelve solo la cadena de cantidades sin la clave "cantidades"
     return cantidadesString;
   };
-  
+
 
 
   const eliminarRegistro = async (id) => {
@@ -263,9 +263,9 @@ const RegistrarProductores = () => {
     }
   };
 
-  
 
-  
+
+
 
   return (
     <div className="registrar-miembros-page">
@@ -292,95 +292,105 @@ const RegistrarProductores = () => {
           <input type="text" name="direccion" value={formData.direccion} onChange={handleChange} />
         </div>
 
+        <label>Materiales de empaques puestos en el mercado</label>
         <div className="form-group">
-          <label>Materiales de empaques puestos en el mercado</label>
+          <div className="">
+            <div className="table-container">
 
-          <table>
-            <thead>
-              <tr>
-                <th>Material</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Papel</td>
-              </tr>
-              <tr>
-                <td>Cartón</td>
-              </tr>
-              <tr>
-                <td>Vidrio</td>
-              </tr>
-              <tr>
-                <td>Plástico Rígido</td>
-              </tr>
-              <tr>
-                <td>Plástico Flexible</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Material</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Papel</td>
+                  </tr>
+                  <tr>
+                    <td>Cartón</td>
+                  </tr>
+                  <tr>
+                    <td>Vidrio</td>
+                  </tr>
+                  <tr>
+                    <td>Plástico Rígido</td>
+                  </tr>
+                  <tr>
+                    <td>Plástico Flexible</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
-        <div className="form-group">
-          <table>
-            <thead>
-              <tr>
-                <th>Cantidad</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <input
-                    type="text"
-                    name="papel"
-                    value={formData.papel || ''}
-                    onChange={handleInputChange}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input
-                    type="text"
-                    name="carton"
-                    value={formData.carton || ''}
-                    onChange={handleInputChange}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input
-                    type="text"
-                    name="vidrio"
-                    value={formData.vidrio || ''}
-                    onChange={handleInputChange}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input
-                    type="text"
-                    name="plasticoRigido"
-                    value={formData.plasticoRigido || ''}
-                    onChange={handleInputChange}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input
-                    type="text"
-                    name="plasticoFlexible"
-                    value={formData.plasticoFlexible || ''}
-                    onChange={handleInputChange}
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+            <div className="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Cantidad</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <input
+                        className="table-input"
+                        type="text"
+                        name="papel"
+                        value={formData.papel || ''}
+                        onChange={handleInputChange}
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        className="table-input"
+                        type="text"
+                        name="carton"
+                        value={formData.carton || ''}
+                        onChange={handleInputChange}
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        className="table-input"
+                        type="text"
+                        name="vidrio"
+                        value={formData.vidrio || ''}
+                        onChange={handleInputChange}
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        className="table-input"
+                        type="text"
+                        name="plasticoRigido"
+                        value={formData.plasticoRigido || ''}
+                        onChange={handleInputChange}
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        className="table-input"
+                        type="text"
+                        name="plasticoFlexible"
+                        value={formData.plasticoFlexible || ''}
+                        onChange={handleInputChange}
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
         </div>
 
 
@@ -399,7 +409,7 @@ const RegistrarProductores = () => {
             </button>
           )}
           <button type="button" className="register-button" onClick={handleCancelar}>
-            Cancelar
+            Salir
           </button>
         </div>
       </form>

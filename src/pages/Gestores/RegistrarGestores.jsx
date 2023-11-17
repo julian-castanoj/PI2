@@ -203,6 +203,9 @@ const RegistrarGestores = () => {
   };
 
   const eliminarRegistro = async (id) => {
+    const confirmCancel = window.confirm('¿Seguro que quieres eliminar el resgitro?');
+    if (confirmCancel) {
+      
     try {
       const response = await fetch(`http://localhost:3000/gestor/${id}`, {
         method: 'DELETE',
@@ -249,6 +252,7 @@ const RegistrarGestores = () => {
       setMessage('Error al realizar la solicitud: ' + error.message);
       console.error('Error al realizar la solicitud:', error);
     }
+  }
   };
 
   
@@ -393,7 +397,7 @@ const RegistrarGestores = () => {
         </div>
 
         <div className="form-group">
-          <label>Categoría Municipio</label>
+          <label>Categoría del municipio</label>
           <select
             name="categoria_municipio"
             value={formData.categoria_municipio}
@@ -411,7 +415,7 @@ const RegistrarGestores = () => {
         
 
         <div className="form-group">
-          <label>Puntos de Recolección</label>
+          <label>Puntos de recolección</label>
           <table>
             <thead>
               <tr>
@@ -454,13 +458,13 @@ const RegistrarGestores = () => {
             </tbody>
           </table>
           <button type="button" onClick={handleAgregarPuntoRecoleccion}>
-            Agregar Punto
+            Agregar punto
           </button>
         </div>
 
 
         <div className="form-group">
-          <label>Mecanismos de Recolección</label>
+          <label>Mecanismos de recolección</label>
           <input
             type="text"
             name="mecanismos_recoleccion"
@@ -471,7 +475,7 @@ const RegistrarGestores = () => {
 
 
         <div className="form-group">
-          <label>Materiales Recolectados</label>
+          <label>Materiales recolectados</label>
           <table>
             <thead>
               <tr>
@@ -504,7 +508,7 @@ const RegistrarGestores = () => {
 
           {editandoId ? (
             <button type="button" className="submit-button" onClick={guardarEdicion}>
-              Guardar Edición
+              Guardar edición
             </button>
           ) : (
             <button type="submit" className="submit-button">
@@ -512,7 +516,7 @@ const RegistrarGestores = () => {
             </button>
           )}
           <button type="button" className="register-button" onClick={handleCancelar}>
-            Cancelar
+            Salir
           </button>
         </div>
       </form>
@@ -521,6 +525,7 @@ const RegistrarGestores = () => {
         {registros.slice(-5).map((registro) => (
           <li key={registro.id}>
             <span>{registro.nombre}</span>
+            <span>{registro.correo}</span>
             <span>{registro.nit}</span>
             <button onClick={() => editarRegistro(registro.id)} className="edit-button">
               Editar

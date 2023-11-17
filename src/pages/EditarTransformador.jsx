@@ -338,7 +338,7 @@ const EditarTransformador = () => {
             Guardar Cambios
           </button>
           <button type="button" className="register-button" onClick={handleCancelar}>
-            Cancelar
+            Salir
           </button>
         </div>
       </form>

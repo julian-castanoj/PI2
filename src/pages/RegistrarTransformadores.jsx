@@ -373,7 +373,7 @@ const RegistrarTransformadores = () => {
 
 
         <div className="form-group">
-          <label>Materiales Recolectados</label>
+          <label>Materiales que transforma</label>
           <table>
             <thead>
               <tr>
@@ -436,7 +436,7 @@ const RegistrarTransformadores = () => {
             </button>
           )}
           <button type="button" className="register-button" onClick={handleCancelar}>
-            Cancelar
+            Salir
           </button>
         </div>
       </form>
