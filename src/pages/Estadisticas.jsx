@@ -10,25 +10,12 @@ const Estadisticas = () => {
     <div>
       <h1>Dashboard</h1>
       <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-        <StatsLayout>
-
-          <blockquote>
-            <BarChart />
-          </blockquote>
-          <blockquote>
+        <StatsLayout>            
             <DoughnutChart />
-          </blockquote>
-          <blockquote>
+            <BarChart />
             <LineChartG />
-          </blockquote>
-          <blockquote>
-            <LineChartT />
-          </blockquote>
-
-          
+            <LineChartT />         
         </StatsLayout>
-      
-
     </div>
     </div >
   );
