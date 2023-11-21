@@ -9,7 +9,7 @@ const RegistrarProductores = () => {
     telefono: 0,
     direccion: '',
     cantidad: '',
-    materiales_recolectados: '',
+    materiales: '',
   });
 
   const [registros, setRegistros] = useState([]);
@@ -63,9 +63,8 @@ const RegistrarProductores = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
-          cantidad: cantidadesString,
-
-          materiales_recolectados: materialesRecolectadosDefault, // Siempre establece la cadena predeterminada
+          cantidad: getCantidadesString().split(',').map(str => str.trim()), // Convertir a cadena
+          materiales: materialesRecolectadosDefault,
         }),
       };
 
@@ -86,7 +85,7 @@ const RegistrarProductores = () => {
             telefono: 0,
             direccion: '',
             cantidad: cantidadesString, // Asigna la cadena formateada aquí
-            materiales_recolectados: materialesRecolectadosDefault, // Siempre establece la cadena predeterminada
+            materiales: materialesRecolectadosDefault, // Siempre establece la cadena predeterminada
           });
         } else if (response.status === 400) {
           const errorData = await response.json();
@@ -118,14 +117,15 @@ const RegistrarProductores = () => {
   };
 
   const handleEditarClick = async (id) => {
+    console.log(formData);
     try {
       const response = await fetch(`http://localhost:3000/productor/${id}`);
       if (response.ok) {
         const data = await response.json();
-
-        // Convierte la cadena de cantidades a un arreglo
-        const cantidadesArray = data.cantidad.split(',').map(str => str.trim());
-
+  
+        // Verifica si "cantidad" existe y es una cadena antes de intentar dividirla
+        const cantidadesArray = (typeof data.cantidad === 'string' ? data.cantidad : '').split(',').map(str => str.trim());
+  
         // Establece los valores de cantidades en el estado del formulario
         setFormData({
           ...data,
@@ -142,7 +142,7 @@ const RegistrarProductores = () => {
       console.error('Error al realizar la solicitud:', error);
     }
   };
-
+  
 
   const guardarEdicion = async () => {
     const indiceEdicion = registros.findIndex((registro) => registro.id === editandoId);
@@ -171,7 +171,7 @@ const RegistrarProductores = () => {
             telefono: 0,
             direccion: '',
             cantidad: '', // Deja este campo en blanco
-            materiales_recolectados: '', // Puedes ajustar este valor según tus necesidades
+            materiales: '', // Puedes ajustar este valor según tus necesidades
           });
           setEditandoId(null);
 
@@ -239,7 +239,7 @@ const RegistrarProductores = () => {
             telefono: 0,
             direccion: '',
             cantidad: '',
-            materiales_recolectados: '',
+            materiales: '',
           });
           setEditandoId(null);
         }

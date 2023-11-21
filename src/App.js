@@ -1,5 +1,7 @@
 //import React from 'react';
 // App.js
+
+
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
@@ -9,6 +11,7 @@ import Inicio from './pages/Inicio.jsx';
 
 import Productores from './pages/Productores/Productores.jsx';
 import Estadisticas from './pages/Estadisticas.jsx';
+
 
 import Logout from './pages/Logout.jsx';
 import RegistrarProductores from './pages/Productores/RegistrarProductores.jsx';

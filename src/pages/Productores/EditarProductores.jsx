@@ -11,7 +11,7 @@ const EditarProductores = () => {
     nit: 0,
     telefono: 0,
     direccion: '',
-    materiales_recolectados: '',
+    materiales: '',
     cantidad: '',
   });
 
@@ -103,7 +103,7 @@ const EditarProductores = () => {
       return {};
     }
   
-    const cantidadesArray = (data.cantidad || '').split(',').map(str => str.trim());
+    const cantidadesArray = ((data.cantidad || '').toString()).split(',').map(str => str.trim());
   
     return {
       ...data,
