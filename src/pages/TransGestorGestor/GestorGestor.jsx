@@ -28,7 +28,7 @@ const GestorGestor = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:3000/transacciongg');
+      const response = await fetch('http://localhost:3000/transacciones/gg');
       if (response.ok) {
         const result = await response.json();
         setData(result);
@@ -44,7 +44,7 @@ const GestorGestor = () => {
     const fetchDataAndGestores = async () => {
       try {
         const [transaccionesResponse, gestoresResponse] = await Promise.all([
-          fetch('http://localhost:3000/transacciongg'),
+          fetch('http://localhost:3000/transacciones/gg'),
           fetch('http://localhost:3000/gestor')
         ]);
 

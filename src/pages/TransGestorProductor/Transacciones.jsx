@@ -18,7 +18,7 @@ const Transactions = () => {
     const fetchDataAndGestores = async () => {
       try {
         const [transaccionesResponse, gestoresResponse, transformadoresResponse] = await Promise.all([
-          fetch('http://localhost:3000/transacciongt'),
+          fetch('http://localhost:3000/transacciones/gt'),
           fetch('http://localhost:3000/gestor'),
           fetch('http://localhost:3000/transformador')
         ]);
@@ -76,7 +76,7 @@ const Transactions = () => {
 
   const deleteTransaction = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/transacciongt/${id}`, {
+      const response = await fetch(`http://localhost:3000/transacciones/gt/${id}`, {
         method: 'DELETE',
       });
       if (response.ok) {

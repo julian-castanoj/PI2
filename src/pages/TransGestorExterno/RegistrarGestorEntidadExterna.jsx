@@ -28,7 +28,7 @@ const RegistrarGestorEntidadExterna = () => {
 
   const fetchData = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:3000/transaccionge');
+      const response = await fetch('http://localhost:3000/transacciones/ge');
       if (response.ok) {
         const result = await response.json();
         setRegistros(result);
@@ -205,7 +205,7 @@ const RegistrarGestorEntidadExterna = () => {
     setEditandoId(id);
     // Aquí puedes cargar los datos del registro seleccionado para edición si es necesario.
     // Por ejemplo, puedes realizar una solicitud a la API para obtener los detalles del registro.
-    fetch(`http://localhost:3000/transaccionge/${id}`)
+    fetch(`http://localhost:3000/transacciones/ge/${id}`)
       .then((response) => response.json())
       .then((data) => {
         // Verifica la estructura de datos y ajusta la lógica según sea necesario
@@ -246,7 +246,7 @@ const RegistrarGestorEntidadExterna = () => {
     };
 
     try {
-      const response = await fetch(`http://localhost:3000/http://localhost:3000/transaccionge/${editandoId}`, requestOptions);
+      const response = await fetch(`http://localhost:3000/transacciones/ge/${editandoId}`, requestOptions);
 
       if (response.ok) {
         console.log('Edición exitosa');
@@ -262,7 +262,7 @@ const RegistrarGestorEntidadExterna = () => {
 
   const eliminarRegistro = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/http://localhost:3000/transaccionge/${id}`, {
+      const response = await fetch(`http://localhost:3000/http://localhost:3000/transacciones/ge/${id}`, {
         method: 'DELETE',
       });
 
@@ -440,7 +440,7 @@ const RegistrarGestorEntidadExterna = () => {
       <ul>
         {registros.slice(-5).map((registro) => (
           <li key={registro.id}>
-            <span>{registro.material}, {registro.entidad_externa}</span>
+            <span>{registro.fecha}, {registro.entidad_externa}</span>
             <button onClick={() => editarRegistro(registro.id)} className="edit-button">
               Editar
             </button>

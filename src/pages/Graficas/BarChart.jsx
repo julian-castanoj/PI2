@@ -25,12 +25,12 @@ const BarChart = () => {
 
   useEffect(() => {
     // Reemplaza la siguiente URL con la que corresponda a tu endpoint
-    const endpoint = 'http://localhost:3000/transacciones';
+    const endpoint = 'http://localhost:3000/productor/total';
     
     fetch(endpoint)
       .then(response => response.json())
       .then(dataFromApi => {
-        const labels = dataFromApi.map(item => item.productor);
+        const labels = dataFromApi.map(item => item.id);
         const cantidades = dataFromApi.map(item => item.cantidad);
 
         setData({

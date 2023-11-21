@@ -67,7 +67,7 @@ const RegistrarGestorGestor = () => {
 
   const fetchData = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:3000/transacciongg');
+      const response = await fetch('http://localhost:3000/transacciones/gg');
       if (response.ok) {
         const result = await response.json();
         setRegistros(result);
@@ -279,7 +279,7 @@ const RegistrarGestorGestor = () => {
     };
 
     try {
-      const response = await fetch(`http://localhost:3000/transacciongg/${editandoId}`, requestOptions);
+      const response = await fetch(`http://localhost:3000/transacciones/gg/${editandoId}`, requestOptions);
 
       if (response.ok) {
         console.log('Edición exitosa');
@@ -295,7 +295,7 @@ const RegistrarGestorGestor = () => {
 
   const eliminarRegistro = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/transacciongg/${id}`, {
+      const response = await fetch(`http://localhost:3000/transacciones/gg/${id}`, {
         method: 'DELETE',
       });
 
@@ -452,7 +452,7 @@ const RegistrarGestorGestor = () => {
           </select>
         </div>
 
-        {/*message && <p style={{ color: message.startsWith('Error') ? 'red' : 'green' }}>{message}</p>*/}
+        {/* message && <p style={{ color: message.startsWith('Error') ? 'red' : 'green' }}>{message}</p> */}
 
         <div className="form-group">
           <button type="submit" className="submit-button">
@@ -473,7 +473,7 @@ const RegistrarGestorGestor = () => {
       <ul>
         {registros.slice(-5).map((registro) => (
           <li key={registro.id}>
-            <span>{registro.materialId}</span>
+            <span>{registro.fecha}</span>
             <button onClick={() => editarRegistro(registro.id)} className="edit-button">
               Editar
             </button>

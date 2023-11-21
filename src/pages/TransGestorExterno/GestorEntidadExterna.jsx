@@ -13,7 +13,7 @@ const GestorEntidadExterna = () => {
 
   const fetchData = async () => {
     try {
-      const transacciongeResponse = await fetch('http://localhost:3000/transaccionge');
+      const transacciongeResponse = await fetch('http://localhost:3000/transacciones/ge');
       const gestoresResponse = await fetch('http://localhost:3000/gestor'); 
   
       if (transacciongeResponse.ok && gestoresResponse.ok) {
