@@ -11,10 +11,10 @@ const Estadisticas = () => {
       <h1>Dashboard</h1>
       <div style={{ display: 'flex', justifyContent: 'space-around' }}>
         <StatsLayout>            
-            <DoughnutChart />
-            <BarChart />
-            <LineChartG />
-            <LineChartT />         
+        <BarChart />
+           
+            
+                    
         </StatsLayout>
     </div>
     </div >

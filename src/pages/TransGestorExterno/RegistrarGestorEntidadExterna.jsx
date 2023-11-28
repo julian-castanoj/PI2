@@ -7,13 +7,14 @@ const RegistrarGestorEntidadExterna = () => {
   const [formData, setFormData] = useState({
     gestorId: '',
     gestor_recibe: '',
-    material: '',
+    material: [],
     cantidad: '',
     fecha: '',
     archivoImagen: null,
     entidad_externa: '',
     descripcion: '',
     ubicacion: '',
+    cantidades: [],
   });
 
   const [registros, setRegistros] = useState([]);
@@ -174,13 +175,14 @@ const RegistrarGestorEntidadExterna = () => {
           setFormData({
             gestorId: '',
             gestor_recibe: '',
-            material: '',
+            material: [],
             cantidad: '',
             fecha: '',
             archivoImagen: null,
             entidad_externa: '',
             descripcion: '',
             ubicacion: '',
+            cantidades: [],
           });
         } else {
           if (response.status === 400) {

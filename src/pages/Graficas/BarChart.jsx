@@ -8,7 +8,7 @@ const BarChart = () => {
     labels: [],
     datasets: [
       {
-        label: 'Cantidad',
+        label: 'Sumatoria',
         data: [],
         backgroundColor: 'rgba(75,192,192,0.6)',
       },
@@ -24,28 +24,28 @@ const BarChart = () => {
   };
 
   useEffect(() => {
-    // Reemplaza la siguiente URL con la que corresponda a tu endpoint
-    const endpoint = 'http://localhost:3000/productor/total';
-    
+    const endpoint = 'http://localhost:3000/material-productores/total';
+
     fetch(endpoint)
       .then(response => response.json())
       .then(dataFromApi => {
-        const labels = dataFromApi.map(item => item.id);
-        const cantidades = dataFromApi.map(item => item.cantidad);
+        const labels = dataFromApi.data ? dataFromApi.data.map(item => item.productorNombre) : [];
+        const sumatorias = dataFromApi.data ? dataFromApi.data.map(item => parseInt(item.sumatoria)) : [];
+
 
         setData({
           labels: labels,
           datasets: [
             {
-              label: 'Cantidad',
-              data: cantidades,
+              label: 'Sumatoria',
+              data: sumatorias,
               backgroundColor: 'rgba(75,192,192,0.6)',
             },
           ],
         });
       })
       .catch(error => console.error('Error al obtener datos:', error));
-  }, []); // El segundo argumento del useEffect asegura que se ejecute solo una vez al montar el componente
+  }, []);
 
   return (
     <div>

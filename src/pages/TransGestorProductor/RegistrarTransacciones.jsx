@@ -19,8 +19,9 @@ const RegistrarTransacciones = () => {
   const [trasformadores, setTrasformadores] = useState([]);
   const [gestores, setGestores] = useState([]);
   const [message, setMessage] = useState(null);
-  const [materialesString, setMaterialesString] = useState([]);
+  const [materialesComunesString, setMaterialesComunesString] = useState('');
   const [materiales, setMateriales] = useState([]);
+  const [materialesString, setMaterialesString] = useState([]);
 
   const [puntosRecoleccion, setPuntosRecoleccion] = useState([]);
   const [cantidades, setCantidades] = useState(Array.from({ length: materiales.length }, () => ''));
@@ -55,29 +56,13 @@ const RegistrarTransacciones = () => {
       .catch((error) => console.error('Error al obtener la lista de transformadores:', error));
   }, []);
 
-  useEffect(() => {
-    if (formData.gestor_id && formData.transformador_id) {
-      const commonMaterials = gestores
-        .find((gestor) => gestor.id === formData.gestor_id)?.materiales_recolectados
-        .split(',')
-        .map((material) => material.trim())
-        .filter((material) =>
-          gestores.find((gestor) => gestor.id === formData.transformador_id)?.materiales_recolectados
-            .split(',')
-            .map((m) => m.trim())
-            .includes(material)
-        );
-
-      setMateriales(commonMaterials);
-      setCantidades(Array.from({ length: commonMaterials.length }, () => ''));
-    }
-  }, [formData.gestor_id, formData.transformador_id, gestores]);
+  
 
   const handleMaterialChange = (e) => {
     const selectedMaterial = e.target.value;
     setFormData((prevFormData) => ({
       ...prevFormData,
-      materialId: selectedMaterial,
+      material: selectedMaterial,
     }));
 
     setMateriales((prevMateriales) => [...prevMateriales, selectedMaterial]);
@@ -102,7 +87,7 @@ const RegistrarTransacciones = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
+  
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
@@ -127,6 +112,7 @@ const RegistrarTransacciones = () => {
   };
 
   const handleGestorRealizaIdChange = async (e) => {
+    console.log("Cambio en el gestor realiza ID:", e.target.value);
     const selectedId = e.target.value;
     if (selectedId !== '0') {
       const parsedId = parseInt(selectedId);
@@ -135,10 +121,11 @@ const RegistrarTransacciones = () => {
           const response = await fetch(`http://localhost:3000/gestor/${parsedId}`);
           if (response.ok) {
             const data = await response.json();
-            setFormData({
-              ...formData,
-              gestor_id: data.id,
-            });
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            gestor_id: data.id,
+          }));
+            
             fetchMaterials(parsedId);
           } else {
             console.error('Error al obtener los detalles del gestor realiza:', response.status);
@@ -153,19 +140,25 @@ const RegistrarTransacciones = () => {
   };
 
   const handleTransformadorRecibeIdChange = async (e) => {
+    console.log("Cambio en el transformador recibe ID:", e.target.value);
     const selectedId = e.target.value;
+  
     if (selectedId !== '0') {
       const parsedId = parseInt(selectedId);
+  
       if (!isNaN(parsedId)) {
         try {
           const response = await fetch(`http://localhost:3000/transformador/${parsedId}`);
+          
           if (response.ok) {
             const data = await response.json();
-            setFormData({
-              ...formData,
-              transformador_id: data.id,
-            });
-            fetchDireccionPrincipal(parsedId);
+  
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              transformador_id: parsedId,
+            }));
+  
+            // Otras actualizaciones o lógica que necesites realizar
           } else {
             console.error('Error al obtener los detalles del transformador recibe:', response.status);
           }
@@ -177,31 +170,51 @@ const RegistrarTransacciones = () => {
       }
     }
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
   
+  
     // Eliminamos la confirmación
     // if (window.confirm('¿Estás seguro de que deseas enviar el formulario?')) {
   
-    const numericGestorRecibe = isNaN(formData.gestor_recibe)
-      ? formData.gestor_recibe
-      : parseFloat(formData.gestor_recibe);
+    const numericTransformadorRecibe = isNaN(formData.transformador_id)
+    ? formData.transformador_id
+    : parseFloat(formData.transformador);
   
-    // Eliminamos la condición userConfirmed y el bloque if (userConfirmed)
-    try {
-      const requestBody = {
-        gestor_realiza: formData.gestor_id,
-        transformador: formData.transformador_id,
-        material: formData.material,
-        cantidad: formData.cantidad,
-        fecha: formData.fecha,
-        archivoImagen: formData.archivoImagen,
-        descripcion: formData.descripcion,
-        ubicacion: formData.ubicacion,
-      };
+  try {
+    const requestBody = {
+      gestor_realiza: formData.gestor_id,
+      transformador: formData.transformador_id,
+      material: materiales.join(', '),
+      cantidad: formData.cantidad,
+      fecha: formData.fecha,
+      archivoImagen: formData.archivoImagen,
+      descripcion: formData.descripcion,
+      ubicacion: formData.ubicacion,
+      materialesComunes: materialesComunesString,
+      
+    };
+    console.log("Materiales comunes antes de setFormData:", materialesComunesString);
+    console.log("Materiales comunes antes de setFormData: ", materialesComunesString);
+
+
   
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      gestor_realiza: formData.gestor_id,
+      transformador: formData.transformador_id, // Usa numericTransformadorRecibe aquí
+      ubicacion: formData.ubicacion,
+      material: materialesComunesString,
+      materialesComunes: materialesComunesString,
+    }));
+
+    console.log("Nuevo estado después de setFormData:", formData);
+    console.log("Nuevo estado después de setFormData: ", formData);
+
+    console.log("Enviando requestBody a la API: ", requestBody);
       const requestOptions = {
         method: 'POST',
         headers: {
@@ -219,13 +232,14 @@ const RegistrarTransacciones = () => {
   
         setFormData({
           gestor_realiza: '',
-          gestor_recibe: '',
+          transformador_id: null,
           material: '',
           cantidad: '',
           fecha: '',
-          archivoImagen: null,
+          transformadorRecibeId: null,
           descripcion: '',
           ubicacion: '',
+          //
         });
       } else {
         if (response.status === 400) {
@@ -262,6 +276,47 @@ const RegistrarTransacciones = () => {
       .catch((error) => console.error('Error al obtener la dirección principal:', error));
   };
 
+  useEffect(() => {
+    console.log("Ejecutando useEffect...");
+    if (formData.gestor_id && formData.transformador_id) {
+      const gestor = gestores.find((g) => g.id === formData.gestor_id);
+      const transformador = trasformadores.find((t) => t.id === formData.transformador_id);
+  
+      console.log('Gestor:', gestor);
+      console.log('Transformador:', transformador);
+  
+      if (gestor && transformador && gestor.materiales_recolectados && transformador.materiales_recolectados) {
+        const gestorMaterials = gestor.materiales_recolectados.split(',').map((material) => material.trim());
+        const transformadorMaterials = transformador.materiales_recolectados.split(',').map((material) => material.trim());
+        const commonMaterials = gestorMaterials.filter((material) => transformadorMaterials.includes(material));
+  
+        setMateriales(commonMaterials);
+        setCantidades(Array.from({ length: commonMaterials.length }, () => ''));
+  
+        const materialesComunesString = commonMaterials.join(', ');
+        console.log("Common materials en useEffect:", commonMaterials);
+        console.log("Materiales comunes en useEffect:", materialesComunesString);
+  
+        setMaterialesComunesString(materialesComunesString);
+  
+        console.log('Materiales Comunes String:', materialesComunesString);
+        console.log('Estado Final:', formData);
+  
+        // Intentemos actualizar directamente formData.material y formData.materialesComunes
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          material: materialesComunesString,
+          materialesComunes: materialesComunesString,
+        }));
+  
+        fetchDireccionPrincipal(formData.transformador_id);
+      }
+    }
+  }, [formData.gestor_id, formData.transformador_id, gestores, trasformadores]);
+  
+  
+  console.log("Renderizando componente...");
+
   return (
     <div className="registrar-miembros-page">
       <h2>Formulario de Registro de Gestor - Transformador</h2>
@@ -285,8 +340,8 @@ const RegistrarTransacciones = () => {
         <div className="form-group">
           <label>Transformador Recibe</label>
           <select
-            name="trasformadorRecibeId"
-            value={formData.trasformadorRecibeId}
+            name="transformadorRecibeId"
+            value={formData.transformadorRecibeId}
             onChange={handleTransformadorRecibeIdChange}
           >
             <option value="">Selecciona un transformador recibe</option>

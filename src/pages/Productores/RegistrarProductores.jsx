@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/registrarProductor.css';
+import { format } from 'date-fns';
 
 const RegistrarProductores = () => {
   const [formData, setFormData] = useState({
@@ -9,7 +10,7 @@ const RegistrarProductores = () => {
     telefono: 0,
     direccion: '',
     cantidad: '',
-    materiales: '',
+    material: '',
   });
 
   const [registros, setRegistros] = useState([]);
@@ -49,63 +50,94 @@ const RegistrarProductores = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
-
     const userConfirmed = window.confirm('¿Estás seguro de que deseas enviar el formulario?');
 
     if (userConfirmed) {
-      const cantidadesString = getCantidadesString();
-      const materialesRecolectadosDefault = 'Papel, Cartón, Vidrio, Plástico Rígido, Plástico Flexible';
-
-      console.log('Cantidad a enviar:', cantidadesString);
-
-      const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          cantidad: getCantidadesString().split(',').map(str => str.trim()), // Convertir a cadena
-          materiales: materialesRecolectadosDefault,
-        }),
-      };
-
       try {
-        setMessage(null); // Limpiamos mensajes previos
-        const response = await fetch('http://localhost:3000/productor/registrar', requestOptions);
+        // Asegúrate de que los valores iniciales sean números
+        const cantidadesArray = [
+          Number(formData.papel) || 0,
+          Number(formData.carton) || 0,
+          Number(formData.vidrio) || 0,
+          Number(formData.plasticoRigido) || 0,
+          Number(formData.plasticoFlexible) || 0,
+        ];
 
-        if (response.ok) {
-          console.log('Registro exitoso');
-          setMessage('Registro exitoso');
-          fetchData();
+        const cantidadesStringResult = cantidadesArray.join(', ');
 
-          // Limpia el formulario después del registro exitoso
-          setFormData({
-            correo: '',
-            nombre: '',
-            nit: 0,
-            telefono: 0,
-            direccion: '',
-            cantidad: cantidadesString, // Asigna la cadena formateada aquí
-            materiales: materialesRecolectadosDefault, // Siempre establece la cadena predeterminada
-          });
-        } else if (response.status === 400) {
-          const errorData = await response.json();
-          setMessage('Error: ' + errorData.message);
-          console.error('Error al registrar:', errorData.message);
-        } else if (response.status === 500) {
-          setMessage('Error inesperado al registrar');
-          console.error('Error inesperado al registrar');
-        } else {
-          setMessage('Error inesperado al registrar');
-          console.error('Error inesperado al registrar');
+        console.log('Cantidad a enviar:', cantidadesStringResult);
+
+        const materialesRecolectadosDefault = 'Papel, Cartón, Vidrio, Plástico Rígido, Plástico Flexible';
+
+        // Actualiza formData antes de realizar la solicitud
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          cantidad: cantidadesStringResult,
+          material: materialesRecolectadosDefault,
+        }));
+
+        const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            correo: formData.correo,
+            nombre: formData.nombre,
+            nit: formData.nit,
+            telefono: formData.telefono,
+            direccion: formData.direccion,
+            cantidad: cantidadesStringResult,
+            material: materialesRecolectadosDefault,
+          }),
+        };
+
+        try {
+          setMessage(null); // Limpiamos mensajes previos
+          const response = await fetch('http://localhost:3000/productor/registrar', requestOptions);
+
+          if (response.ok) {
+            console.log('Registro exitoso');
+            setMessage('Registro exitoso');
+            fetchData();
+
+            // Limpia el formulario después del registro exitoso
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              correo: '',
+              nombre: '',
+              nit: 0,
+              telefono: 0,
+              direccion: '',
+              papel: '',  // Asegúrate de incluir limpiar cada campo de cantidad
+              carton: '',
+              vidrio: '',
+              plasticoRigido: '',
+              plasticoFlexible: '',
+              material: '',
+            }));
+          } else if (response.status === 400) {
+            const errorData = await response.json();
+            setMessage('Error: ' + errorData.message);
+            console.error('Error al registrar:', errorData.message);
+          } else if (response.status === 500) {
+            setMessage('Error inesperado al registrar');
+            console.error('Error inesperado al registrar');
+          } else {
+            setMessage('Error inesperado al registrar');
+            console.error('Error inesperado al registrar');
+          }
+        } catch (error) {
+          setMessage('Error al realizar la solicitud: ' + error.message);
+          console.error('Error al realizar la solicitud:', error);
         }
       } catch (error) {
-        setMessage('Error al realizar la solicitud: ' + error.message);
-        console.error('Error al realizar la solicitud:', error);
+        console.error('Error al intentar enviar el formulario:', error);
       }
     } else {
       console.log('Envío del formulario cancelado');
     }
   };
+
+
 
 
 
@@ -122,10 +154,10 @@ const RegistrarProductores = () => {
       const response = await fetch(`http://localhost:3000/productor/${id}`);
       if (response.ok) {
         const data = await response.json();
-  
+
         // Verifica si "cantidad" existe y es una cadena antes de intentar dividirla
         const cantidadesArray = (typeof data.cantidad === 'string' ? data.cantidad : '').split(',').map(str => str.trim());
-  
+
         // Establece los valores de cantidades en el estado del formulario
         setFormData({
           ...data,
@@ -142,7 +174,7 @@ const RegistrarProductores = () => {
       console.error('Error al realizar la solicitud:', error);
     }
   };
-  
+
 
   const guardarEdicion = async () => {
     const indiceEdicion = registros.findIndex((registro) => registro.id === editandoId);
@@ -155,7 +187,7 @@ const RegistrarProductores = () => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             ...formData,
-            cantidad: getCantidadesString(), // Actualiza la cantidad al editar
+            //cantidad: getCantidadesString(), // Actualiza la cantidad al editar
           }),
         });
 
@@ -171,7 +203,7 @@ const RegistrarProductores = () => {
             telefono: 0,
             direccion: '',
             cantidad: '', // Deja este campo en blanco
-            materiales: '', // Puedes ajustar este valor según tus necesidades
+            material: '', // Puedes ajustar este valor según tus necesidades
           });
           setEditandoId(null);
 
@@ -203,21 +235,22 @@ const RegistrarProductores = () => {
     });
   };
 
-  const getCantidadesString = () => {
+  /*const getCantidadesString = () => {
     const cantidades = [
-      formData.papel || 0,
-      formData.carton || 0,
-      formData.vidrio || 0,
-      formData.plasticoRigido || 0,
-      formData.plasticoFlexible || 0,
+      formData.papel,
+      formData.carton,
+      formData.vidrio,
+      formData.plasticoRigido,
+      formData.plasticoFlexible,
     ];
-
-    // Convierte cada cantidad a cadena y luego únelas con ', '
-    const cantidadesString = cantidades.map(String).join(', ');
-
+  
+    // Convierte cada cantidad a cadena, trata las cantidades falsy como cero y luego únelas con ', '
+    const cantidadesString = cantidades.map(cantidad => String(cantidad || 0)).join(', ');
+  
     // Devuelve solo la cadena de cantidades sin la clave "cantidades"
     return cantidadesString;
-  };
+  };*/
+
 
 
 
@@ -239,7 +272,7 @@ const RegistrarProductores = () => {
             telefono: 0,
             direccion: '',
             cantidad: '',
-            materiales: '',
+            material: '',
           });
           setEditandoId(null);
         }

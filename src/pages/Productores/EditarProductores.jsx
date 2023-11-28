@@ -11,7 +11,7 @@ const EditarProductores = () => {
     nit: 0,
     telefono: 0,
     direccion: '',
-    materiales: '',
+    material: '',
     cantidad: '',
   });
 
