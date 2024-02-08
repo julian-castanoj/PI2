@@ -40,8 +40,9 @@
 };*/
 
 import React, { useState, useEffect, useCallback } from 'react';
-import '../../styles/registrarTransacciones.css';
+import '../../styles/GESTOGESTORREGISTRO.css';
 import { useNavigate } from 'react-router-dom';
+import { MdCalendarMonth } from "react-icons/md";
 
 const RegistrarGestorGestor = () => {
   const [formData, setFormData] = useState({
@@ -111,7 +112,7 @@ const RegistrarGestorGestor = () => {
       ...prevFormData,
       material: selectedMaterial,
     }));
-  
+
     setMateriales((prevMateriales) => [...prevMateriales, selectedMaterial]);
   };
 
@@ -120,14 +121,14 @@ const RegistrarGestorGestor = () => {
     const parsedId = parseInt(gestorId);
     if (!isNaN(parsedId)) {
       fetch(`http://localhost:3000/gestor/${parsedId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data && data.materiales_recolectados) {
-          const materialList = data.materiales_recolectados.split(',').map(materialId => materialId.trim());
-          setMateriales(materialList);
-        }
-      })
-      .catch((error) => console.error('Error al obtener la lista de materiales:', error));
+        .then((response) => response.json())
+        .then((data) => {
+          if (data && data.materiales_recolectados) {
+            const materialList = data.materiales_recolectados.split(',').map(materialId => materialId.trim());
+            setMateriales(materialList);
+          }
+        })
+        .catch((error) => console.error('Error al obtener la lista de materiales:', error));
     } else {
       console.error('El ID seleccionado no es válido:', gestorId);
     }
@@ -135,7 +136,7 @@ const RegistrarGestorGestor = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
@@ -214,7 +215,7 @@ const RegistrarGestorGestor = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
-  
+
     if (window.confirm("¿Estás seguro de que deseas enviar el formulario?")) {
       try {
         const requestBody = {
@@ -222,7 +223,7 @@ const RegistrarGestorGestor = () => {
           cantidad: cantidades.join(', '),
           material: materiales.join(', '),
         };
-  
+
         const requestOptions = {
           method: 'POST',
           headers: {
@@ -230,13 +231,15 @@ const RegistrarGestorGestor = () => {
           },
           body: JSON.stringify(requestBody),
         };
-  
+
         const response = await fetch('http://localhost:3000/transacciones', requestOptions);
-  
+
         if (response.ok) {
           console.log('Registro exitoso');
           fetchData();
-  
+
+          setMateriales([]);
+          setCantidades(Array.from({ length: materiales.length }, () => ''));
           setFormData({
             gestor_realiza: '',
             gestor_recibe: '',
@@ -246,6 +249,7 @@ const RegistrarGestorGestor = () => {
             descripcion: '',
             ubicacion: '',
           });
+          setMessage('Registro exitoso');
         } else {
           if (response.status === 400) {
             const errorData = await response.json();
@@ -262,11 +266,11 @@ const RegistrarGestorGestor = () => {
       console.log('Envío del formulario cancelado');
     }
   };
-  
-  
-  
+
+
+
   const editarRegistro = (id) => {
-    
+
     setEditandoId(id);
   };
 
@@ -329,12 +333,30 @@ const RegistrarGestorGestor = () => {
   };
 
   return (
-    <div className="registrar-miembros-page">
-      <h2>Formulario de Registro de Transacción - Gestor Gestor</h2>
+    <div className="registrar-miembros-page2">
+
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Gestor Realiza</label>
+
+        <div className="GESTORGESTOR">
+          <div className="contenido-wrapperGG">
+            <div className="contenidoGG">
+              <div className="formGG">
+                <div className="groupGG">
+                  <div className="text-wrapperGeGe">Información</div>
+                </div>
+              </div>
+              <p className="divGeGe">Formulario de registro de transacción - gestor a gestor</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="GESTOR-GESTOR1">
+          <label className="gestorgg-wrapper">
+            <div className="gestorgg">ID - Nombre del gestor REALIZA</div>
+          </label>
           <select
+            className="selectoutlineGG"
+            style={{ width: '210px', backgroundColor: '#f5f6fa', color: '#7c7d7f' }}
             name="gestor_realiza"
             value={formData.gestor_realiza}
             onChange={handleGestorRealizaIdChange}
@@ -348,102 +370,138 @@ const RegistrarGestorGestor = () => {
           </select>
         </div>
 
-        <div className="form-group">
-          <label>Gestor Recibe</label>
+        <div className="GESTOR-GESTOR2">
+          <label className="gestorgr-wrapper">
+            <div className="gestorgr">ID - Nombre del gestor REALIZA</div>
+          </label>
           <select
+            className="selectoutlineGR"
+            style={{ width: '210px', backgroundColor: '#f5f6fa', color: '#7c7d7f' }}
             name="gestor_recibe"
             value={formData.gestor_recibe}
             onChange={handleGestorRecibeIdChange}
           >
-            <option value="">Selecciona un gestor recibe</option>
-            {gestores.map((gestor) => (
-              <option key={gestor.id} value={gestor.id}>
-                {`${gestor.id} - ${gestor.nombre}`}
-              </option>
-            ))}
+            <option value="">Selecciona un gestor realiza</option>
+            {gestores
+              .filter((gestor) => gestor.id !== formData.gestor_realiza) 
+              .map((gestor) => (
+                <option key={gestor.id} value={gestor.id}>
+                  {`${gestor.id} - ${gestor.nombre}`}
+                </option>
+              ))}
           </select>
         </div>
 
-        <div className="">
-          <div className="">
+        <div className="material2GG">
+          <div className="materialNGG">
             <label>Materiales Asociados</label>
-            <table>
-              <thead>
+          </div>
+          <table className="materiales-tableGG">
+            <thead>
+              <div className="material1GG">
                 <tr>
-                  <th>Material</th>
+                  <th></th>
                 </tr>
-              </thead>
-              <tbody>
+              </div>
+            </thead>
+            <tbody>
+              <div className="materialGG" >
                 {materiales.map((materialId, index) => (
                   <tr key={index}>
-                    <td>{materialId}</td>
+                    <td style={{ height: '35px' }}>{materialId}</td>
                   </tr>
                 ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="">
-            <label>Cantidades</label>
-            <table>
-              <thead>
-                <tr>
-                  <th>Cantidad</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Array.from({ length: materiales.length }).map((_, index) => (
-                  <tr key={index}>
-                    <td>
+              </div>
+            </tbody>
+          </table>
+        </div>
+
+
+        <div className="cantidad2GG">
+          <table className="cantidad-tableGG">
+            <thead>
+              <tr>
+                <th style={{ fontFamily: 'lato' }}>Cantidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Array.from({ length: materiales.length }).map((_, index) => (
+                <tr key={index}>
+                  <td>
+                    <div className="Cantidad1GG">
                       <input
+                        style={{ backgroundColor: '#f5f6fa', color: '#7c7d7f', fontFamily: 'Lato' }}
                         type="number"
                         value={cantidades[index]}
                         onChange={(e) => handleCantidadChange(index, e)}
                         placeholder="Ingrese un número"
+
                       />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
-        <div className="form-group">
-          <label>Fecha</label>
+        
+        <label className="fechaGG-wrapper">
+          <div className="fechaGG">Fecha</div>
+        </label>
+
+        <div className="div-GG1">
           <input
+            className="overlap-groupGG1 text-wrapperGG1 fechaGG1"
+            style={{ width: '130px', zIndex: '1' }}
             type="date"
             name="fecha"
             value={formData.fecha}
             onChange={handleChange}
+
           />
+          <div className='calendarGG' style={{ pointerEvents: 'none', zIndex: '2' }} >
+            <MdCalendarMonth color='#069877' />
+          </div>
         </div>
-        <div className="form-group">
-          <label>Archivo de Imagen</label>
+
+        <div className="div-GG2">
+
           <input
+            className="overlap-groupGG1 text-wrapperGG1"
             type="file"
             name="archivoImagen"
             accept="image/*"
             onChange={handleChange}
+            placeholder="Archivo de Imagen"
           />
         </div>
-        <div className="form-group">
-          <label>Descripción</label>
+
+        <div className="div-GG4">
+
           <input
+            style={{ backgroundColor: '#f5f6fa' }}
+            className="overlap-groupGG2 text-wrapperGG1"
             type="text"
             name="descripcion"
             value={formData.descripcion}
             onChange={handleChange}
+            placeholder="Descripción"
           />
         </div>
 
-        <div className="form-group">
-          <label>Ubicación</label>
+        <div className="GESTOR-GESTOR4">
+          <label className="gestorGG-wrapper">
+            <div className="gestor">Ubicación</div>
+          </label>
           <select
+            className="selectoutlineGU"
+            style={{ width: '250px', backgroundColor: '#f5f6fa', color: '#7c7d7f' }}
             name="ubicacion"
             value={formData.ubicacion}
             onChange={handleChange}
           >
-            <option value="">Selecciona un punto de recolección</option>
+            <option value="">Selecciona punto de Recolección</option>
             {puntosRecoleccion.map((punto, index) => (
               <option key={index} value={punto}>
                 {punto}
@@ -452,37 +510,60 @@ const RegistrarGestorGestor = () => {
           </select>
         </div>
 
-        {/* message && <p style={{ color: message.startsWith('Error') ? 'red' : 'green' }}>{message}</p> */}
 
-        <div className="form-group">
-          <button type="submit" className="submit-button">
-            Registrar
-          </button>
-          {editandoId ? (
-            <button onClick={guardarEdicion} className="edit-button">
-              Guardar Edición
+
+        <div className="errorGG">
+          {message && <p style={{ color: message.startsWith('Error') ? 'red' : 'green' }}>{message}</p>}
+        </div>
+
+        <div className="boxGG">
+          <div className="CRGG">
+            <button type="button" className="cancelarGG" onClick={handleCancelar}>
+              <div className="ogGG">
+                <div className="twGG">Cancelar</div>
+              </div>
             </button>
-          ) : null}
-          <button type="button" className="register-button" onClick={handleCancelar}>
-            Salir
-          </button>
+
+            {editandoId ? (
+              <button type="button" className="twregistrarGG" onClick={guardarEdicion}>
+                <div className="dGG">Guardar Edición</div>
+              </button>
+            ) : (
+              <button type="submit" className="twregistrarGG" onClick={handleSubmit}>
+                <div className='oGG'>
+                  <div className="dGG">Registrar</div>
+                </div>
+              </button>
+            )}
+
+          </div>
         </div>
       </form>
 
-      <h2>Registros</h2>
-      <ul>
-        {registros.slice(-5).map((registro) => (
-          <li key={registro.id}>
-            <span>{registro.fecha}</span>
-            <button onClick={() => editarRegistro(registro.id)} className="edit-button">
-              Editar
-            </button>
-            <button onClick={() => eliminarRegistro(registro.id)} className="delete-button">
-              Eliminar
-            </button>
-          </li>
-        ))}
-      </ul>
+
+      <div className="labGG">
+        <div className="textlGG">Registros</div>
+      </div>
+
+      <div className='registrosGG'>
+        <div className="box4GG">
+          <div className="group4GG">
+            <ul className="uliGG">
+              {registros.slice(-5).map((registro) => (
+                <li key={registro.id} className="registroGG">
+                  <div className="text-wrapper-7-GG"> Gestor Realiza </div>
+                  <span className="spanGG">{registro.gestor_realiza}</span>
+
+                  <div className="div2GG"> Gestor Recibe </div>
+                  <span className="span2GG">{registro.gestor_recibe}</span>
+
+
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

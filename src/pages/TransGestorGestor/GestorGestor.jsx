@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import '../../styles/custom-table.css';
+
+import '../../styles/Tablas/new-table4.css';
+import { HiOutlineArrowCircleRight } from "react-icons/hi";
+import { HiOutlineArrowCircleLeft } from "react-icons/hi";
 
 const GestorGestor = () => {
   const [data, setData] = useState([]);
@@ -91,7 +94,7 @@ const GestorGestor = () => {
 
   return (
     <div className="about-page">
-      <h1 className="page-title">Gestor Gestor</h1>
+      
       <div className="search-bar">
         <input
           type="text"
@@ -101,6 +104,8 @@ const GestorGestor = () => {
           className="search-input"
         />
       </div>
+
+      {/*
       <table className="custom-table">
         <thead>
           <tr>
@@ -111,7 +116,7 @@ const GestorGestor = () => {
             <th>Fecha</th>
             <th>Descripción</th>
             <th>Ubicación</th>
-            <th>Acciones</th>
+           
           </tr>
         </thead>
         <tbody>
@@ -124,38 +129,98 @@ const GestorGestor = () => {
               <td>{item.fecha}</td>
               <td>{item.descripcion}</td>
               <td>{item.ubicacion}</td>
-              <td>
-                <Link to={`/editarGestorGestor/${item.id}`}>
-                  <button>Editar</button>
-                </Link>
-              </td>
+              
             </tr>
           ))}
         </tbody>
-      </table>
+      </table> */}
 
-      <div className="pagination">
+<div className="GESTORGESTOR">
+        <div className="contenido-wrapper">
+          <div className="contenido">
+            <div className="tabla">
+
+              <div>
+                {paginatedData.map((item) => (
+                  <div className="MEETING" key={item.id}>
+                    <div className="group">
+                      <div className="text-wrapper-12">{getGestorNameById(item.gestor_realiza)}</div>
+                      <div className="text-wrapper-10">{getGestorNameById(item.gestor_recibe)}</div>
+                      <div className="text-wrapper-2">{item.imagen ? item.gestor.nombre : 'Imagen no encontrado'}</div>
+                      <div className="text-wrapper-3">{item.fecha}</div>
+                      <div className="text-wrapper1">{item.descripcion ? item.gestor.nombre : 'Descripcion no encontrado'}</div>
+                      <div className="text-wrapper-11">{item.ubicacion ? item.gestor.nombre : 'Ubicacion no encontrado'}</div>
+                    </div>
+                    <div className="navbar">
+                      <div className="text-wrapper-4">Gestor realiza</div>
+                      <div className="text-wrapper-5">Gestor Recive</div>
+                      <div className="text-wrapper-13">Imagen</div>
+                      <div className="text-wrapper-6">Fecha</div>
+                      <div className="text-wrapper-7">Descripcion</div>
+                      <div className="text-wrapper-8">Ubicacion</div>
+                    </div>
+
+
+
+
+
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+     <div className="pagination" style={{ display: 'flex', alignItems: 'center' }}>
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
+          style={{
+            backgroundColor: 'transparent',
+            color: '#069877',
+            fontSize: '18px',
+            padding: '8px 12px',
+            border: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+          }}
         >
-          Anterior
+          <HiOutlineArrowCircleLeft style={{ color: '#069877', marginRight: '5px', fontSize: '40px' }} />
+          <span style={{ marginRight: '10px' }}>Anterior</span> {/* Quitamos el margen izquierdo */}
         </button>
-        <span>Página {currentPage} de {totalPages}</span>
+        <span style={{ marginRight: '10px' }}>Página {currentPage} de {totalPages}</span> {/* Agregamos un margen derecho */}
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
+          style={{
+            backgroundColor: 'transparent',
+            color: '#069877',
+            fontSize: '18px',
+            padding: '8px 12px',
+            border: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+          }}
         >
-          Siguiente
+          <span style={{ marginRight: '10px' }}>Siguiente</span> {/* Agregamos un margen derecho */}
+          <HiOutlineArrowCircleRight style={{ color: '#069877', marginLeft: '5px', fontSize: '40px' }} />
         </button>
       </div>
 
-      <div className="action-buttons">
-        <Link to="/registrarGestorGestor" className="register-button">
-          Registrar Transacción Gestor Gestor
-        </Link>
+
+      <div className="registrarGg">
+        <div className='oGg'>
+          <Link to="/registrarGestorGestor" className="dGg">
+            Registrar
+          </Link>
+        </div>
       </div>
     </div>
+
   );
 };
 

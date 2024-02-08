@@ -1,0 +1,741 @@
+.registrar-miembros-page1 {
+  height: 1640px;
+  width: 820px;
+  overflow-x: scroll;
+}
+
+.TRANSFORMADORES-REGISTRO {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 1000px;
+}
+
+.TRANSFORMADORES-REGISTRO .overlap-wr {
+  background-color: #ffffff;
+  height: 640px;
+  width: 1165px;
+}
+
+.TRANSFORMADORES-REGISTRO .ov {
+  height: 527px;
+  left: 53px;
+  position: relative;
+  top: 78px;
+  width: 677px;
+}
+
+.TRANSFORMADORES-REGISTRO .contenidoT {
+  height: 527px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 677px;
+}
+
+.TRANSFORMADORES-REGISTRO .overlap-gr {
+  height: 527px;
+  position: relative;
+  width: 675px;
+}
+
+.TRANSFORMADORES-REGISTRO .formT {
+  height: 454px;
+  left: 0;
+  position: absolute;
+  top: 73px;
+  width: 484px;
+}
+
+.TRANSFORMADORES-REGISTRO .divT {
+  height: 454px;
+  position: relative;
+  width: 414px;
+}
+
+.TRANSFORMADORES-REGISTRO .groupT {
+  height: 35px;
+  left: -20px;
+  position: absolute;
+  top: 97px;
+  width: 406px;
+}
+
+.TRANSFORMADORES-REGISTRO .div-wrapperT {
+  background-color: #f5f6fa;
+  border-radius: 5px;
+  height: 15px;
+  position: absolute;
+  width: 4px;
+  top: -40px;
+  left: -20px;
+}
+
+.TRANSFORMADORES-REGISTRO .text-wrapperT {
+  color: #7c7d7f;
+  font-family: "Lato", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  left: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 9px;
+  width: 353px;
+}
+
+.TRANSFORMADORES-REGISTRO .overlap-gr-wrapper {
+  height: 15px;
+  left: -20px;
+  position: absolute;
+  top: 45px;
+  width: 406px;
+}
+
+.TRANSFORMADORES-REGISTRO .groupT-2 {
+  height: 15px;
+  left: -20px;
+  position: absolute;
+  top: 149px;
+  width: 406px;
+}
+
+.TRANSFORMADORES-REGISTRO .text-wrapperT-2 {
+  color: #7c7d7f;
+  font-family: "Lato", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  left: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 9px;
+  width: 226px;
+}
+
+.TRANSFORMADORES-REGISTRO .groupT-3 {
+  height: 15px;
+  left: -20px;
+  position: absolute;
+  top: 200px;
+  width: 406px;
+}
+
+.TRANSFORMADORES-REGISTRO .groupT-4 {
+  height: 40px;
+  left: 400px;
+  position: absolute;
+  top: 400px;
+  width: 40px;
+}
+
+.TRANSFORMADORES-REGISTRO .overlap-2 {
+  height: 54px;
+  left: -20px;
+  position: absolute;
+  top: 0;
+  width: 414px;
+  top: 250px;
+}
+
+.TRANSFORMADORES-REGISTRO .overlap-3 {
+  height: 54px;
+  left: -20px;
+  position: absolute;
+  top: 0;
+  width: 414px;
+  top: 300px;
+}
+
+.TRANSFORMADORES-REGISTRO .overlap-4 {
+  height: 54px;
+  left: -20px;
+  position: absolute;
+  top: 0;
+  width: 414px;
+  top: 350px;
+}
+
+.TRANSFORMADORES-REGISTRO .overlap-5 {
+  height: 54px;
+  left: -20px;
+  position: absolute;
+
+  width: 414px;
+  top: 400px;
+}
+
+
+
+.TRANSFORMADORES-REGISTRO .text-wrapperT-3 {
+  color: #000022;
+  font-family: "Lato", Helvetica;
+  font-size: 16px;
+  font-weight: 700;
+  left: 17px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: -70px;
+  white-space: nowrap;
+}
+
+.TRANSFORMADORES-REGISTRO .p {
+  color: #000022;
+  font-family: "Lato", Helvetica;
+  font-size: 36px;
+  font-weight: 600;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: -40px;
+  width: 800px;
+
+}
+
+.TRANSFORMADORES-REGISTRO .groupT-5 {
+  height: 35px;
+  left: 0;
+  position: absolute;
+  top: 110px;
+  width: 406px;
+}
+
+/* checkbox */
+
+.TRANSFORMADOR-REGISTRO1 {
+
+  display: absolute;
+  flex-direction: row;
+  justify-content: center;
+  width: 1000px;
+  position: absolute;
+  top: 900px;
+  left: 250px;
+}
+
+.TRANSFORMADOR-REGISTRO1 .overlap-group-wrappertr {
+
+  height: 250px;
+  width: 400px;
+}
+
+.TRANSFORMADOR-REGISTRO1 .overlap-grouptr {
+
+  height: 200px;
+  position: relative;
+}
+
+.TRANSFORMADOR-REGISTRO1 .contenidotr {
+  height: 294px;
+  left: 300px;
+  position: absolute;
+  top: 14px;
+  width: 353px;
+}
+
+.TRANSFORMADOR-REGISTRO1 .formtr {
+  height: 204px;
+  position: relative;
+  width: 367px;
+}
+
+.TRANSFORMADOR-REGISTRO1 .text-wrapper-materiales-transforma {
+  color: #000022;
+  font-family: "Lato", Helvetica;
+  font-size: 16px;
+  font-weight: 700;
+  left: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: -30px;
+  white-space: nowrap;
+}
+
+.TRANSFORMADOR-REGISTRO1 .group-2 {
+  height: 25px;
+  left: 159px;
+  position: absolute;
+  top: 180px;
+  width: 40px;
+}
+
+.TRANSFORMADOR-REGISTRO1 .text-wrapper-3 {
+
+  color: #000022;
+  font-family: "Lato",
+    Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  left: 48px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: right;
+  top: 133px;
+  width: 64px;
+}
+
+.TRANSFORMADOR-REGISTRO1 .text-wrapper-4 {
+
+  color: #000022;
+  font-family: "Lato",
+    Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  left: 48px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: right;
+  top: 183px;
+  width: 64px;
+}
+
+.TRANSFORMADOR-REGISTRO1 .text-wrapper-5 {
+  color: #000022;
+  font-family: "Lato", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  left: 11px;
+  letter-spacing: 0;
+  width: 337px;
+}
+
+
+
+.TRANSFORMADOR-REGISTRO1 .divtr {
+
+  color: #000022;
+  font-family: "Lato", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  left: -15px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: relative;
+  text-align: right;
+  top: 60px;
+  width: 104px;
+}
+
+.TRANSFORMADOR-REGISTRO1 .checkbox {
+  position: relative;
+  top: 45px;
+  left: 170px;
+
+}
+
+
+.TRANSFORMADOR-REGISTRO1 .text-wrapper-2tr {
+  color: #000022;
+  font-family: "Lato", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  left: 132px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 20px;
+  width: 88px;
+}
+
+.TRANSFORMADOR-REGISTRO1 .group {
+  height: 25px;
+  left: 159px;
+  position: absolute;
+  top: 228px;
+  width: 40px;
+}
+
+.TRANSFORMADOR-REGISTRO1 .img {
+  height: 25px;
+  left: 159px;
+  position: absolute;
+  top: 133px;
+  width: 40px;
+  line-height: normal;
+  position: absolute;
+  text-align: right;
+  top: 233px;
+  width: 101px;
+}
+
+
+
+.TRANSFORMADOR-REGISTRO1 .text-wrapper-6 {
+
+  color: #000022;
+  font-family: "Lato",
+    Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: right;
+  top: 277px;
+  width: 112px;
+}
+
+.TRANSFORMADOR-REGISTRO1 .radio-checked-radio {
+
+  height: 25px;
+  left: 169px;
+  position: absolute;
+  top: 96px;
+  width: 40px;
+}
+
+.TRANSFORMADOR-REGISTRO1 .radio-checked-radio-2 {
+  height: 25px;
+  left: 170px;
+  position: absolute;
+  top: 287px;
+  width: 40px;
+}
+
+/* Estado */
+
+.anla,
+.anla-wrapper {
+  position: absolute;
+  width: 209px;
+  height: 16.6px;
+}
+
+.anla {
+  top: 15px;
+  left: 0;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.anla-wrapper {
+  cursor: pointer;
+  top: 47.8px;
+  left: 30px;
+}
+
+.selectoutline1 {
+  position: absolute;
+  top: 59px;
+  left: 207px;
+  font-family: Roboto;
+  font-size: 16px;
+  color: #1a202c;
+  width: 140px;
+  height: 30px;
+}
+
+.TRANSFORMADOR-REGISTRO2 {
+  width: 340px;
+  position: relative;
+
+  height: 103px;
+  text-align: left;
+  font-size: 14px;
+  color: #002;
+  font-family: Lato;
+  top: 240px;
+}
+
+/* Botones */
+
+.boxT {
+  height: 45px;
+  position: absolute;
+  width: 215px;
+  top: -280px;
+  left: 0px;
+}
+
+.boxT .CRT {
+  height: 45px;
+  left: 600px;
+  position: absolute;
+  top: 1650px;
+  width: 215px;
+}
+
+.boxT .cancelarT {
+  height: 45px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 105px;
+  border-radius: 10px;
+}
+
+.boxT .ogT {
+  background-color: #ffff;
+  border: 1px solid;
+  border-color: #069877;
+  border-radius: 10px;
+  height: 45px;
+  position: relative;
+  width: 103px;
+  left: -2px;
+  top: -2px;
+}
+
+.boxT .twT {
+  color: #069877;
+  font-family: "Lato-Bold", Helvetica;
+  font-size: 18px;
+  font-weight: 700;
+  left: 13px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 10px;
+  width: 80px;
+}
+
+.boxT .registrarT {
+  height: 45px;
+  left: 115px;
+  position: absolute;
+  top: 0;
+  width: 102px;
+  border-radius: 10px;
+}
+
+.b4editar{
+  height: 45px;
+  left: 115px;
+  position: absolute;
+  top: 0;
+  width: 102px;
+  border-radius: 10px;
+}
+
+.boxT .oT {
+  background-color: #069877;
+  border-radius: 10px;
+  height: 45px;
+  position: relative;
+  width: 103px;
+  left: -20px;
+  top: -10px;
+}
+
+.boxT .dT {
+  color: #ffffff;
+  font-family: "Lato-Bold", Helvetica;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 10px;
+
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  height: 45px;
+  background-color: #069877;
+  width: 103px;
+  left: -1px;
+  top: -1px;
+}
+
+/* error */
+
+.errorT {
+  height: 43px;
+  width: 1440px;
+  position: absolute;
+  top: 1320px;
+}
+
+/* ANLA SI */
+
+.overlap-6 {
+  
+  height: 54px;
+  left: 440px;
+  position: absolute;
+
+  width: 414px;
+  top: 1250px;
+}
+
+/* Registros */
+
+/* Registros */
+
+.labT {
+  height: 43px;
+  width: 147px;
+  position: absolute;
+}
+
+.labT .textT {
+  color: #000022;
+  font-family: "Lato-SemiBold", Helvetica;
+  font-size: 36px;
+  font-weight: 600;
+  left: 50px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 460px;
+  white-space: nowrap;
+}
+
+/* Registros span */
+.registrosT {
+  
+  position: absolute;
+  top: -550px;
+  left: 50px;
+  
+}
+
+.boxTR {
+  height: 18px;
+  position: absolute;
+  width: 311px;
+  top: 200px;
+}
+
+.boxTR .groupTR {
+  height: auto;
+  left: 420px;
+  position: absolute;
+  top: 1930px;
+  width: 317px;
+}
+
+.boxTR .registroTR {
+  margin-bottom: 0px;
+  top: 10px;
+  
+  
+}
+
+.boxTR .text-wrapper-TR {
+  color: #000022;
+  font-family: "Lato-Bold", Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: -40px;
+  white-space: nowrap;
+  
+  
+}
+
+
+.boxTR .divTR {
+  color: #000022;
+  font-family: "Lato-Bold", Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 330px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: -40px;
+  white-space: nowrap;
+
+}
+
+.boxTR .text-wrapper-Tra {
+  color: #000022;
+  font-family: "Lato-Bold", Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 520px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: -40px;
+  white-space: nowrap;
+  margin-bottom: 25px;
+  
+}
+
+.spanTR {
+  margin-right: 0px; 
+  height: 53px;
+  width: 1040px;
+}
+
+.spanTR1{
+  margin-right: -10px; 
+  height: 53px;
+  width: 1040px;
+  left: -20px;
+}
+
+.uliTR {
+  margin-right: 20px; 
+  height: 53px;
+  width: 640px;
+  
+  
+
+}
+
+
+.registrosT li {
+  display: flex;
+  align-items: center; /* Centra verticalmente el contenido */
+}
+
+.registrosT li .text-wrapper-TR,
+.registrosT li .divTR,
+.registrosT li .text-wrapper-Tra {
+  margin-right: 10px; /* Ajusta el valor según sea necesario */
+}
+
+.registrosT li .spanTR {
+  margin-left: -50px; /* Ajusta el valor según sea necesario */
+}
+
+.registrosT li .spanTR1 {
+  margin-left: 200px; /* Ajusta el valor según sea necesario */
+}
+
+
+
+/* Ajusta el espacio entre los botones si es necesario */
+.registrosT li .edit-buttonT,
+.registrosT li .delete-buttonT {
+  margin-left: 10px; /* Ajusta el valor según sea necesario */
+
+}
+
+.delete-buttonT{
+  height: 35px;
+  width: 280px;
+  font-size: 30px;
+  border-color: transparent;
+  background-color: transparent;
+
+}
+
+.edit-buttonT{
+  color: #069877;
+  height: 35px;
+  width: 280px;
+  font-size: 30px;
+  background-color: transparent;
+  border-radius: 5px;
+  border-color: transparent;
+}
+
+.icon-container {
+  color: #7C7D7F; 
+  
+}

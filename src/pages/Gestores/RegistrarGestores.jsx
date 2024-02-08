@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/registrarMiembros.css';
+import { IoTrashOutline } from "react-icons/io5";
+import { BiSolidEdit } from "react-icons/bi";
 
 
 const RegistrarGestores = () => {
@@ -128,7 +130,7 @@ const RegistrarGestores = () => {
     }
   };
 
-  const editarRegistro = async (id) => {
+  const editaregistro = async (id) => {
     try {
       const response = await fetch(`http://localhost:3000/gestor/${id}`);
       if (response.ok) {
@@ -173,7 +175,7 @@ const RegistrarGestores = () => {
           categoria_municipio: '',
           municipio: '',
           correo: '',
-          
+
           puntos_recoleccion: '',
           mecanismos_recoleccion: '',
           materiales_recolectados: '',
@@ -205,57 +207,57 @@ const RegistrarGestores = () => {
   const eliminarRegistro = async (id) => {
     const confirmCancel = window.confirm('¿Seguro que quieres eliminar el resgitro?');
     if (confirmCancel) {
-      
-    try {
-      const response = await fetch(`http://localhost:3000/gestor/${id}`, {
-        method: 'DELETE',
-      });
-      if (response.ok) {
-        const registrosActualizados = registros.filter((registro) => registro.id !== id);
-        setRegistros(registrosActualizados);
 
-        if (editandoId === id) {
-          setFormData({
-            nombre: '',
-            capacidad: 0,
-            nit: 0,
-            telefono: 0,
-            direccion: '',
-            estado: true,
-            categoria_municipio: '',
-            municipio: '',
-            correo: '',
-            toneladas_recolectadas: '',
-            puntos_recoleccion: '',
-            mecanismos_recoleccion: '',
-            materiales_recolectados: '',
-          });
-          setEditandoId(null);
-        }
+      try {
+        const response = await fetch(`http://localhost:3000/gestor/${id}`, {
+          method: 'DELETE',
+        });
+        if (response.ok) {
+          const registrosActualizados = registros.filter((registro) => registro.id !== id);
+          setRegistros(registrosActualizados);
 
-        console.log('Eliminación exitosa');
-        setMessage('Eliminación exitosa');
-      } else {
-        if (response.status === 400) {
-          const errorData = await response.json();
-          setMessage('Error al eliminar el registro: ' + errorData.errors);
-          console.error('Error al eliminar el registro:', errorData.errors);
-        } else if (response.status === 500) {
-          setMessage('Error inesperado al eliminar el registro');
-          console.error('Error inesperado al eliminar el registro');
+          if (editandoId === id) {
+            setFormData({
+              nombre: '',
+              capacidad: 0,
+              nit: 0,
+              telefono: 0,
+              direccion: '',
+              estado: true,
+              categoria_municipio: '',
+              municipio: '',
+              correo: '',
+              toneladas_recolectadas: '',
+              puntos_recoleccion: '',
+              mecanismos_recoleccion: '',
+              materiales_recolectados: '',
+            });
+            setEditandoId(null);
+          }
+
+          console.log('Eliminación exitosa');
+          setMessage('Eliminación exitosa');
         } else {
-          setMessage('Error inesperado al eliminar el registro');
-          console.error('Error inesperado al eliminar el registro');
+          if (response.status === 400) {
+            const errorData = await response.json();
+            setMessage('Error al eliminar el registro: ' + errorData.errors);
+            console.error('Error al eliminar el registro:', errorData.errors);
+          } else if (response.status === 500) {
+            setMessage('Error inesperado al eliminar el registro');
+            console.error('Error inesperado al eliminar el registro');
+          } else {
+            setMessage('Error inesperado al eliminar el registro');
+            console.error('Error inesperado al eliminar el registro');
+          }
         }
+      } catch (error) {
+        setMessage('Error al realizar la solicitud: ' + error.message);
+        console.error('Error al realizar la solicitud:', error);
       }
-    } catch (error) {
-      setMessage('Error al realizar la solicitud: ' + error.message);
-      console.error('Error al realizar la solicitud:', error);
     }
-  }
   };
 
-  
+
 
   const handleMaterialChange = (e) => {
     const { name, checked } = e.target;
@@ -311,94 +313,162 @@ const RegistrarGestores = () => {
 
 
   return (
-    <div className="registrar-miembros-page">
-      <h2>Formulario de Registro de Gestores</h2>
+    <div className="registrar-miembros-page2">
+
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Nombre</label>
-          <input
-            type="text"
-            name="nombre"
-            value={formData.nombre}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Correo</label>
-          <input
-            type="text"
-            name="correo"
-            value={formData.correo}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>NIT</label>
-          <input
-            type="number"
-            name="nit"
-            value={formData.nit}
-            onChange={handleChange}
-          />
-        </div>
 
 
-        <div className="form-group">
-          <label>Teléfono</label>
-          <input
-            type="number"
-            name="telefono"
-            value={formData.telefono}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Dirección</label>
-          <input
-            type="text"
-            name="direccion"
-            value={formData.direccion}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Capacidad</label>
-          <input
-            type="number"
-            name="capacidad"
-            value={formData.capacidad}
-            onChange={handleChange}
-          />
+        <div className="GESTORES-REGISTROb1">
+          <div className="divb1">
+
+            <div className="groupb1">
+              <input
+                className="overlap-groupb1 text-wrapperb1 "
+                type="number"
+                name="nit"
+                value={formData.nit || ''}
+                onChange={handleChange}
+                placeholder='NIT'
+
+              />
+            </div>
+
+
+
+
+            <div className="overlap-wrapperb1">
+              <input
+                className="overlap-groupb1 text-wrapperb1 "
+                type="number"
+                name="telefono"
+                value={formData.telefono || ''}
+                onChange={handleChange}
+                placeholder='Teléfono'
+
+              />
+            </div>
+
+
+
+            <div className="overlap-group-wrapperb1">
+              <input
+                className="overlap-groupb1 text-wrapperb1 "
+                type="text"
+                name="direccion"
+                placeholder='Direcciòn'
+                value={formData.direccion}
+                onChange={handleChange}
+              />
+            </div>
+
+
+
+
+            <div className="div-wrapperb1">
+              <input
+
+                className="overlap-groupb1 text-wrapperb1 "
+                type="number"
+                name="capacidad"
+                placeholder='Capacidad'
+                value={formData.capacidad || ''}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="group-2b1">
+              <input
+                className="overlap-groupb1 text-wrapperb1 "
+                type="text"
+                name="nombre"
+                placeholder="Nombre"
+                value={formData.nombre}
+                onChange={handleChange}
+              />
+            </div>
+
+
+
+
+            <div className="group-3b1">
+              <input
+                className="overlap-groupb1 text-wrapperb1 "
+                type="text"
+                name="correo"
+                value={formData.correo}
+                onChange={handleChange}
+                placeholder='Correo'
+
+              />
+            </div>
+
+            <div className="group-3b2">
+              <input
+                className="overlap-groupb1 text-wrapperb1 "
+                type="text"
+                name="municipio"
+                value={formData.municipio}
+                onChange={handleChange}
+                placeholder='Municipio'
+
+              />
+            </div>
+
+
+            <div className="group-3b3">
+              <input
+                className="overlap-groupb1 text-wrapperb1 "
+                type="text"
+                name="mecanismos_recoleccion"
+                value={formData.mecanismos_recoleccion}
+                onChange={handleChange}
+                placeholder='Mecanismos de recolecciòn'
+
+              />
+            </div>
+
+
+          <div className="text-wrapper-2b1">Información</div>
+            <p className="pb1">Formulario de registro de Gestores</p>
+          </div>
         </div>
 
-        <div className="form-group">
-          <label>Estado</label>
+
+
+
+
+
+
+
+        <div className="gestores-registro">
+          <label className="estado-wrapper1">
+            <div className="estado">Estado</div>
+          </label>
           <select
+            className="selectoutline"
+            style={{ width: '130px', backgroundColor: '#f5f6fa', color: '#7c7d7f' }}
             name="estado"
-            value={formData.estado ? "activo" : "inactivo"}
-            onChange={(e) => setFormData({ ...formData, estado: e.target.value === "activo" })}
+            value={formData.estado}
+            onChange={(e) => setFormData({ ...formData, estado: e.target.value === 'true' })}
           >
-            <option value="activo">Activo</option>
-            <option value="inactivo">Inactivo</option>
+            <option value="true">Activo</option>
+            <option value="false">Inactivo</option>
           </select>
+
         </div>
 
 
-        <div className="form-group">
-          <label>Municipio</label>
-          <input
-            type="text"
-            name="municipio"
-            value={formData.municipio}
-            onChange={handleChange}
-          />
-        </div>
 
-        <div className="form-group">
-          <label>Categoría del municipio</label>
+        
+
+
+        <div className="gestores-registro1">
+          <label className="estado-wrapper1">
+            <div className="estado1">Categoría del municipio</div>
+          </label>
           <select
+            className="selectoutline1"
+            style={{ width: '130px', backgroundColor: '#f5f6fa', color: '#7c7d7f' }}
             name="categoria_municipio"
             value={formData.categoria_municipio}
             onChange={handleChange}
@@ -410,133 +480,182 @@ const RegistrarGestores = () => {
             <option value="5">Categoría 5</option>
             <option value="6">Categoría 6</option>
           </select>
+
+        </div>
+
+        <div className="GESTORES-REGISTROb2">
+          <div className="form-wrapperb2">
+            <div className="formb2">
+              <div className="overlap-groupb2">
+                <div className="divb2">
+
+
+                  <div className="text-wrapper-4b2">Puntos de recolección</div>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>
+                          <div className="text-wrapper-2b2">Puntos</div>
+                        </th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {formData.puntos_recoleccion.split(', ').map((punto, index) => (
+                        <tr key={index}>
+                          <td>
+                            <input
+                              placeholder='Nombre del punto'
+                              type="text"
+                              name="puntos_recoleccion"
+                              value={punto}
+                              onChange={(e) => {
+                                const nuevosPuntosRecoleccion = formData.puntos_recoleccion.split(', ');
+                                nuevosPuntosRecoleccion[index] = e.target.value;
+                                const nuevosPuntosRecoleccionString = nuevosPuntosRecoleccion.join(', ');
+                                setFormData({
+                                  ...formData,
+                                  puntos_recoleccion: nuevosPuntosRecoleccionString,
+                                });
+                              }}
+                            />
+                          </td>
+                          <td>
+                            {formData.puntos_recoleccion.split(', ').length > 1 && (
+                              <div className="groupb2">
+                                <button
+                                  type="button"
+                                  className="bx-trashb2"
+                                  onClick={() => handleEliminarPuntoRecoleccion(index)}
+                                >
+                                  <IoTrashOutline />
+                                </button>
+                              </div>
+
+
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <div className="botonesb2">
+                    <div className="LOGIN-SIGNUPb2">
+                      <div className="signupb2">
+                        <div className="frameb2">
+                          <button className="text-wrapperb2" type="button" onClick={handleAgregarPuntoRecoleccion}>
+                            Agregar punto
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         
 
-        <div className="form-group">
-          <label>Puntos de recolección</label>
-          <table>
-            <thead>
-              <tr>
-                <th>Punto</th>
-                <th>Eliminar</th>
-              </tr>
-            </thead>
-            <tbody>
-              {formData.puntos_recoleccion.split(', ').map((punto, index) => (
-                <tr key={index}>
-                  <td>
-                    <input
-                      type="text"
-                      name="puntos_recoleccion"
-                      value={punto}
-                      onChange={(e) => {
-                        const nuevosPuntosRecoleccion = formData.puntos_recoleccion.split(', ');
-                        nuevosPuntosRecoleccion[index] = e.target.value;
-                        const nuevosPuntosRecoleccionString = nuevosPuntosRecoleccion.join(', ');
-                        setFormData({
-                          ...formData,
-                          puntos_recoleccion: nuevosPuntosRecoleccionString,
-                        });
-                      }}
-                    />
-                  </td>
-                  <td>
-                    {formData.puntos_recoleccion.split(', ').length > 1 && (
-                      <button
-                        type="button"
-                        className="eliminar-button"
-                        onClick={() => handleEliminarPuntoRecoleccion(index)}
-                      >
-                        Eliminar
-                      </button>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <button type="button" onClick={handleAgregarPuntoRecoleccion}>
-            Agregar punto
-          </button>
+        <div className="GESTORES-REGISTRO">
+          <div className="overlap-group-wrapper">
+            <div className="overlap-group">
+              <div className="contenido">
+                <div className="form">
+                  <p className="text-wrapper-materiales-mercado">Materiales de empaques puestos en el mercado</p>
+
+                  {materiales.map((material, index) => (
+                    <div key={index}>
+
+                      <div className="div">{material}</div>
+                      <div className="text-wrapper-2">Seleccionar</div>
+                      <input className="checkbox"
+                        type="checkbox"
+                        name={material}
+                        checked={formData.materiales_recolectados.includes(material)}
+                        onChange={handleMaterialChange}
+                      />
+                    </div>
+
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
 
-        <div className="form-group">
-          <label>Mecanismos de recolección</label>
-          <input
-            type="text"
-            name="mecanismos_recoleccion"
-            value={formData.mecanismos_recoleccion}
-            onChange={handleChange}
-          />
+        <div className="b4error">
+          {message && <p style={{ color: message.startsWith('Error') ? 'red' : 'green' }}>{message}</p>}
         </div>
 
-
-        <div className="form-group">
-          <label>Materiales recolectados</label>
-          <table>
-            <thead>
-              <tr>
-                <th>Material</th>
-                <th>Seleccionar</th>
-              </tr>
-            </thead>
-            <tbody>
-              {materiales.map((material) => (
-                <tr key={material}>
-                  <td>{material}</td>
-                  <td>
-                    <input
-                      type="checkbox"
-                      name={material}
-                      checked={formData.materiales_recolectados.includes(material)}
-                      onChange={handleMaterialChange}
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-
-
-        {message && <p style={{ color: message.startsWith('Error') ? 'red' : 'green' }}>{message}</p>}
-        <div className="form-group">
-
-          {editandoId ? (
-            <button type="button" className="submit-button" onClick={guardarEdicion}>
-              Guardar edición
+        <div className="b4box2">
+          <div className="b4CR">
+            <button type="button" className="b4cancelar" onClick={handleCancelar}>
+              <div className="b4og">
+                <div className="b4tw">Cancelar</div>
+              </div>
             </button>
-          ) : (
-            <button type="submit" className="submit-button">
-              Registrar
-            </button>
-          )}
-          <button type="button" className="register-button" onClick={handleCancelar}>
-            Salir
-          </button>
+
+            {editandoId ? (
+              <button type="button" className="b4registrar" onClick={guardarEdicion}>
+                <div className="b4d">Guardar Edición</div>
+              </button>
+            ) : (
+              <button type="submit" className="b4registrar" onClick={handleSubmit}>
+                <div className='b4o'>
+                  <div className="b4d">Registrar</div>
+                </div>
+              </button>
+            )}
+
+          </div>
         </div>
       </form>
-      <h2>Registros</h2>
-      <ul>
-        {registros.slice(-5).map((registro) => (
-          <li key={registro.id}>
-            <span>{registro.nombre}</span>
-            <span>{registro.correo}</span>
-            <span>{registro.nit}</span>
-            <button onClick={() => editarRegistro(registro.id)} className="edit-button">
-              Editar
-            </button>
-            <button onClick={() => eliminarRegistro(registro.id)} className="delete-button">
-              Eliminar
-            </button>
-          </li>
-        ))}
-      </ul>
+
+
+      <div className="b4lab">
+        <div className="b4textl">Registros</div>
+      </div>
+
+      <div className='b4registros'>
+        <div className="b4box4">
+          <div className="b4group4">
+            <ul className="b4uli">
+              {registros.slice(-5).map((registro) => (
+                <li key={registro.id} className="b4registro">
+                  <div className="b4text-wrapper-7"> Nombre</div>
+                  <span className="b4span">{registro.nombre}</span>
+
+                  <div className="b4div2">NIT </div>
+                  <span className="b4span2">{registro.nit}</span>
+
+                  <div className="b4text-wrapper-8">Acciones</div>
+                  <span className="b4span3"></span>
+                  <button onClick={() => editaregistro(registro.id)} className="edit-buttonGE">
+                    <BiSolidEdit />
+                  </button>
+                  <button onClick={() => eliminarRegistro(registro.id)} className="delete-buttonGE">
+                   
+                   <div className="icon-containerGE">
+                    <IoTrashOutline />
+                    </div>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
+
+
+
+
   );
 };
 

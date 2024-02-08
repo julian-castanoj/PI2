@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-
+import '../styles/registrarTransformadores.css';
+import { IoTrashOutline } from "react-icons/io5";
+import { BiSolidEdit } from "react-icons/bi";
 
 const RegistrarTransformadores = () => {
-  
+
 
   const [formData, setFormData] = useState({
     razon_social: '',
@@ -251,12 +253,12 @@ const RegistrarTransformadores = () => {
     }
   };
 
-  
+
 
   const handleMaterialChange = (e) => {
     const { name, checked } = e.target;
     let updatedMaterialesSeleccionados = formData.material_produce.split(',').map(material => material.trim());
-  
+
     if (checked) {
       if (!updatedMaterialesSeleccionados.includes(name)) {
         updatedMaterialesSeleccionados.push(name.trim());
@@ -267,194 +269,288 @@ const RegistrarTransformadores = () => {
         updatedMaterialesSeleccionados.splice(index, 1);
       }
     }
-  
+
     // Filtra elementos vacíos antes de unirlos para evitar la coma inicial
     updatedMaterialesSeleccionados = updatedMaterialesSeleccionados.filter(material => material.length > 0);
-  
+
     const materialesRecolectadosString = updatedMaterialesSeleccionados.join(', ');
-  
+
     setFormData({
       ...formData,
       material_produce: materialesRecolectadosString,
     });
   };
-  
-  
 
-  
+
+
+
 
   return (
-    <div className="registrar-miembros-page">
-      <h2>Formulario de Registro de Transformadores</h2>
+    <div className="registrar-miembros-page2">
+
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Razón Social</label>
-          <input
-            type="text"
-            name="razon_social"
-            value={formData.razon_social}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Representante Legal</label>
-          <input
-            type="text"
-            name="representante_legal"
-            value={formData.representante_legal}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Correo</label>
-          <input
-            type="text"
-            name="correo"
-            value={formData.correo}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>NIT</label>
-          <input
-            type="number"
-            name="nit"
-            value={formData.nit}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Teléfono</label>
-          <input
-            type="number"
-            name="telefono"
-            value={formData.telefono}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Dirección Principal</label>
-          <input
-            type="text"
-            name="direccion_principal"
-            value={formData.direccion_principal}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Dirección Planta</label>
-          <input
-            type="text"
-            name="direccion_planta"
-            value={formData.direccion_planta}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Departamento</label>
-          <input
-            type="text"
-            name="departamento"
-            value={formData.departamento}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Municipio</label>
-          <input
-            type="text"
-            name="municipio"
-            value={formData.municipio}
-            onChange={handleChange}
-          />
-        </div>
+
+        <div className="TRANSFORMADORES-REGISTRO">
+          <div className="overlap-wr">
+            <div className="ov">
+              <div className="contenidoT">
+                <div className="overlap-gr">
+                  <div className="formT">
+                    <div className="divT">
+
+
+
+                      <div className="overlap-gr-wrapper">
+                        <input
+                          className="div-wrapperT text-wrapperT"
+                          type="text"
+                          name="representante_legal"
+                          value={formData.representante_legal}
+                          onChange={handleChange}
+                          placeholder="Representante legal"
+                        />
+                      </div>
+
+
+                      <div className="groupT">
+                        <input
+                          className="div-wrapperT text-wrapperT"
+                          type="text"
+                          name="correo"
+                          value={formData.correo}
+                          onChange={handleChange}
+                          placeholder="Correo"
+                        />
+                      </div>
+
+
+
+                      <div className="groupT-2">
+                        <input
+                          className="div-wrapperT text-wrapperT"
+                          type="number"
+                          name="nit"
+                          value={formData.nit || ''}
+                          onChange={handleChange}
+                          placeholder="NIT"
+                        />
+                      </div>
+
+
+                      <div className="groupT-3">
+                        <input
+                          className="div-wrapperT text-wrapperT"
+                          type="number"
+                          name="telefono"
+                          value={formData.telefono || ''}
+                          onChange={handleChange}
+                          placeholder='Teléfono'
+                        />
+                      </div>
+
+
+                      <div className="overlap-2">
+                        <input
+                          className="div-wrapperT text-wrapperT"
+                          type="text"
+                          name="direccion_principal"
+                          value={formData.direccion_principal}
+                          onChange={handleChange}
+                          placeholder='Dirección principal'
+                        />
+                      </div>
+
+
+
+                      <div className="overlap-3">
+                        <input
+                          className="div-wrapperT text-wrapperT"
+                          type="text"
+                          name="direccion_planta"
+                          value={formData.direccion_planta}
+                          onChange={handleChange}
+                          placeholder='Dirección planta'
+                        />
+
+                      </div>
+
+                      <div className="overlap-4">
+                        <input
+                          className="div-wrapperT text-wrapperT"
+                          type="text"
+                          name="departamento"
+                          value={formData.departamento}
+                          onChange={handleChange}
+                          placeholder='Departamento'
+                        />
+                      </div>
+
+                      <div className="overlap-5">
+                        <input
+                          className="div-wrapperT text-wrapperT"
+                          type="text"
+                          name="municipio"
+                          value={formData.municipio}
+                          onChange={handleChange}
+                          placeholder='Municipio'
+                        />
+                      </div>
 
 
 
 
-        <div className="form-group">
-          <label>Materiales que transforma</label>
-          <table>
-            <thead>
-              <tr>
-                <th>Material</th>
-                <th>Seleccionar</th>
-              </tr>
-            </thead>
-            <tbody>
-              {materiales.map((material) => (
-                <tr key={material}>
-                  <td>{material}</td>
-                  <td>
-                    <input
-                      type="checkbox"
-                      name={material}
-                      checked={formData.material_produce.includes(material)}
-                      onChange={handleMaterialChange}
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+
+                    </div>
+
+                  </div>
+                  <p className="p">Formulario de registro de Transformadores</p>
+                  <div className="groupT-5">
+
+                    <div className="div-wrapperT">
+                      <input
+                        className="div-wrapperT text-wrapperT"
+                        type="text"
+                        name="razon_social"
+                        value={formData.razon_social}
+                        onChange={handleChange}
+                        placeholder="Razón social"
+                      />
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="groupT-4">
+            <div className="text-wrapperT-3">Información</div>
+          </div>
         </div>
 
-        <div className="form-group">
-          <label>Registro ANLA</label>
+        <div className=" TRANSFORMADOR-REGISTRO1 ">
+          <div className="overlap-group-wrappertr">
+            <div className="overlap-grouptr">
+              <div className="contenidotr">
+                <div className="formtr">
+                  <p className="text-wrapper-materiales-transforma">Materiales de empaques puestos en el mercado</p>
+
+                  {materiales.map((material, index) => (
+                    <div key={index}>
+
+                      <div className="divtr">{material}</div>
+                      <div className="text-wrapper-2tr">Seleccionar</div>
+                      <input className="checkbox"
+                        type="checkbox"
+                        name={material}
+                        checked={formData.material_produce.includes(material)}
+                        onChange={handleMaterialChange}
+                      />
+                    </div>
+
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div className="TRANSFORMADOR-REGISTRO2">
+          <label className="anla-wrapper">
+            <div className="anla">Regitro ANLA</div>
+          </label>
           <select
+            className="selectoutline1"
+            style={{ width: '130px', backgroundColor: '#f5f6fa', color: '#7c7d7f' }}
             name="registro_anla"
             value={formData.registro_anla}
             onChange={(e) => setFormData({ ...formData, registro_anla: e.target.value })}
           >
-            <option value="NO">NO</option>
-            <option value="SI">SI</option>
+            <option value="NO">No</option>
+            <option value="SI">Si</option>
           </select>
+
         </div>
 
         {formData.registro_anla === "SI" ? (
-          <div className="form-group">
-            <label>Número de Certificado</label>
+          <div className="overlap-6">
             <input
+              className="div-wrapperT text-wrapperT"
               type="number"
               name="numero_certificado"
-              value={formData.numero_certificado}
+              value={formData.numero_certificado }
               onChange={handleChange}
+              placeholder='Número de Certificado'
             />
           </div>
         ) : null}
 
-        {message && <p style={{ color: message.startsWith('Error') ? 'red' : 'green' }}>{message}</p>}
-        <div className="form-group">
 
-          {editandoId ? (
-            <button type="button" className="submit-button" onClick={guardarEdicion}>
-              Guardar Edición
-            </button>
-          ) : (
-            <button type="submit" className="submit-button">
-              Registrar
-            </button>
-          )}
-          <button type="button" className="register-button" onClick={handleCancelar}>
-            Salir
-          </button>
+
+        <div className="errorT">
+          {message && <p style={{ color: message.startsWith('Error') ? 'red' : 'green' }}>{message}</p>}
         </div>
+
+        <div className="boxT">
+          <div className="CRT">
+            <button type="button" className="cancelarT" onClick={handleCancelar}>
+              <div className="ogT">
+                <div className="twT">Cancelar</div>
+              </div>
+            </button>
+
+            {editandoId ? (
+              <button type="button" className="registrarT" onClick={guardarEdicion}>
+                <div className="dT">Guardar Edición</div>
+              </button>
+            ) : (
+              <button type="submit" className="registrarT" onClick={handleSubmit}>
+                <div className='oT'>
+                  <div className="dT">Registrar</div>
+                </div>
+              </button>
+            )}
+
+          </div>
+        </div>
+
+
       </form>
-      <h2>Registros</h2>
-      <ul>
-        {registros.slice(-5).map((registro) => (
-          <li key={registro.id}>
-            <span>{registro.representante_legal}</span>
-            <span>{registro.nit}</span>
-            <button onClick={() => editarRegistro(registro.id)} className="edit-button">
-              Editar
-            </button>
-            <button onClick={() => eliminarRegistro(registro.id)} className="delete-button">
-              Eliminar
-            </button>
-          </li>
-        ))}
-      </ul>
+
+
+      <div className="labT">
+        <div className="textT">Registros</div>
+      </div>
+
+      <div className='registrosT'>
+        <div className="boxTR">
+          <div className="groupTR">
+            <ul className="uliTR">
+              {registros.slice(-5).map((registro) => (
+                <li key={registro.id} className="registroTR">
+                  <div className="text-wrapper-TR"> Representante legal</div>
+                  <span className="spanTR">{registro.representante_legal}</span>
+
+                  <div className="divTR">NIT </div>
+                  <span className="spanTR1">{registro.nit}</span>
+
+                  <div className="text-wrapper-Tra">Acciones</div>
+                  <span className="spanTR2"></span>
+                  <button onClick={() => editarRegistro(registro.id)} className="edit-buttonT">
+                    <BiSolidEdit />
+                  </button>
+                  <button onClick={() => eliminarRegistro(registro.id)} className="delete-buttonT">
+                   <div className="icon-container">
+                    <IoTrashOutline />
+                    </div>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

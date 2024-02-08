@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import '../../styles/registrarProductor.css';
-import { format } from 'date-fns';
+import '../../styles/PRODUCTORESREGIST.css';
+import { IoTrashOutline } from "react-icons/io5";
+import { BiSolidEdit } from "react-icons/bi";
+
 
 const RegistrarProductores = () => {
   const [formData, setFormData] = useState({
@@ -104,8 +106,8 @@ const RegistrarProductores = () => {
               ...prevFormData,
               correo: '',
               nombre: '',
-              nit: 0,
-              telefono: 0,
+              nit: '',
+              telefono: '',
               direccion: '',
               papel: '',  // Asegúrate de incluir limpiar cada campo de cantidad
               carton: '',
@@ -199,8 +201,8 @@ const RegistrarProductores = () => {
           setFormData({
             correo: '',
             nombre: '',
-            nit: 0,
-            telefono: 0,
+            nit: '',
+            telefono: '',
             direccion: '',
             cantidad: '', // Deja este campo en blanco
             material: '', // Puedes ajustar este valor según tus necesidades
@@ -234,24 +236,6 @@ const RegistrarProductores = () => {
       [name]: value,
     });
   };
-
-  /*const getCantidadesString = () => {
-    const cantidades = [
-      formData.papel,
-      formData.carton,
-      formData.vidrio,
-      formData.plasticoRigido,
-      formData.plasticoFlexible,
-    ];
-  
-    // Convierte cada cantidad a cadena, trata las cantidades falsy como cero y luego únelas con ', '
-    const cantidadesString = cantidades.map(cantidad => String(cantidad || 0)).join(', ');
-  
-    // Devuelve solo la cadena de cantidades sin la clave "cantidades"
-    return cantidadesString;
-  };*/
-
-
 
 
   const eliminarRegistro = async (id) => {
@@ -296,132 +280,79 @@ const RegistrarProductores = () => {
     }
   };
 
-
-
-
-
   return (
-    <div className="registrar-miembros-page">
-      <h2>Formulario de Registro de productores</h2>
+    <div className="registrar-miembros-page2">
+      <div className="label">
+        <p className="text-wrapper">Formulario de registro de Productores</p>
+      </div>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Nombre</label>
-          <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label>Correo</label>
-          <input type="text" name="correo" value={formData.correo} onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label>NIT</label>
-          <input type="number" name="nit" value={formData.nit} onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label>Teléfono</label>
-          <input type="number" name="telefono" value={formData.telefono} onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label>Dirección</label>
-          <input type="text" name="direccion" value={formData.direccion} onChange={handleChange} />
-        </div>
 
-        <label>Materiales de empaques puestos en el mercado</label>
-        <div className="form-group">
-          <div className="">
-            <div className="table-container">
 
-              <table>
-                <thead>
-                  <tr>
-                    <th>Material</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Papel</td>
-                  </tr>
-                  <tr>
-                    <td>Cartón</td>
-                  </tr>
-                  <tr>
-                    <td>Vidrio</td>
-                  </tr>
-                  <tr>
-                    <td>Plástico Rígido</td>
-                  </tr>
-                  <tr>
-                    <td>Plástico Flexible</td>
-                  </tr>
-                </tbody>
-              </table>
+
+        <div className="box1 ${showBox1 ? 'show-box1' : ''}`">
+          <div className="form1">
+            <div className="overlap">
+
+              <div className="group1">
+                <input
+
+                  className="overlapgroup textwrapper-placeholder "
+                  type="text"
+                  name="nombre"
+                  placeholder="Nombre"
+                  value={formData.nombre}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="overlapgroupwrapper">
+                <input
+                  className="overlapgroup div-placeholder"
+                  type="text"
+                  name="correo"
+                  placeholder="Correo"
+                  value={formData.correo}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="overlapgroupwrapper1">
+                <input
+                  className="overlapgroup div-placeholder"
+                  type="number"
+                  name="nit"
+                  placeholder="NIT"
+                  value={formData.nit || ''}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="overlapgroupwrapper2">
+                <input
+                  className="overlapgroup div-placeholder"
+                  type="number"
+                  name="telefono"
+                  placeholder="Telefono"
+                  value={formData.telefono || ''}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="group2">
+                <input
+                  className="divwrapper div-placeholder"
+                  type="text"
+                  name="direccion"
+                  placeholder="Direccion"
+                  value={formData.direccion}
+                  onChange={handleChange}
+                />
+                <div className="textwrapper2">Información</div>
+
+              </div>
+
             </div>
 
-            <div className="table-container">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Cantidad</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <input
-                        className="table-input"
-                        type="text"
-                        name="papel"
-                        value={formData.papel || ''}
-                        onChange={handleInputChange}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input
-                        className="table-input"
-                        type="text"
-                        name="carton"
-                        value={formData.carton || ''}
-                        onChange={handleInputChange}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input
-                        className="table-input"
-                        type="text"
-                        name="vidrio"
-                        value={formData.vidrio || ''}
-                        onChange={handleInputChange}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input
-                        className="table-input"
-                        type="text"
-                        name="plasticoRigido"
-                        value={formData.plasticoRigido || ''}
-                        onChange={handleInputChange}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input
-                        className="table-input"
-                        type="text"
-                        name="plasticoFlexible"
-                        value={formData.plasticoFlexible || ''}
-                        onChange={handleInputChange}
-                      />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
 
           </div>
         </div>
@@ -429,40 +360,114 @@ const RegistrarProductores = () => {
 
 
 
-        {message && <p style={{ color: message.startsWith('Error') ? 'red' : 'green' }}>{message}</p>}
-        <div className="form-group">
+        <div className="box ">
+          <div className="form ">
+            <p className="text-wrapper">Materiales de empaques puestos en el mercado</p>
+            <div className="div">Papel</div>
+            <div className="text-wrapper-2">Cantidad</div>
+            <div className="text-wrapper-3">Cartón</div>
+            <div className="text-wrapper-4">Vidrio</div>
+            <div className="text-wrapper-5">Plástico rígido</div>
+            <div className="text-wrapper-6">Plástico flexible</div>
+            <input className="group"
+              type="number"
+              name="papel"
+              value={formData.papel || ''}
+              onChange={handleInputChange}
+            />
+            <input className="group-2" type="number"
+              name="carton"
+              value={formData.carton || ''}
+              onChange={handleInputChange}
+            />
+            <input className="group-3" type="number"
+              name="vidrio"
+              value={formData.vidrio || ''}
+              onChange={handleInputChange} />
+            <input className="group-4" name="plasticoRigido" type="number"
+              value={formData.plasticoRigido || ''}
+              onChange={handleInputChange} />
+            <input className="group-5" name="plasticoFlexible" type="number"
+              value={formData.plasticoFlexible || ''}
+              onChange={handleInputChange} />
+          </div>
+        </div>
 
-          {editandoId ? (
-            <button type="button" className="submit-button" onClick={guardarEdicion}>
-              Guardar Edición
+        <div className="error">
+          {message && <p style={{ color: message.startsWith('Error') ? 'red' : 'green' }}>{message}</p>}
+        </div>
+
+        <div className="box2">
+          <div className="CR">
+            <button type="button" className="cancelar" onClick={handleCancelar}>
+              <div className="og">
+                <div className="tw">Cancelar</div>
+              </div>
             </button>
-          ) : (
-            <button type="submit" className="submit-button">
-              Registrar
-            </button>
-          )}
-          <button type="button" className="register-button" onClick={handleCancelar}>
-            Salir
-          </button>
+
+            {editandoId ? (
+              <button type="button" className="registrar" onClick={guardarEdicion}>
+
+                <div className="d">Guardar Edición</div>
+
+              </button>
+            ) : (
+              <button type="submit" className="registrar" onClick={handleSubmit}>
+                <div className='o'>
+                  <div className="d">Registrar</div>
+                </div>
+              </button>
+            )}
+          </div>
         </div>
       </form>
-      <h2>Registros</h2>
-      <ul>
-        {registros.slice(-5).map((registro) => (
-          <li key={registro.id}>
-            <span>{registro.nombre}</span>
-            <span>{registro.nit}</span>
-            <button onClick={() => handleEditarClick(registro.id)} className="edit-button">
-              Editar
-            </button>
-            <button onClick={() => eliminarRegistro(registro.id)} className="delete-button">
-              Eliminar
-            </button>
-          </li>
-        ))}
-      </ul>
+
+
+      <div className="lab">
+        <div className="textl">Registros</div>
+      </div>
+
+      <div className='registros'>
+        <div className="box4">
+          <div className="group4">
+            <ul className="uli">
+              {registros.slice(-5).map((registro) => (
+
+                
+                <li key={registro.id} className="registro" >
+                  <div className="text-wrapper-7"> Nombre</div>
+                  <span className="span">{registro.nombre}</span>
+
+
+                  <div className="div2">NIT </div>
+                  <span className="span2">{registro.nit}</span>
+
+
+                  <div className="text-wrapper-8">Acciones</div>
+                  <span className="span3"></span>
+
+
+                  <button onClick={() => handleEditarClick(registro.id)} className="edit-buttonP">
+                    <BiSolidEdit />
+                  </button>
+
+                  <button onClick={() => eliminarRegistro(registro.id)} className="delete-buttonP">
+                    <div className="icon-containerP">
+                      <IoTrashOutline />
+                    </div>
+                  </button>
+
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
     </div>
   );
 };
+
+
 
 export default RegistrarProductores;

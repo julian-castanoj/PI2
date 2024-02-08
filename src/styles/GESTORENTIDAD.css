@@ -1,0 +1,633 @@
+.GESTORENTIDAD {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.GESTORENTIDAD .contenido-wrapper {
+    background-color: #ffffff;
+    height: 100px;
+    width: 1165px;
+}
+
+.GESTORENTIDAD .contenido {
+    height: 92px;
+    left: 59px;
+    position: relative;
+    top: 91px;
+    width: 876px;
+}
+
+.GESTORENTIDAD .form {
+    height: 19px;
+    left: 7px;
+    position: absolute;
+    top: 73px;
+    width: 86px;
+}
+
+.GESTORENTIDAD group {
+    height: 19px;
+    position: relative;
+    width: 88px;
+}
+
+.GESTORENTIDAD .text-wrapper {
+    color: #000022;
+    font-family: "Lato", Helvetica;
+    font-size: 16px;
+    font-weight: 700;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+    white-space: nowrap;
+}
+
+.GESTORENTIDAD .div {
+    color: #000022;
+    font-family: "Lato", Helvetica;
+    font-size: 36px;
+    font-weight: 600;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+    white-space: nowrap;
+}
+
+
+/* ID - Nombre */
+.gestor,
+.gestor-wrapper {
+    position: absolute;
+    width: 209px;
+    height: 16.6px;
+}
+
+.gestor {
+    top: 15px;
+    left: 0;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.gestor-wrapper {
+    cursor: pointer;
+    top: 47.8px;
+    left: 30px;
+}
+
+.selectoutlineGE {
+    position: absolute;
+    top: 59px;
+    left: 207px;
+    font-family: roboto;
+    font-size: 16px;
+    color: #1a202c;
+    width: 140px;
+    height: 30px;
+}
+
+.GESTOR-ENTIDAD1 {
+    width: 340px;
+    position: relative;
+
+    height: 103px;
+    text-align: left;
+    font-size: 14px;
+    color: #002;
+    font-family: Lato;
+    top: 50px;
+}
+
+.GESTOR-ENTIDAD4 {
+    width: 340px;
+    position: relative;
+
+    height: 103px;
+    text-align: left;
+    font-size: 14px;
+    color: #002;
+    font-family: Lato;
+    top: 630px;
+}
+
+
+/* Material asociado */
+
+.material {
+    position: absolute;
+    width: 209px;
+    height: 16.6px;
+    top: 495px;
+    left: 630px;
+    color: #000022;
+    font-family: "Lato", Helvetica;
+    font-size: 16px;
+    font-weight: 700;
+
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+
+    white-space: nowrap;
+}
+
+.material1 {
+    position: absolute;
+    width: 209px;
+    height: 16.6px;
+    top: 105px;
+    left: 190px;
+    font-weight: 600;
+    display: inline-block;
+    font-family: "Lato", Helvetica;
+}
+
+.cantidad {
+    position: absolute;
+    width: 209px;
+    height: 16.6px;
+    top: 535px;
+    left: 750px;
+    font-weight: 600;
+    color: #000022;
+    font-family: "Lato", Helvetica;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    white-space: nowrap;
+    font-family: "Lato", Helvetica;
+}
+
+.materialN {
+    color: #000022;
+    font-family: "Lato", Helvetica;
+    font-size: 14px;
+    font-weight: 600;
+    left: 158px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: right;
+    top: 140px;
+    width: 110px;
+    
+}
+
+.materiales-table {
+    width: 200px;
+    height: 300px;
+    position: absolute;
+  }
+  
+  .material-row {
+    margin-bottom: 10px; /* Ajusta el valor según sea necesario para el margen entre las filas */
+  }
+  
+  .material-row td {
+    padding: 8px;
+    
+  }
+  
+  .materiales-table th {
+   
+    padding: 8px;
+    
+  }
+  
+  .materialN tr:not(:last-child) {
+    margin-bottom: 10px; /* Ajusta el valor según sea necesario para el margen entre las filas */
+  }
+  
+
+
+  
+  .cantidad2 {
+    position: absolute;
+    left: 700px;
+    top: 535px; /* Ajusta la posición vertical según sea necesario */
+    text-align: right;  
+}
+  
+  .cantidad-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  /* Fecha */
+  .fecha,
+  .fecha-wrapper {
+      position: absolute;
+      width: 209px;
+      height: 16.6px;
+  }
+  
+  .fecha {
+      top: 15px;
+      left: 0;
+      font-weight: 600;
+      display: inline-block;
+      font-family: "Lato-Bold", Helvetica;
+  }
+  
+  .fecha-wrapper {
+      cursor: pointer;
+      top: 765px;
+      left: 450px;
+      font-family: "Lato-Bold", Helvetica;
+  }
+
+  /* */
+  .div-GE1 {
+    height: 33px;
+    left: 630px;
+    position: absolute;
+    top: 780px;
+    width: 400px;
+  }
+
+  .fecha1 {
+    font-family: "Lato-Bold", Helvetica;
+    color: #069877;
+    border-color: transparent;
+    
+  }
+
+  .calendar {
+    position: absolute;
+    top: 0;
+  }
+
+  input[type="date"]::-webkit-calendar-picker-indicator, input[type="time"]::-webkit-calendar-picker-indicator{
+    cursor: pointer;
+    border-radius: 4px;
+    margin-right: 2px;
+    opacity: 0.0;
+    filter: invert(0.9);
+}
+  
+  .div-GE2 {
+    height: 33px;
+    left: 500px;
+    position: absolute;
+    top: 854px;
+    width: 550px;
+  }
+  .div-GE3 {
+    height: 33px;
+    left: 500px;
+    position: absolute;
+    top: 944px;
+    width: 550px;
+  }
+  .div-GE4 {
+    height: 33px;
+    left: 500px;
+    position: absolute;
+    top: 1040px;
+    width: 550px;
+  }
+  
+  .text-wrapperb1 {
+    color: #7c7d7f;
+    font-family: "Lato", Helvetica;
+    font-size: 14px;
+    font-weight: 600;
+    left: 16px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 8px;
+    white-space: nowrap;
+    width: 380px;
+    height: 15px;
+  }
+  
+  .overlap-groupb1 {
+    background-color: #f5f6fa;
+    border-radius: 5px;
+    height: 33px;
+    position: relative;
+    width: 404px;
+    top: -10px;
+    left: -110px;
+  }
+
+  .overlap-groupb2 {
+    background-color: #f5f6fa;
+    border-radius: 5px;
+    height: 15px;
+    position: relative;
+    width: 404px;
+    top: -10px;
+    left: -110px;
+  }
+  
+
+  
+
+
+  /* Botones */
+  
+  .boxGE {
+    height: 45px;
+    position: absolute;
+    width: 215px;
+    top: -410px;
+    left: 0px;
+  }
+  
+  .boxGE .CRGE {
+    height: 45px;
+    left: 600px;
+    position: absolute;
+    top: 1650px;
+    width: 215px;
+  }
+  
+  .boxGE .cancelarGE {
+    height: 45px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 105px;
+    border-radius: 10px;
+  }
+  
+  .boxGE .ogGE {
+    background-color: #ffff;
+    border: 1px solid;
+    border-color: #069877;
+    border-radius: 10px;
+    height: 45px;
+    position: relative;
+    width: 103px;
+    left: -2px;
+    top: -2px;
+  }
+  
+  .boxGE .twGE {
+    color: #069877;
+    font-family: "Lato-Bold", Helvetica;
+    font-size: 18px;
+    font-weight: 700;
+    left: 13px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 10px;
+    width: 80px;
+  }
+  
+  .boxGE .registrarGE {
+    height: 45px;
+    left: 115px;
+    position: absolute;
+    top: 0;
+    width: 102px;
+    border-radius: 10px;
+  }
+  
+  .b4editar{
+    height: 45px;
+    left: 115px;
+    position: absolute;
+    top: 0;
+    width: 102px;
+    border-radius: 10px;
+  }
+  
+  .boxGE .oGE {
+    background-color: #069877;
+    border-radius: 10px;
+    height: 45px;
+    position: relative;
+    width: 103px;
+    left: -20px;
+    top: -10px;
+  }
+  
+  .boxGE .dGE{
+    color: #ffffff;
+    font-family: "Lato-Bold", Helvetica;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 10px;
+  
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    height: 45px;
+    background-color: #069877;
+    width: 103px;
+    left: -1px;
+    top: -1px;
+  }
+  
+  
+  /* Registros */
+  
+  .labGE {
+    height: 43px;
+    width: 147px;
+    position: absolute;
+  }
+  
+  .labGE .textlGE {
+    color: #000022;
+    font-family: "Lato-SemiBold", Helvetica;
+    font-size: 36px;
+    font-weight: 600;
+    left: 50px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 800px;
+    white-space: nowrap;
+  }
+  
+  .errorGE {
+    height: 43px;
+    width: 1440px;
+    position: absolute;
+    top: 1190px;
+  }
+  
+  /* Registros span */
+  .registrosGE {
+    
+    position: absolute;
+    top: -950px;
+    left: 50px;
+    
+  }
+  
+  .box4GE {
+    height: 18px;
+    position: absolute;
+    width: 311px;
+    top: 480px;
+  }
+  
+  .box4GE .group4GE {
+    height: auto;
+    left: 420px;
+    position: absolute;
+    top: 1930px;
+    width: 317px;
+  }
+  
+  .box4GE .registroGE {
+    margin-bottom: 0px;
+    top: 10px;
+    
+    
+  }
+  
+  .box4GE .text-wrapper-7-GE {
+    color: #000022;
+    font-family: "Lato-Bold", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 0px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -40px;
+    white-space: nowrap;
+    
+    
+  }
+  
+  
+  .box4GE .div2GE {
+    color: #000022;
+    font-family: "Lato-Bold", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 330px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -40px;
+    white-space: nowrap;
+  
+  }
+  
+  .box4GE .text-wrapper-8-GE {
+    color: #000022;
+    font-family: "Lato-Bold", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 520px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -40px;
+    white-space: nowrap;
+    margin-bottom: 25px;
+    
+  }
+  
+  .spanGE{
+    margin-right: 0px; 
+    height: 53px;
+    width: 1040px;
+  }
+  
+  .span2GE{
+    margin-right: -10px; 
+    height: 53px;
+    width: 1040px;
+    left: -20px;
+  }
+  
+  .uliGE {
+    margin-right: 20px; 
+    height: 53px;
+    width: 640px;
+    
+    
+  
+  }
+  
+  
+  .registrosGE li {
+    display: flex;
+    align-items: center; /* Centra verticalmente el contenido */
+  }
+  
+  .registrosGE li .text-wrapper-7-GE,
+  .registrosGE li .div2GE,
+  .registrosGE li .text-wrapper-8-GE {
+    margin-right: 10px; /* Ajusta el valor según sea necesario */
+  }
+  
+  .registrosGE li .spanGE{
+    margin-left: -50px; /* Ajusta el valor según sea necesario */
+  }
+  
+  .registrosGE li .span2GE {
+    margin-left: 200px; /* Ajusta el valor según sea necesario */
+  }
+  
+  
+  
+  /* Ajusta el espacio entre los botones si es necesario */
+  .registrosGE li .edit-buttonGE,
+  .registrosGE li .delete-buttonGE {
+    margin-left: 20px; /* Ajusta el valor según sea necesario */
+  
+  }
+  
+  .b4show-box1 {
+    visibility: visible;
+    
+  }
+  
+  .delete-buttonGE{
+    height: 35px;
+    width: 280px;
+    font-size: 30px;
+  }
+  
+  .edit-buttonGE{
+    font-size: 20px;
+    
+  }
+
+  .delete-buttonGE{
+    height: 35px;
+    width: 280px;
+    font-size: 30px;
+    border-color: transparent;
+    background-color: transparent;
+  
+  }
+  
+  .edit-buttonGE{
+    color: #069877;
+    height: 35px;
+    width: 280px;
+    font-size: 30px;
+    background-color: transparent;
+    border-radius: 5px;
+    border-color: transparent;
+  }
+  
+  .icon-containerGE {
+    color: #7C7D7F; 
+    
+  }
+  

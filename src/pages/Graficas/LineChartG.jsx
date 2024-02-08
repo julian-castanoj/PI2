@@ -1,63 +1,48 @@
-import React, { useEffect, useState } from 'react';
+import 'chart.js/auto';
 import { Line } from 'react-chartjs-2';
 import 'chartjs-adapter-date-fns';
-import 'chart.js/auto';
+import React, { useEffect, useState } from 'react';
 
-const LineChartG = ({ endpoint }) => {
+const LineChartT = () => {
   const [chartData, setChartData] = useState({});
-  const [selectedGestorRecibe, setSelectedGestorRecibe] = useState('');
-  const [selectedMaterial, setSelectedMaterial] = useState('');
-  const [gestoresRecibe, setGestoresRecibe] = useState([]);
+  const [selectedGestor, setSelectedGestor] = useState('');
+  const [gestores, setGestores] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Obtener datos desde el endpoint
-        const response = await fetch('http://localhost:3000/transacciones');
+        // Llamada al endpoint para obtener los datos
+        const response = await fetch('http://localhost:3000/material-productores/pc');
         const dataFromAPI = await response.json();
+        console.log('dataFromAPI:', dataFromAPI);
 
-        // Obtener la lista de gestoresRecibe disponibles
-        const uniqueGestoresRecibe = Array.from(new Set(dataFromAPI.map(item => item.gestorRecibe_id)));
-        setGestoresRecibe(uniqueGestoresRecibe);
+        // Obtener la lista de gestores disponibles
+        const uniqueGestores = Array.from(new Set(dataFromAPI.map(item => item.productorId)));
+        setGestores(uniqueGestores);
 
         // Procesar datos para adaptarlos a la estructura necesaria
-        const processedData = dataFromAPI.map(item => {
-          return {
-            gestorRecibe: item.gestorRecibe_id,
-            fecha: new Date(item.fecha),
-            data: item.material.split(',').map((material, index) => ({
-              label: `${material.trim()} - Gestor ${item.gestorRecibe_id}`,
-              y: parseInt(item.cantidad.split(',')[index].trim(), 10),
-            })),
-          };
-        });
+        const processedData = dataFromAPI.map(item => ({
+          productorId: item.productorId,
+          fecha: item.fecha,
+          cantidad: item.cantidad,
+        }));
 
-        // Filtrar datos según el gestorRecibe seleccionado
-        const filteredByGestorRecibe = selectedGestorRecibe
-          ? processedData.filter(item => item.gestorRecibe === parseInt(selectedGestorRecibe, 10))
+        // Filtrar datos según el gestor seleccionado
+        const filteredByGestor = selectedGestor
+          ? processedData.filter(item => item.productorId === parseInt(selectedGestor, 10))
           : processedData;
-
-        // Filtrar datos según el material seleccionado
-        const filteredByMaterial = selectedMaterial
-          ? filteredByGestorRecibe.map(item => ({
-              ...item,
-              data: item.data.filter(entry => entry.label.startsWith(selectedMaterial)),
-            }))
-          : filteredByGestorRecibe;
 
         const getRandomColor = () => {
           // Función para generar colores aleatorios
           return `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, 1)`;
         };
 
-        const datasets = filteredByMaterial[0]?.data
-          .filter(entry => entry.label !== '') // Filtrar gestoresRecibe sin materiales asociados
-          .map((entry, materialIndex) => ({
-            label: entry.label,
-            data: filteredByMaterial.map(item => ({ x: item.fecha, y: item.data[materialIndex].y })),
-            borderColor: getRandomColor(),
-            backgroundColor: 'rgba(255, 255, 255, 0)',
-          }));
+        const datasets = filteredByGestor.map(item => ({
+          label: `Cantidad - Gestor ${item.productorId}`,
+          data: [{ x: item.fecha, y: item.cantidad }],
+          borderColor: getRandomColor(),
+          backgroundColor: 'rgba(255, 255, 255, 0)',
+        }));
 
         setChartData({
           datasets,
@@ -68,7 +53,7 @@ const LineChartG = ({ endpoint }) => {
     };
 
     fetchData();
-  }, [selectedGestorRecibe, selectedMaterial, endpoint]);
+  }, [selectedGestor]);
 
   if (!chartData.datasets) {
     // Manejar el caso en que el estado chartData esté vacío
@@ -76,27 +61,17 @@ const LineChartG = ({ endpoint }) => {
   }
 
   return (
+    
     <div>
-      <h1>Cantidad de Material a lo largo del Tiempo</h1>
+      <h1>Cantidad a lo largo del Tiempo</h1>
       <div>
         <label>
-          Filtrar por Gestor Recibe:
-          <select onChange={(e) => setSelectedGestorRecibe(e.target.value)}>
+          Filtrar por Gestor:
+          <select onChange={(e) => setSelectedGestor(e.target.value)}>
             <option value="">Todos</option>
-            {gestoresRecibe.map(id => (
+            {gestores.map(id => (
               <option key={id} value={id}>
                 Gestor {id}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          Filtrar por Material:
-          <select onChange={(e) => setSelectedMaterial(e.target.value)}>
-            <option value="">Todos</option>
-            {['Papel', 'Vidrio', 'Plástico Flexible', 'Plástico Rígido', 'Cartón'].map((material, index) => (
-              <option key={index} value={material}>
-                {material}
               </option>
             ))}
           </select>
@@ -141,4 +116,4 @@ const LineChartG = ({ endpoint }) => {
   );
 };
 
-export default LineChartG;
+export default LineChartT;

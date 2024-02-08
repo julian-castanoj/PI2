@@ -141,23 +141,35 @@ li span {
 }
 
 /* Estilo para los botones de editar y eliminar */
-.edit-button,
-.delete-button {
-  padding: 5px 10px;
-  margin-left: 10px;
-  cursor: pointer;
-  background-color: #007bff; /* Cambia el color de fondo a tu preferencia */
-  color: #fff;
-  border: none;
-}
 
-.edit-button:hover,
-.delete-button:hover {
-  background-color: #0056b3; /* Cambia el color de fondo al pasar el ratón */
-}
 
 /* Estilo para el encabezado "Registros" */
 h2 {
   font-size: 24px;
   margin: 20px 0;
+}
+
+
+.delete-buttonP{
+  height: 35px;
+  width: 280px;
+  font-size: 30px;
+  border-color: transparent;
+  background-color: transparent;
+
+}
+
+.edit-buttonP{
+  color: #069877;
+  height: 35px;
+  width: 280px;
+  font-size: 30px;
+  background-color: transparent;
+  border-radius: 5px;
+  border-color: transparent;
+}
+
+.icon-containerP {
+  color: #7C7D7F; 
+  
 }

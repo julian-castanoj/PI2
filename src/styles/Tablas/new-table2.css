@@ -1,0 +1,372 @@
+.TRANSFORMADORES {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.TRANSFORMADORES .contenido-wrapper {
+    background-color: #ffffff;
+    height: 251px;
+    width: 100%;
+}
+
+.TRANSFORMADORES .contenido {
+    height: 139px;
+    left: 65px;
+    position: relative;
+    top: 47px;
+    width: 90%;
+}
+
+.TRANSFORMADORES .tabla {
+    height: 139px;
+    position: relative;
+}
+
+.TRANSFORMADORES .MEETING {
+    background-color: #f5f6fa;
+    border-radius: 10px;
+    height: 70px;
+    width: 105%;
+    margin-bottom: 20px;
+    
+}
+
+
+.TRANSFORMADORES .MEETING .group {
+    padding: 50px;
+    
+}
+
+.TRANSFORMADORES .MEETING .accionesT {
+    position: absolute;
+    left: 0;
+    bottom: 10px;
+    /* Ajusta la posición vertical de los botones */
+}
+
+.TRANSFORMADORES .group {
+    height: 54px;
+    left: 35px;
+    position: relative;
+    top: 28px;
+    width: 841px;
+}
+
+.TRANSFORMADORES .text-wrapper {
+    color: #7b7d7f;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -10px;
+    white-space: nowrap;
+    width: 200px;
+    height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: inline-block;
+}
+
+.TRANSFORMADORES .text-wrapper-10 {
+    color: #7b7d7f;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 480px;
+    letter-spacing: 0;
+    line-height: 20px; /* Ajusta la altura de línea según sea necesario */
+    position: absolute;
+    text-align: center;
+    top: -10px;
+    
+    width: 200px;
+    max-height: 40px; /* Altura máxima para dos líneas */
+    overflow: hidden;
+    white-space: pre-wrap; /* Permite que el texto se ajuste automáticamente a múltiples líneas */
+    word-wrap: break-word; /* Rompe palabras largas para ajustarse al ancho */
+    display: inline-block;
+}
+
+.TRANSFORMADORES .text-wrapper-2 {
+    color: #7b7d7f;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 680px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -10px;
+    white-space: nowrap;
+    width: 200px;
+    height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: inline-block;
+}
+
+.TRANSFORMADORES .text-wrapper-3 {
+    color: #7b7d7f;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 865px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -10px;
+    white-space: nowrap;
+    width: 200px;
+    height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: inline-block;
+}
+
+.TRANSFORMADORES .text-wrapper-12 {
+    color: #7b7d7f;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 220px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -10px;
+    white-space: nowrap;
+    width: 200px;
+    height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: inline-block;
+}
+
+.TRANSFORMADORES .direcarrera {
+    color: #7b7d7f;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 1050px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -15px;
+    
+    width: 200px;
+    height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: inline-block;
+}
+
+.TRANSFORMADORES .navbar {
+    height: 18px;
+    left: 68px;
+    position: absolute;
+    top: 0;
+    width: 945px;
+}
+
+.TRANSFORMADORES .text-wrapper-4 {
+    color: #000022;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 20px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -40px;
+    white-space: nowrap;
+}
+
+.TRANSFORMADORES .text-wrapper-5 {
+    color: #000022;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 530px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -40px;
+    white-space: nowrap;
+}
+
+.TRANSFORMADORES .text-wrapper-9 {
+    color: #000022;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 735px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -40px;
+    white-space: nowrap;
+}
+
+.TRANSFORMADORES .text-wrapper-6 {
+    color: #000022;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 900px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -40px;
+    white-space: nowrap;
+}
+
+.TRANSFORMADORES .text-wrapper-7 {
+    color: #000022;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 1050px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -40px;
+    white-space: nowrap;
+
+}
+
+.TRANSFORMADORES .text-wrapper-8 {
+    color: #000022;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 1240px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -40px;
+    white-space: nowrap;
+}
+
+.TRANSFORMADORES .text-wrapper-11 {
+    color: #000022;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 220px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -40px;
+    white-space: nowrap;
+}
+
+.TRANSFORMADORES .text-wrapper-9 {
+
+    position: flex;
+    line-height: normal;
+
+    text-align: center;
+
+    white-space: nowrap;
+
+}
+
+.TRANSFORMADORES .delete-buttonPTR {
+
+    height: 35px;
+    width: 80px;
+    font-size: 30px;
+    border-color: transparent;
+    background-color: transparent;
+    top: -137px;
+    left: 620px;
+    position: relative;
+
+}
+
+.TRANSFORMADORES .edit-buttonPTR {
+    color: #069877;
+    height: 35px;
+    width: 80px;
+    font-size: 30px;
+    background-color: transparent;
+    border-radius: 5px;
+    border-color: transparent;
+    position: relative;
+    top: -137px;
+    left: 650px;
+}
+
+.TRANSFORMADORES .icon-containerPTR {
+    color: #7C7D7F;
+}
+
+.pagination {
+    top: 1350px;
+    position: absolute;
+    left: 1000px;
+}
+
+.action-buttons {
+    left: 1065px;
+    top: 1420px;
+    position: absolute;
+}
+
+.registrarTr {
+    height: 45px;
+    left: 1050px;
+    position: absolute;
+    top: 0;
+    width: 102px;
+    border-radius: 10px;
+  }
+  
+  .oTr {
+    background-color: #069877;
+    border-radius: 10px;
+    height: 45px;
+    position: relative;
+    width: 103px;
+    top: 1430px;
+    
+  }
+  
+  .dTr {
+    color: #ffffff;
+    font-family: "Lato-Bold", Helvetica;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 10px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    height: 45px;
+    background-color: #069877;
+    width: 103px;
+    left: -1px;
+    top: 5px;
+    text-align: center;
+  }

@@ -1,29 +1,56 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Stack,
+  Button,
+  Textarea,
+} from "@chakra-ui/react";
+import { ChevronDownIcon } from "@chakra-ui/icons";
+import {
+  Button as MuiButton,
+  TextField,
+  Icon,
+  InputAdornment,
+  IconButton,
+} from "@mui/material";
+import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import "../styles/GESTOGESTORREGISTRO.css";
 
 const Logout = ({ onLogout }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Lógica para cerrar la sesión, como borrar el token de acceso del localStorage
+    
     localStorage.removeItem('accessToken');
 
-    // Realiza cualquier otra lógica de cierre de sesión que necesites
+    
 
-    // Llama a la función proporcionada en "onLogout" para marcar al usuario como no autenticado
+    
     onLogout();
 
-    // Redirige a la página de inicio después del logout
+    
     navigate('/inicio');
   };
 
-  return (
-    <div>
-      <h1>Log out</h1>
-      <button onClick={handleLogout}>Cerrar Sesión</button>
-    </div>
-  );
+ 
+    
+    const [datePickerDateTimePickerValue, setDatePickerDateTimePickerValue] =
+    useState(null);
+ 
+
+return (
+  <div>
+    <h1>Log out</h1>
+    <button onClick={handleLogout}>Cerrar Sesión</button>
+  </div>
+);
 };
+ 
 
 export default Logout;
 

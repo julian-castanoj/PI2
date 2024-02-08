@@ -1,6 +1,15 @@
-/* custom-table.css */
 .about-page {
   text-align: center;
+  margin-top: 107px; /* Agrega este estilo para ajustar la posición desde la parte superior */
+}
+
+.custom-table {
+  width: 90%; /* Ajusta el ancho de la tabla según sea necesario */
+  margin: 20px auto; /* Centra la tabla y agrega espacio alrededor */
+  border-collapse: collapse;
+  background-color: #000;
+  color: #fff;
+  border: 2px solid #fff;
 }
 
 .page-title {
@@ -8,14 +17,6 @@
   font-weight: bold;
   color: black;
   margin-bottom: 20px; 
-}
-
-.custom-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: #000;
-  color: #fff;
-  border: 2px solid #fff;
 }
 
 .custom-table th,

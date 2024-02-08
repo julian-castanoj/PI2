@@ -10,7 +10,7 @@ const DoughnutChart = () => {
     
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3000/transacciones');
+        const response = await fetch('http://localhost:3000/material-total/total');
         const data = await response.json();
         setEstadisticaData(data);
       } catch (error) {
@@ -44,13 +44,16 @@ const DoughnutChart = () => {
   };
 
   return (
-    <div>
-      <h1>Gráfico Circular</h1>
+    <div style={{ position: 'absolute', margin: '0 auto', paddingTop: '20px', left:'1400px' }}>
+      
+      <div style={{ height: '500px' }}> 
+      <h1 style={{ textAlign: 'center' }}>Gráfico Circular</h1>
       <div>
         <p>Total: {estadisticaData.total}</p>
         <p>Plan Colectivo: {estadisticaData.planColectivo}</p>
       </div>
       <Doughnut data={data} options={options} />
+    </div>
     </div>
   );
 };

@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../../styles/registrarTransacciones.css';
+import { MdCalendarMonth } from "react-icons/md";
 
 const RegistrarTransacciones = () => {
   const navigate = useNavigate();
@@ -13,6 +15,8 @@ const RegistrarTransacciones = () => {
     archivoImagen: null,
     descripcion: '',
     ubicacion: '',
+    gestorRealizaId: null,
+    transformadorRecibeId: null,
   });
 
   const [registros, setRegistros] = useState([]);
@@ -28,10 +32,22 @@ const RegistrarTransacciones = () => {
 
   const fetchData = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:3000/transacciones');
-      if (response.ok) {
-        const result = await response.json();
-        setRegistros(result);
+      const [transaccionesResponse, gestoresResponse, transformadoresResponse] = await Promise.all([
+        fetch('http://localhost:3000/transacciones'),
+        fetch('http://localhost:3000/gestor'),
+        fetch('http://localhost:3000/transformador'),
+      ]);
+
+      if (transaccionesResponse.ok && gestoresResponse.ok && transformadoresResponse.ok) {
+        const [transaccionesData, gestoresData, transformadoresData] = await Promise.all([
+          transaccionesResponse.json(),
+          gestoresResponse.json(),
+          transformadoresResponse.json(),
+        ]);
+
+        setRegistros(transaccionesData);
+        setGestores(gestoresData);
+        setTrasformadores(transformadoresData);
       } else {
         console.error('Error al cargar datos de la API');
       }
@@ -42,21 +58,8 @@ const RegistrarTransacciones = () => {
 
   useEffect(() => {
     fetchData();
-    fetch('http://localhost:3000/gestor')
-      .then((response) => response.json())
-      .then((data) => setGestores(data))
-      .catch((error) => console.error('Error al obtener la lista de gestores:', error));
-  }, []);
+  }, [fetchData]);
 
-  useEffect(() => {
-    fetchData();
-    fetch('http://localhost:3000/transformador')
-      .then((response) => response.json())
-      .then((data) => setTrasformadores(data)) // Cambiado de setGestores a setTrasformadores
-      .catch((error) => console.error('Error al obtener la lista de transformadores:', error));
-  }, []);
-
-  
 
   const handleMaterialChange = (e) => {
     const selectedMaterial = e.target.value;
@@ -87,7 +90,7 @@ const RegistrarTransacciones = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
@@ -112,23 +115,32 @@ const RegistrarTransacciones = () => {
   };
 
   const handleGestorRealizaIdChange = async (e) => {
-    console.log("Cambio en el gestor realiza ID:", e.target.value);
+    
     const selectedId = e.target.value;
+
     if (selectedId !== '0') {
       const parsedId = parseInt(selectedId);
+
       if (!isNaN(parsedId)) {
         try {
           const response = await fetch(`http://localhost:3000/gestor/${parsedId}`);
+
           if (response.ok) {
             const data = await response.json();
-          setFormData((prevFormData) => ({
-            ...prevFormData,
-            gestor_id: data.id,
-          }));
             
+
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              gestorRealizaId: selectedId,
+              gestor_id: data.id,
+            }));
+
+            console.log("Estado actualizado después de seleccionar el gestor:", formData);
+
             fetchMaterials(parsedId);
           } else {
             console.error('Error al obtener los detalles del gestor realiza:', response.status);
+            console.error('Respuesta del servidor:', await response.text());
           }
         } catch (error) {
           console.error('Error al obtener los detalles del gestor realiza:', error);
@@ -139,25 +151,27 @@ const RegistrarTransacciones = () => {
     }
   };
 
+
   const handleTransformadorRecibeIdChange = async (e) => {
-    console.log("Cambio en el transformador recibe ID:", e.target.value);
+    
     const selectedId = e.target.value;
-  
+
     if (selectedId !== '0') {
       const parsedId = parseInt(selectedId);
-  
+
       if (!isNaN(parsedId)) {
         try {
           const response = await fetch(`http://localhost:3000/transformador/${parsedId}`);
-          
+
           if (response.ok) {
             const data = await response.json();
-  
+
             setFormData((prevFormData) => ({
               ...prevFormData,
+              transformadorRecibeId: selectedId,
               transformador_id: parsedId,
             }));
-  
+
             // Otras actualizaciones o lógica que necesites realizar
           } else {
             console.error('Error al obtener los detalles del transformador recibe:', response.status);
@@ -170,51 +184,51 @@ const RegistrarTransacciones = () => {
       }
     }
   };
-  
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-  
-  
+    
+
+
     // Eliminamos la confirmación
     // if (window.confirm('¿Estás seguro de que deseas enviar el formulario?')) {
-  
+
     const numericTransformadorRecibe = isNaN(formData.transformador_id)
-    ? formData.transformador_id
-    : parseFloat(formData.transformador);
-  
-  try {
-    const requestBody = {
-      gestor_realiza: formData.gestor_id,
-      transformador: formData.transformador_id,
-      material: materiales.join(', '),
-      cantidad: formData.cantidad,
-      fecha: formData.fecha,
-      archivoImagen: formData.archivoImagen,
-      descripcion: formData.descripcion,
-      ubicacion: formData.ubicacion,
-      materialesComunes: materialesComunesString,
+      ? formData.transformador_id
+      : parseFloat(formData.transformador);
+
+    try {
+      const requestBody = {
+        gestor_realiza: formData.gestor_id,
+        transformador: formData.transformador_id,
+        material: materiales.join(', '),
+        cantidad: formData.cantidad,
+        fecha: formData.fecha,
+        archivoImagen: formData.archivoImagen,
+        descripcion: formData.descripcion,
+        ubicacion: formData.ubicacion,
+        materialesComunes: materialesComunesString,
+
+      };
+      console.log("Materiales comunes antes de setFormData:", materialesComunesString);
+      console.log("Materiales comunes antes de setFormData: ", materialesComunesString);
+
+
+
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        gestor_realiza: formData.gestor_id,
+        transformador: formData.transformador_id, // Usa numericTransformadorRecibe aquí
+        ubicacion: formData.ubicacion,
+        material: materialesComunesString,
+        materialesComunes: materialesComunesString,
+      }));
+
+      console.log("Nuevo estado después de setFormData:", formData);
+      console.log("Nuevo estado después de setFormData: ", formData);
+
       
-    };
-    console.log("Materiales comunes antes de setFormData:", materialesComunesString);
-    console.log("Materiales comunes antes de setFormData: ", materialesComunesString);
-
-
-  
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      gestor_realiza: formData.gestor_id,
-      transformador: formData.transformador_id, // Usa numericTransformadorRecibe aquí
-      ubicacion: formData.ubicacion,
-      material: materialesComunesString,
-      materialesComunes: materialesComunesString,
-    }));
-
-    console.log("Nuevo estado después de setFormData:", formData);
-    console.log("Nuevo estado después de setFormData: ", formData);
-
-    console.log("Enviando requestBody a la API: ", requestBody);
       const requestOptions = {
         method: 'POST',
         headers: {
@@ -222,25 +236,34 @@ const RegistrarTransacciones = () => {
         },
         body: JSON.stringify(requestBody),
       };
-  
+
       const response = await fetch('http://localhost:3000/transacciones', requestOptions);
-  
+
       if (response.ok) {
         console.log('Registro exitoso');
         setMessage('Registro exitoso');
-        fetchData();
-  
+
+        setMateriales([]);
+        setCantidades(Array.from({ length: materiales.length }, () => ''));
+
         setFormData({
-          gestor_realiza: '',
-          transformador_id: null,
+          //gestor_realiza: '',
+          //transformador_id: null,
           material: '',
           cantidad: '',
           fecha: '',
-          transformadorRecibeId: null,
+          //transformadorRecibeId: null,
           descripcion: '',
           ubicacion: '',
-          //
+          gestorRealizaId: '',
+          transformadorRecibeId: '',
+          gestor_realiza: '',
+          transformador: '',
+
         });
+
+        setMessage('Registro exitoso', message);
+        fetchData();
       } else {
         if (response.status === 400) {
           const errorData = await response.json();
@@ -253,12 +276,12 @@ const RegistrarTransacciones = () => {
       console.error('Error al realizar la solicitud:', error);
       setMessage('Error de red. Por favor, verifica tu conexión.');
     }
-    
+
   };
 
 
   const handleCancelar = () => {
-    navigate('/gestorGestor');
+    navigate('/transacciones');
   };
 
   const fetchDireccionPrincipal = (transformadorId) => {
@@ -277,56 +300,75 @@ const RegistrarTransacciones = () => {
   };
 
   useEffect(() => {
-    console.log("Ejecutando useEffect...");
+    
     if (formData.gestor_id && formData.transformador_id) {
       const gestor = gestores.find((g) => g.id === formData.gestor_id);
       const transformador = trasformadores.find((t) => t.id === formData.transformador_id);
-  
-      console.log('Gestor:', gestor);
-      console.log('Transformador:', transformador);
-  
+
+      
+
       if (gestor && transformador && gestor.materiales_recolectados && transformador.materiales_recolectados) {
         const gestorMaterials = gestor.materiales_recolectados.split(',').map((material) => material.trim());
         const transformadorMaterials = transformador.materiales_recolectados.split(',').map((material) => material.trim());
         const commonMaterials = gestorMaterials.filter((material) => transformadorMaterials.includes(material));
-  
+
         setMateriales(commonMaterials);
         setCantidades(Array.from({ length: commonMaterials.length }, () => ''));
-  
+
         const materialesComunesString = commonMaterials.join(', ');
         console.log("Common materials en useEffect:", commonMaterials);
         console.log("Materiales comunes en useEffect:", materialesComunesString);
-  
+
         setMaterialesComunesString(materialesComunesString);
-  
+
         console.log('Materiales Comunes String:', materialesComunesString);
         console.log('Estado Final:', formData);
-  
-        // Intentemos actualizar directamente formData.material y formData.materialesComunes
+
+        
         setFormData((prevFormData) => ({
           ...prevFormData,
           material: materialesComunesString,
           materialesComunes: materialesComunesString,
         }));
-  
+
         fetchDireccionPrincipal(formData.transformador_id);
       }
     }
   }, [formData.gestor_id, formData.transformador_id, gestores, trasformadores]);
+
+
   
-  
-  console.log("Renderizando componente...");
 
   return (
-    <div className="registrar-miembros-page">
-      <h2>Formulario de Registro de Gestor - Transformador</h2>
+    <div className="registrar-miembros-page2">
+
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Gestor Realiza</label>
+
+
+        <div className="GESTORTRANSFORMADOR">
+          <div className="contenido-wrapperGT">
+            <div className="contenidoGT">
+              <div className="formGT">
+                <div className="groupGT">
+                  <div className="text-wrapperGT">Información</div>
+                </div>
+              </div>
+              <p className="divGT">Formulario de registro de transacción - Gestor Transformador</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="GESTOR-TRANSFORMADOR1">
+          <label className="gestorgt-wrapper">
+            <div className="gestorgt">ID - Gestor realiza</div>
+          </label>
           <select
+            className="selectoutlineGT"
+            style={{ width: '210px', backgroundColor: '#f5f6fa', color: '#7c7d7f' }}
             name="gestorRealizaId"
             value={formData.gestorRealizaId}
             onChange={handleGestorRealizaIdChange}
+            onBlur={handleGestorRealizaIdChange}
           >
             <option value="">Selecciona un gestor realiza</option>
             {gestores.map((gestor) => (
@@ -337,14 +379,19 @@ const RegistrarTransacciones = () => {
           </select>
         </div>
 
-        <div className="form-group">
-          <label>Transformador Recibe</label>
+        <div className="GESTOR-TRANSFORMADOR2">
+          <label className="gestorgtr-wrapper">
+            <div className="gestorgtr">Transformador recibe</div>
+          </label>
           <select
+            className="selectoutlineGTR"
+            style={{ width: '210px', backgroundColor: '#f5f6fa', color: '#7c7d7f' }}
             name="transformadorRecibeId"
             value={formData.transformadorRecibeId}
             onChange={handleTransformadorRecibeIdChange}
+            onBlur={handleTransformadorRecibeIdChange}
           >
-            <option value="">Selecciona un transformador recibe</option>
+            <option value="">selecciona un transformador recibe</option>
             {trasformadores.map((transformador) => (
               <option key={transformador.id} value={transformador.id}>
                 {`${transformador.id} - ${transformador.representante_legal}`}
@@ -354,102 +401,170 @@ const RegistrarTransacciones = () => {
         </div>
 
 
-        <div className="">
-          <div className="">
+        <div className="material2GT">
+          <div className="materialNGT">
             <label>Materiales Asociados</label>
-            <table>
-              <thead>
+          </div>
+          <table className="materiales-tableGT">
+            <thead>
+              <div className="material1GT">
                 <tr>
-                  <th>Material</th>
+                  <th></th>
                 </tr>
-              </thead>
-              <tbody>
+              </div>
+            </thead>
+            <tbody>
+              <div className="materialGT" >
                 {materiales.map((materialId, index) => (
                   <tr key={index}>
-                    <td>{materialId}</td>
+                    <td style={{ height: '35px' }}>{materialId}</td>
                   </tr>
                 ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="">
-            <label>Cantidades</label>
-            <table>
-              <thead>
-                <tr>
-                  <th>Cantidad</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Array.from({ length: materiales.length }).map((_, index) => (
-                  <tr key={index}>
-                    <td>
+              </div>
+            </tbody>
+          </table>
+        </div>
+
+
+        <div className="cantidad2GT">
+          <table className="cantidad-tableGT">
+            <thead>
+              <tr>
+                <th style={{ fontFamily: 'lato' }}>Cantidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Array.from({ length: materiales.length }).map((_, index) => (
+                <tr key={index}>
+                  <td>
+                    <div className="Cantidad1GT">
                       <input
+                        style={{ backgroundColor: '#f5f6fa', color: '#7c7d7f', fontFamily: 'Lato' }}
                         type="number"
                         value={cantidades[index]}
                         onChange={(e) => handleCantidadChange(index, e)}
                         placeholder="Ingrese un número"
+
                       />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
-        <div className="form-group">
-          <label>Fecha</label>
+
+
+        <label className="fechaGT-wrapper">
+          <div className="fechaGT">Fecha</div>
+        </label>
+
+        <div className="div-GT1">
           <input
+            className="overlap-groupGT1 text-wrapperGT1 fechaGT1"
+            style={{ width: '130px', zIndex: '1' }}
             type="date"
             name="fecha"
             value={formData.fecha}
             onChange={handleChange}
+
           />
+          <div className='calendarGT' style={{ pointerEvents: 'none', zIndex: '2' }} >
+            <MdCalendarMonth color='#069877' />
+          </div>
         </div>
-        <div className="form-group">
-          <label>Archivo de Imagen</label>
+
+        <div className="div-GT2">
+
           <input
+            className="overlap-groupGT1 text-wrapperGT1"
             type="file"
             name="archivoImagen"
             accept="image/*"
             onChange={handleChange}
+            placeholder="Archivo de Imagen"
           />
         </div>
-        <div className="form-group">
-          <label>Descripción</label>
+
+        <div className="div-GT4">
+
           <input
+            style={{ backgroundColor: '#f5f6fa' }}
+            className="overlap-groupGT2 text-wrapperGT1"
             type="text"
             name="descripcion"
             value={formData.descripcion}
             onChange={handleChange}
+            placeholder="Descripción"
           />
         </div>
 
-        <div className="form-group">
-          <label>Direccion principal</label>
-          <span>
-            {trasformadores.map((transformador) => (
-              <span key={transformador.direccion_principal}>
-                {transformador.direccion_principal}
-              </span>
-            ))}
-          </span>
+        <div className="div-GT5">
+  <label className="overlap-groupGT2 text-wrapperGT1 dr1">Direccion principal</label>
+  <span>
+    <div className="overlap-groupGT2 text-wrapperGT1 dr2">
+      {/* Verifica si hay un transformador seleccionado */}
+      {formData.transformadorRecibeId &&
+        trasformadores
+          .filter((transformador) => transformador.id === parseInt(formData.transformadorRecibeId))
+          .map((transformador) => (
+            <span key={transformador.id}>{transformador.direccion_principal}</span>
+          ))}
+    </div>
+  </span>
+</div>
+
+        <div className="errorGT">
+          {message && <p style={{ color: message.startsWith('Error') ? 'red' : 'green' }}>{message}</p>}
         </div>
 
-        {/*message && <p style={{ color: message.startsWith('Error') ? 'red' : 'green' }}>{message}</p>*/}
+        <div className="boxGT">
+          <div className="CRGT">
 
-        <div className="form-group">
-          <button type="submit" className="submit-button">
-            Registrar
-          </button>
+            <button type="button" className="cancelarGT" onClick={handleCancelar}>
+              <div className="ogGT">
+                <div className="twGT">Cancelar</div>
+              </div>
+            </button>
 
-          <button type="button" className="register-button" onClick={handleCancelar}>
-            Salir
-          </button>
+
+            <button type="submit" className="twregistrarGT" onClick={handleSubmit}>
+              <div className='oGT'>
+                <div className="dGT">Registrar</div>
+              </div>
+            </button>
+
+
+          </div>
         </div>
+
       </form>
 
+
+      <div className="labGT">
+        <div className="textlGT">Registros</div>
+      </div>
+
+      <div className='registrosGT'>
+        <div className="box4GT">
+          <div className="group4Gt">
+            <ul className="uliGT">
+              {registros.slice(-5).map((registro) => (
+                <li key={registro.id} className="registroGT">
+                  <div className="text-wrapper-7-GT"> Gestor </div>
+                  <span className="spanGT">{registro.gestor_recibe}</span>
+
+                  <div className="div2GT"> Transformador </div>
+                  <span className="span2GT">{registro.transormador}</span>
+
+
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
 
   );

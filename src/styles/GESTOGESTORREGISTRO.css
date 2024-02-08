@@ -1,0 +1,668 @@
+/* Titulo */
+
+.GESTORGESTOR {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.GESTORGESTOR .contenido-wrapperGG {
+  background-color: #ffffff;
+  height: 100px;
+  width: 1165px;
+}
+
+.GESTORGESTOR .contenidoGG {
+  height: 92px;
+  left: 59px;
+  position: relative;
+  top: 91px;
+  width: 876px;
+}
+
+.GESTORGESTOR .formGG {
+  height: 19px;
+  left: 7px;
+  position: absolute;
+  top: 73px;
+  width: 86px;
+}
+
+.GESTORGESTOR .groupGG {
+  height: 19px;
+  position: relative;
+  width: 88px;
+}
+
+.text-wrapperGeGe {
+  color: #000022;
+  font-family: "Lato", Helvetica;
+  font-size: 16px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 60px;
+  white-space: nowrap;
+}
+
+.divGeGe {
+  color: #000022;
+  font-family: "Lato", Helvetica;
+  font-size: 36px;
+  font-weight: 600;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+}
+
+/* Gestor realiza */
+
+.gestorgg,
+.gestorgg-wrapper {
+    position: absolute;
+    width: 209px;
+    height: 16.6px;
+}
+
+.gestorgg {
+    top: 15px;
+    left: 0;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.gestorgg-wrapper {
+    cursor: pointer;
+    top: 47.8px;
+    left: 30px;
+}
+
+.selectoutlineGG {
+    position: absolute;
+    top: 59px;
+    left: 247px;
+    font-family: roboto;
+    font-size: 16px;
+    color: #1a202c;
+    width: 140px;
+    height: 30px;
+}
+
+.GESTOR-GESTOR1 {
+    width: 340px;
+    position: relative;
+
+    height: 103px;
+    text-align: left;
+    font-size: 14px;
+    color: #002;
+    font-family: Lato;
+    top: 50px;
+}
+
+/* Gestor recibe */
+
+.gestorgr,
+.gestorgr-wrapper {
+    position: absolute;
+    width: 209px;
+    height: 16.6px;
+}
+
+.gestorgr {
+    top: 5px;
+    left: 0;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.gestorgr-wrapper {
+    cursor: pointer;
+    top: 47.8px;
+    left: 30px;
+}
+
+.selectoutlineGR {
+    position: absolute;
+    top: 45px;
+    left: 247px;
+    font-family: roboto;
+    font-size: 16px;
+    color: #1a202c;
+    width: 140px;
+    height: 30px;
+}
+
+.GESTOR-GESTOR2 {
+    width: 340px;
+    position: relative;
+
+    height: 103px;
+    text-align: left;
+    font-size: 14px;
+    color: #002;
+    font-family: Lato;
+    top: 50px;
+}
+
+/* Materiales */
+
+.materialNGG {
+  position: absolute;
+  width: 209px;
+  height: 16.6px;
+  top: 575px;
+  left: 630px;
+  color: #000022;
+  font-family: "Lato", Helvetica;
+  font-size: 16px;
+  font-weight: 700;
+
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+
+  white-space: nowrap;
+  
+}
+
+.material1GG {
+  position: absolute;
+  width: 209px;
+  height: 16.6px;
+  top: 85px;
+  left: 190px;
+  font-weight: 600;
+  display: inline-block;
+  font-family: "Lato", Helvetica;
+  
+}
+
+.cantidadGG {
+  position: absolute;
+  width: 209px;
+  height: 16.6px;
+  top: 535px;
+  left: 750px;
+  font-weight: 600;
+  color: #000022;
+  font-family: "Lato", Helvetica;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  white-space: nowrap;
+  font-family: "Lato", Helvetica;
+}
+
+.materialGG {
+  color: #000022;
+  font-family: "Lato", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  left: 158px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: right;
+  top: 128px;
+  width: 110px;
+  
+  
+  
+}
+
+.materiales-tableGG {
+  width: 200px;
+  height: 300px;
+  position: absolute;
+  
+  
+}
+
+.materialGG-row {
+  margin-bottom: 10px; /* Ajusta el valor según sea necesario para el margen entre las filas */
+}
+
+.materialGG-row td {
+  padding: 8px;
+  
+  
+}
+
+.materiales-tableGG th {
+ margin-bottom: 10px; 
+  padding: 8px;
+  
+}
+
+.materialGG tr:not(:last-child) {
+  margin-bottom: 20px; /* Ajusta el valor según sea necesario para el margen entre las filas */
+}
+
+
+
+
+.cantidad2GG {
+  position: absolute;
+  left: 720px;
+  top: 615px; /* Ajusta la posición vertical según sea necesario */
+  text-align: right;  
+}
+
+.cantidad-tableGG {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+
+/* Fecha */
+
+.fechaGG,
+.fechaGG-wrapper {
+    position: absolute;
+    width: 209px;
+    height: 16.6px;
+}
+
+.fechaGG {
+    top: 85px;
+    left: 0;
+    font-weight: 600;
+    display: inline-block;
+    font-family: "Lato-Bold", Helvetica;
+}
+
+.fechaGG-wrapper {
+    cursor: pointer;
+    top: 765px;
+    left: 450px;
+    font-family: "Lato-Bold", Helvetica;
+}
+
+/* */
+.div-GG1 {
+  height: 33px;
+  left: 630px;
+  position: absolute;
+  top: 855px;
+  width: 400px;
+}
+
+.fechaGG1 {
+  font-family: "Lato-Bold", Helvetica;
+  color: #069877;
+  border-color: transparent;
+  
+}
+
+.calendarGG {
+  position: absolute;
+  top: 0;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator, input[type="time"]::-webkit-calendar-picker-indicator{
+  cursor: pointer;
+  border-radius: 4px;
+  margin-right: 2px;
+  opacity: 0.0;
+  filter: invert(0.9);
+}
+
+.div-GG2 {
+  height: 33px;
+  left: 500px;
+  position: absolute;
+  top: 940px;
+  width: 550px;
+}
+
+.div-GG4 {
+  height: 33px;
+  left: 500px;
+  position: absolute;
+  top: 1020px;
+  width: 550px;
+}
+
+.selectoutlineGU {
+  position: absolute;
+  top: 10px;
+  left: 100px;
+  font-family: roboto;
+  font-size: 16px;
+  color: #1a202c;
+  width: 140px;
+  height: 30px;
+}
+
+.text-wrapperGG1 {
+  color: #7c7d7f;
+  font-family: "Lato", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  left: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 8px;
+  white-space: nowrap;
+  width: 380px;
+  height: 15px;
+}
+
+.overlap-groupGG1 {
+  background-color: #f5f6fa;
+  border-radius: 5px;
+  height: 33px;
+  position: relative;
+  width: 404px;
+  top: -10px;
+  left: -110px;
+}
+
+.overlap-groupGG2 {
+  background-color: #f5f6fa;
+  border-radius: 5px;
+  height: 15px;
+  position: relative;
+  width: 404px;
+  top: -10px;
+  left: -110px;
+}
+
+
+
+
+
+/* Botones */
+
+.boxGG {
+  height: 45px;
+  position: absolute;
+  width: 215px;
+  top: -450px;
+  left: 0px;
+}
+
+.boxGG .CRGG {
+  height: 45px;
+  left: 600px;
+  position: absolute;
+  top: 1650px;
+  width: 215px;
+}
+
+.boxGG .cancelarGG {
+  height: 45px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 105px;
+  border-radius: 10px;
+}
+
+.boxGG .ogGG {
+  background-color: #ffff;
+  border: 1px solid;
+  border-color: #069877;
+  border-radius: 10px;
+  height: 45px;
+  position: relative;
+  width: 103px;
+  left: -2px;
+  top: -2px;
+}
+
+.boxGG .twGG {
+  color: #069877;
+  font-family: "Lato-Bold", Helvetica;
+  font-size: 18px;
+  font-weight: 700;
+  left: 13px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 10px;
+  width: 80px;
+}
+
+.boxGG .twregistrarGG {
+  height: 45px;
+  left: 115px;
+  position: absolute;
+  top: 0;
+  width: 102px;
+  border-radius: 10px;
+}
+
+.b4editar{
+  height: 45px;
+  left: 115px;
+  position: absolute;
+  top: 0;
+  width: 102px;
+  border-radius: 10px;
+}
+
+.boxGG .oGG {
+  background-color: #069877;
+  border-radius: 10px;
+  height: 45px;
+  position: relative;
+  width: 103px;
+  left: -20px;
+  top: -10px;
+}
+
+.boxGG .dGG{
+  color: #ffffff;
+  font-family: "Lato-Bold", Helvetica;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 10px;
+
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  height: 45px;
+  background-color: #069877;
+  width: 103px;
+  left: -1px;
+  top: -1px;
+}
+
+
+/* Registros */
+
+.labGG {
+  height: 43px;
+  width: 147px;
+  position: absolute;
+}
+
+.labGG .textlGG {
+  color: #000022;
+  font-family: "Lato-SemiBold", Helvetica;
+  font-size: 36px;
+  font-weight: 600;
+  left: 50px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 670px;
+  white-space: nowrap;
+}
+
+.errorGG {
+  height: 43px;
+  width: 1440px;
+  position: absolute;
+  top: 1140px;
+}
+
+/* Registros span */
+.registrosGG {
+  
+  position: absolute;
+  top: -950px;
+  left: 50px;
+  
+}
+
+.box4GG {
+  height: 18px;
+  position: absolute;
+  width: 311px;
+  top: 440px;
+}
+
+.box4GG .group4GG {
+  height: auto;
+  left: 420px;
+  position: absolute;
+  top: 1930px;
+  width: 317px;
+}
+
+.box4GG .registroGG {
+  margin-bottom: 0px;
+  top: 10px;
+  
+  
+}
+
+.box4GG .text-wrapper-7-GG {
+  color: #000022;
+  font-family: "Lato-Bold", Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: -40px;
+  white-space: nowrap;
+  
+  
+}
+
+
+.box4GG .div2GG {
+  color: #000022;
+  font-family: "Lato-Bold", Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 330px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: -40px;
+  white-space: nowrap;
+
+}
+
+.box4GG .text-wrapper-8-GE {
+  color: #000022;
+  font-family: "Lato-Bold", Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 520px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: -40px;
+  white-space: nowrap;
+  margin-bottom: 25px;
+  
+}
+
+.spanGG{
+  margin-right: 0px; 
+  height: 53px;
+  width: 1040px;
+}
+
+.span2GG{
+  margin-right: -10px; 
+  height: 53px;
+  width: 1040px;
+  left: -20px;
+}
+
+.uliGG {
+  margin-right: 20px; 
+  height: 53px;
+  width: 640px;
+  
+  
+
+}
+
+
+.registrosGG li {
+  display: flex;
+  align-items: center; /* Centra verticalmente el contenido */
+}
+
+.registrosGG li .text-wrapper-7-GG,
+.registrosGG li .div2GG,
+.registrosGG li .text-wrapper-8-GE {
+  margin-right: 10px; /* Ajusta el valor según sea necesario */
+}
+
+.registrosGG li .spanGG{
+  margin-left: -50px; /* Ajusta el valor según sea necesario */
+}
+
+.registrosGG li .span2GG {
+  margin-left: 200px; /* Ajusta el valor según sea necesario */
+}
+
+
+
+/* Ajusta el espacio entre los botones si es necesario */
+.registrosGG li .edit-buttonGE,
+.registrosGG li .delete-buttonGE {
+  margin-left: 20px; /* Ajusta el valor según sea necesario */
+
+}
+
+.b4show-box1 {
+  visibility: visible;
+  
+}
+
+.delete-buttonGE{
+  height: 35px;
+  width: 280px;
+  font-size: 30px;
+}
+
+.edit-buttonGE{
+  font-size: 20px;
+  
+}
+
+.GESTOR-GESTOR4 {
+  width: 340px;
+  position: relative;
+  height: 103px;
+  text-align: left;
+  font-size: 14px;
+  color: #002;
+  font-family: Lato;
+  top: 550px;
+  left: 20px;
+}

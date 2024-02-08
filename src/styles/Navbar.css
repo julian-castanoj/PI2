@@ -1,20 +1,24 @@
+/* Navbar.css */
+.navbar-container {
+  display: flex;
+  align-items: flex-start;
+  height: 200px;
+}
 
-.navbar {
-    background-color: #000;
-    color: #fff;
-    height: 60px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .navbar-content {
-    margin: 0 auto;
-    max-width: 1200px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 20px;
-  }
-  
+.navbar-item {
+  cursor: pointer;
+  width: 1940px;
+}
 
-  
+.navbar-image {
+  width: 1940px;
+  height: 100%;
+  background-size: cover; /* Hace que la imagen cubra completamente el contenedor */
+  background-position: center; /* Centra la imagen */
+}
+
+
+
+
+
+

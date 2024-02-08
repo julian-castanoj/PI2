@@ -1,7 +1,8 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
-import '../../styles/registrarTransacciones.css';
+import '../../styles/GESTORENTIDAD.css';
 import { useNavigate } from 'react-router-dom';
+import { MdCalendarMonth } from "react-icons/md";
 
 const RegistrarGestorEntidadExterna = () => {
   const [formData, setFormData] = useState({
@@ -139,9 +140,9 @@ const RegistrarGestorEntidadExterna = () => {
     console.log(materiales);
     console.log(cantidades);
     const numericGestorRecibe = isNaN(formData.gestor_recibe) ? formData.gestor_recibe : parseFloat(formData.gestor_recibe);
-    
+
     const userConfirmed = window.confirm("¿Estás seguro de que deseas enviar el formulario?");
-    
+
     if (userConfirmed) {
       try {
         const requestBody = {
@@ -155,7 +156,7 @@ const RegistrarGestorEntidadExterna = () => {
           descripcion: formData.descripcion,
           ubicacion: formData.ubicacion,
         };
-  
+
         const requestOptions = {
           method: 'POST',
           headers: {
@@ -163,14 +164,16 @@ const RegistrarGestorEntidadExterna = () => {
           },
           body: JSON.stringify(requestBody),
         };
-  
+
         const response = await fetch('http://localhost:3000/transacciones', requestOptions);
-  
+
         if (response.ok) {
           console.log('Registro exitoso');
           console.log("gestor_recibe: ", numericGestorRecibe);
           fetchData();
-  
+          setMateriales([]);
+          setCantidades(Array.from({ length: materiales.length }, () => ''));
+          console.log("Mensaje actualizado:", message);
           // Restablecer el estado del formulario
           setFormData({
             gestorId: '',
@@ -184,10 +187,13 @@ const RegistrarGestorEntidadExterna = () => {
             ubicacion: '',
             cantidades: [],
           });
+          setMessage('Registro exitoso');
+
         } else {
           if (response.status === 400) {
             const errorData = await response.json();
             setMessage(`Error al registrar: ${errorData.message}`);
+
           } else {
             setMessage('Error al registrar. Por favor, intenta de nuevo.');
           }
@@ -200,8 +206,8 @@ const RegistrarGestorEntidadExterna = () => {
       console.log('Envío del formulario cancelado');
     }
   };
-  
-  
+
+
 
   const editarRegistro = (id) => {
     setEditandoId(id);
@@ -222,7 +228,7 @@ const RegistrarGestorEntidadExterna = () => {
           descripcion,
           ubicacion,
         } = data;
-  
+
         // Actualiza el estado formData con los datos del registro seleccionado
         setFormData({
           gestorId,
@@ -297,15 +303,38 @@ const RegistrarGestorEntidadExterna = () => {
       .catch((error) => console.error('Error al obtener la lista de puntos de recolección:', error));
   };
 
-
+  useEffect(() => {
+    console.log("Renderizando componente...");
+  }, [message]);
 
   return (
-    <div className="registrar-miembros-page">
-      <h2>Formulario de Registro de Transacción - Entidad Externa</h2>
+
+
+    <div className="registrar-miembros-page2">
+
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>ID - Nombre del gestor</label>
+
+        <div className="GESTORENTIDAD">
+          <div className="contenido-wrapper">
+            <div className="contenido">
+              <div className="form">
+                <div className="group">
+                  <div className="text-wrapper">Información</div>
+                </div>
+              </div>
+              <p className="div">Formulario de registro de transacción - Entidad externa</p>
+            </div>
+          </div>
+        </div>
+
+
+        <div className="GESTOR-ENTIDAD1">
+          <label className="gestor-wrapper">
+            <div className="gestor">ID - Nombre del gestor</div>
+          </label>
           <select
+            className="selectoutlineGE"
+            style={{ width: '170px', backgroundColor: '#f5f6fa', color: '#7c7d7f' }}
             name="gestorId"
             value={formData.gestorId}
             onChange={handleChange}
@@ -319,94 +348,134 @@ const RegistrarGestorEntidadExterna = () => {
           </select>
         </div>
 
-        <div className="">
-          <div className="">
+
+
+
+
+
+
+
+        <div className="material2">
+          <div className="material">
             <label>Materiales Asociados</label>
-            <table>
-              <thead>
+          </div>
+          <table className="materiales-table">
+            <thead>
+              <div className="material1">
                 <tr>
-                  <th>Material</th>
+                  <th></th>
                 </tr>
-              </thead>
-              <tbody>
+              </div>
+            </thead>
+            <tbody>
+              <div className="materialN" >
                 {materiales.map((material, index) => (
-                  <tr key={index}>
-                    <td>{material}</td>
+                  <tr key={index}  >
+                    <td style={{ height: '35px' }}>{material}</td>
                   </tr>
                 ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="">
-            <label>Cantidades</label>
-            <table>
-              <thead>
-                <tr>
-                  <th>Cantidad</th>
-                </tr>
-              </thead>
-              <tbody>
-                {/* Utilizar la longitud de materiales para generar la misma cantidad de filas */}
-                {Array.from({ length: materiales.length }).map((_, index) => (
-                  <tr key={index}>
-                    <td>
+              </div>
+            </tbody>
+          </table>
+        </div>
+
+
+        <div className="cantidad2">
+          <table className="cantidad-table">
+            <thead>
+              <tr>
+                <th style={{ fontFamily: 'lato' }}>Cantidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* Utilizar la longitud de materiales para generar la misma cantidad de filas */}
+              {Array.from({ length: materiales.length }).map((_, index) => (
+                <tr key={index}>
+                  <td>
+                    <div className="Cantidad1">
                       <input
+                        style={{ backgroundColor: '#f5f6fa', color: '#7c7d7f', fontFamily: 'Lato' }}
                         type="number"
                         value={cantidades[index]}
                         onChange={(e) => handleCantidadChange(index, e)}
-                        placeholder="Ingrese un número"
+                        placeholder="Ingrese la cantidad"
                       />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
 
 
-        <div className="form-group">
-          <label>Fecha</label>
+
+
+        <label className="fecha-wrapper">
+          <div className="fecha">Fecha</div>
+        </label>
+
+        <div className="div-GE1">
           <input
+            className="overlap-groupb1 text-wrapperb1 fecha1"
+            style={{ width: '130px', zIndex:'1' }}
             type="date"
             name="fecha"
             value={formData.fecha}
             onChange={handleChange}
+
           />
+          <div className='calendar' style={{pointerEvents: 'none',zIndex: '2'}} >
+            <MdCalendarMonth color='#069877'  />
+          </div>
         </div>
-        <div className="form-group">
-          <label>Archivo de Imagen</label>
+
+        <div className="div-GE2">
+
           <input
+            className="overlap-groupb1 text-wrapperb1"
             type="file"
             name="archivoImagen"
             accept="image/*"
             onChange={handleChange}
+            placeholder="Archivo de Imagen"
           />
         </div>
-        <div className="form-group">
-          <label>Entidad Externa</label>
+
+        <div className="div-GE3">
+
           <input
+            style={{ backgroundColor: '#f5f6fa' }}
+            className="overlap-groupb2 text-wrapperb1"
             type="text"
             name="entidad_externa"
             value={formData.entidad_externa}
             onChange={handleChange}
+            placeholder="Entidad Externa"
           />
         </div>
-        <div className="form-group">
-          <label>Descripción</label>
+
+        <div className="div-GE4">
+
           <input
+            style={{ backgroundColor: '#f5f6fa' }}
+            className="overlap-groupb2 text-wrapperb1"
             type="text"
             name="descripcion"
             value={formData.descripcion}
             onChange={handleChange}
+            placeholder="Descripción"
           />
         </div>
 
-
-        <div className="form-group">
-          <label>Ubicación</label>
+        <div className="GESTOR-ENTIDAD4">
+          <label className="gestor-wrapper">
+            <div className="gestor">Ubicación</div>
+          </label>
           <select
+            className="selectoutlineGE"
+            style={{ width: '130px', backgroundColor: '#f5f6fa', color: '#7c7d7f' }}
             name="ubicacion"
             value={formData.ubicacion}
             onChange={handleChange}
@@ -421,37 +490,59 @@ const RegistrarGestorEntidadExterna = () => {
         </div>
 
 
-         {/*message && <p style={{ color: message.startsWith('Error') ? 'red' : 'green' }}>{message}</p>*/}
-        <div className="form-group">
 
-          {editandoId ? (
-            <button type="button" className="submit-button" onClick={guardarEdicion}>
-              Guardar Edición
+        <div className="errorGE">
+          {message && <p style={{ color: message.startsWith('Error') ? 'red' : 'green' }}>{message}</p>}
+        </div>
+
+        <div className="boxGE">
+          <div className="CRGE">
+            <button type="button" className="cancelarGE" onClick={handleCancelar}>
+              <div className="ogGE">
+                <div className="twGE">Cancelar</div>
+              </div>
             </button>
-          ) : (
-            <button type="submit" className="submit-button">
-              Registrar
-            </button>
-          )}
-          <button type="button" className="register-button" onClick={handleCancelar}>
-            Salir
-          </button>
+
+            {editandoId ? (
+              <button type="button" className="registrarGE" onClick={guardarEdicion}>
+                <div className="dGE">Guardar Edición</div>
+              </button>
+            ) : (
+              <button type="submit" className="registrarGE" onClick={handleSubmit}>
+                <div className='oGE'>
+                  <div className="dGE">Registrar</div>
+                </div>
+              </button>
+            )}
+
+          </div>
         </div>
       </form>
-      <h2>Registros</h2>
-      <ul>
-        {registros.slice(-5).map((registro) => (
-          <li key={registro.id}>
-            <span>{registro.fecha}, {registro.entidad_externa}</span>
-            <button onClick={() => editarRegistro(registro.id)} className="edit-button">
-              Editar
-            </button>
-            <button onClick={() => eliminarRegistro(registro.id)} className="delete-button">
-              Eliminar
-            </button>
-          </li>
-        ))}
-      </ul>
+
+
+      <div className="labGE">
+        <div className="textlGE">Registros</div>
+      </div>
+
+      <div className='registrosGE'>
+        <div className="box4GE">
+          <div className="group4GE">
+            <ul className="uliGE">
+              {registros.slice(-5).map((registro) => (
+                <li key={registro.id} className="registroGE">
+                  <div className="text-wrapper-7-GE"> Gestor </div>
+                  <span className="spanGE">{registro.gestor_recibe}</span>
+
+                  <div className="div2GE"> Entidad externa </div>
+                  <span className="span2GE">{registro.entidad_externa}</span>
+
+
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

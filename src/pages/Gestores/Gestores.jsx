@@ -1,8 +1,14 @@
-import '../../styles/gestor.css';
+import '../../styles/Tablas/new-table1.css';
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { IoTrashOutline } from "react-icons/io5";
+import { BiSolidEdit } from "react-icons/bi";
+
+import { HiOutlineArrowCircleRight } from "react-icons/hi";
+import { HiOutlineArrowCircleLeft } from "react-icons/hi";
+
 
 const Gestores = () => {
   const navigate = useNavigate();
@@ -11,6 +17,7 @@ const Gestores = () => {
   const [searchNit, setSearchNit] = useState('');
   const itemsPerPage = 10;
   const [filteredData, setFilteredData] = useState([]);
+  const totalPages = Math.ceil(data.length / itemsPerPage);
 
   const fetchData = async () => {
     try {
@@ -69,7 +76,7 @@ const Gestores = () => {
 
   return (
     <div className="gestores-page">
-      <h1 className="page-title">Gestores</h1>
+      
       <div className="search-bar">
         <input
           type="text"
@@ -79,7 +86,8 @@ const Gestores = () => {
           className="search-input"
         />
       </div>
-      <table className="custom-table">
+
+   {/*   <table className="custom-table">
         <thead>
           <tr>
             
@@ -107,29 +115,106 @@ const Gestores = () => {
             </tr>
           ))}
         </tbody>
-      </table>
-      <div className="pagination">
-        <button
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-          className="pagination-button"
-        >
-          Anterior
-        </button>
-        <span>Página {currentPage}</span>
-        <button
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage * itemsPerPage >= paginatedData.length}
-          className="pagination-button"
-        >
-          Siguiente
-        </button>
+      </table> */}
+
+<div className="GESTORES">
+        <div className="contenido-wrapper">
+          <div className="contenido">
+            <div className="tabla">
+
+              <div>
+                {paginatedData.map((item) => (
+                  <div className="MEETING" key={item.id}>
+                    <div className="group">
+                      <div className="text-wrapper">{item.nombre}</div>
+                      <div className="text-wrapper-10">{item.correo}</div>
+                      <div className="text-wrapper-2">{item.nit}</div>
+                      <div className="text-wrapper-3">{item.telefono}</div>
+                      <div className="direcarrera">
+                        {item.direccion.split("\n").map((line, index) => (
+                          <p key={index}>{line}</p>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="navbar">
+                      <div className="text-wrapper-4">Nombre</div>
+                      <div className="text-wrapper-5">Correo</div>
+                      <div className="text-wrapper-9">NIT</div>
+                      <div className="text-wrapper-6">Teléfono</div>
+                      <div className="text-wrapper-7">Dirección</div>
+                      <div className="text-wrapper-8">Acciones</div>
+                    </div>
+
+
+                    <button onClick={() => handleEditarClick(item.id)} className="edit-buttonPG">
+                      <BiSolidEdit />
+                    </button>
+
+                    <button onClick={() => eliminarGestor(item.id)} className="delete-buttonPG">
+                      <div className="icon-containerPG">
+                        <IoTrashOutline />
+                      </div>
+                    </button>
+
+
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="action-buttons">
-        <Link to="/registrarGestores" className="register-button">
-          Registrar
-        </Link>
-      </div>
+
+
+
+      <div className="pagination" style={{ display: 'flex', alignItems: 'center' }}>
+  <button
+    onClick={() => handlePageChange(currentPage - 1)}
+    disabled={currentPage === 1}
+    style={{
+      backgroundColor: 'transparent',
+      color: '#069877',
+      fontSize: '18px',
+      padding: '8px 12px',
+      border: 'none',
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+    }}
+  >
+    <HiOutlineArrowCircleLeft style={{ color: '#069877', marginRight: '5px', fontSize: '40px' }} />
+    <span style={{ marginRight: '10px' }}>Anterior</span>
+  </button>
+  <span style={{ marginRight: '10px' }}>Página {currentPage} de {totalPages}</span>
+  <button
+    onClick={() => handlePageChange(currentPage + 1)}
+    disabled={currentPage === totalPages}
+    style={{
+      backgroundColor: 'transparent',
+      color: '#069877',
+      fontSize: '18px',
+      padding: '8px 12px',
+      border: 'none',
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+    }}
+  >
+    <span style={{ marginRight: '10px' }}>Siguiente</span>
+    <HiOutlineArrowCircleRight style={{ color: '#069877', marginLeft: '5px', fontSize: '40px' }} />
+  </button>
+</div>
+
+<div className="registrarGe" style={{ textAlign: 'center' }}>
+  <div className='oGe'>
+    <Link to="/registrarGestores" className="dGe">
+      Registrar
+    </Link>
+  </div>
+</div>
+
+
+      
     </div>
   );
 };

@@ -1,17 +1,124 @@
+/* Agregado para cambiar el color del fondo cuando está seleccionado o encima */
+
 .submenu .link {
-    display: flex;
-    align-items: center;
-    margin: 0;
-    padding: 8px 20px; /* Ajusta el espacio entre elementos en los submenús */
-    text-decoration: none;
-    color: #fff;
-    border-radius: 0;
-  
-    /* Añade estilos de transición para suavizar las animaciones */
-    transition: background-color 0.2s, padding 0.2s;
-  }
-  
-  .submenu .link:hover {
-    background-color: #444;
-    padding: 8px 30px; /* Ajusta el espacio cuando se pasa el cursor por encima */
-  }
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 8px 20px;
+  text-decoration: none;
+  color: #fff;
+  border-radius: 0;
+  transition: background-color 0.2s, padding 0.2s;
+  width: 320px;
+  position: relative;
+}
+
+.submenu .link_text {
+  color: #94989D; /* Cambia el color del texto según tus preferencias */
+  font-family: 'Lato', sans-serif; /* Utiliza la fuente "Lato" */
+}
+
+.submenu .link .icon {
+  color: #94989D; /* Cambia el color del icono según tus preferencias */
+}
+
+.submenu .link:hover,
+.sidebar-closed .submenu .link:hover,
+.submenu .link:focus {
+  background-color: #069877;
+  text-decoration: underline;
+  text-decoration-color: #069877;
+}
+
+/* Subrayado al hacer clic */
+.submenu .link:active,
+.sidebar-closed .submenu .link:active,
+.submenu .link:focus:active {
+  background-color: #E1E2E9;
+  text-decoration: underline;
+  text-decoration-color: #E1E2E9;
+}
+
+
+
+.submenu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Eliminado el logo */
+.top_section .logo {
+  display: none;
+}
+
+.menu1,
+.px-icon1 {
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.menu1 {
+  background-color: #069877;
+  width: 277px; /* Cambiado a 277px */
+  height: auto; /* Cambiado a auto para permitir altura dinámica */
+  display: flex;
+  flex-direction: column; /* Cambiado a columna para apilar elementos */
+  align-items: flex-start; /* Alineados al centro */
+  justify-content: flex-start;
+  padding: 0; /* Eliminado el padding para ajustar al contenido */
+  box-sizing: border-box;
+  font-size: 16px;
+  color: #fff;
+  font-family: var(--font-lato);
+}
+
+.menu-item1 {
+  background-color: #069877;
+  align-self: stretch;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  gap: var(--gap-3xs);
+  width: 100%; /* Ocupa todo el ancho del menú */
+  padding: 8px 20px; /* Ajusta el espacio entre elementos en los submenús */
+}
+
+
+.inicio,
+.vector-icon {
+  position: absolute;
+  margin: 0 !important;
+}
+
+.vector-icon {
+  top: 4.6px;
+  left: 40px;
+  width: 18px;
+  height: 19.4px;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.sidebar {
+  background-color: #F5F6FA;
+  width: 353px;
+  height: 1300px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  font-size: 16px;
+  color: #fff;
+  font-family: 'Lato', sans-serif;
+}
+
+/* Eliminado el logo */
+.top_section .logo {
+  display: none;
+}
