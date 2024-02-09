@@ -6,7 +6,8 @@ import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
 import Inicio from './pages/Inicio.jsx';
 import Reportes from './pages/Reportes.jsx';
-import InicioS from './pages/inicioS.jsx';
+
+import InicioS from './pages/inicioSe.jsx';
 
 import Productores from './pages/Productores/Productores.jsx';
 import Estadisticas from './pages/Estadisticas.jsx';
