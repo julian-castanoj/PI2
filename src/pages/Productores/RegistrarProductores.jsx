@@ -180,7 +180,8 @@ const RegistrarProductores = () => {
 
   const guardarEdicion = async () => {
     const indiceEdicion = registros.findIndex((registro) => registro.id === editandoId);
-
+    console.log(formData.material);
+    console.log(formData.cantidad);
     if (indiceEdicion !== -1) {
       try {
         setMessage(null); // Limpia mensajes previos

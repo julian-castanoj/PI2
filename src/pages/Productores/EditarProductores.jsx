@@ -51,7 +51,7 @@ const EditarProductores = () => {
           },
           body: JSON.stringify({
             ...formData,
-            cantidad: getCantidadesString(),
+            cantidad: getCantidadesString(formData),
           }),
         });
 

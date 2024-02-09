@@ -30,6 +30,8 @@ import '../styles/Navbar.css';
 const Navbar = () => {
   const { pathname } = useLocation();
 
+  // Misma imagen al editar actores
+
   const obtenerNumeroProductor = (ruta) => {
     const match = ruta.match(/\/editarProductores\/(\d+)/);
     return match ? parseInt(match[1], 10) : null;
@@ -43,7 +45,7 @@ const Navbar = () => {
     return match ? parseInt(match[1], 10) : null;
   };
 
-
+// Imagenes del navbar 
 
   const getIconForRoute = (route) => {
     const numeroProductor = obtenerNumeroProductor(route);
@@ -52,7 +54,7 @@ const Navbar = () => {
     switch (route) {
       case '/productores':
         return productoresIcon;
-      case '/registrarproductores':
+      case '/registrarProductores':
         return productores3Icon;
       case `/editarProductores/${numeroProductor}`:
         return productores3Icon;
@@ -76,9 +78,9 @@ const Navbar = () => {
         return GestorGestorIcon;
       case '/registrarGestorGestor':
         return GestorGestor1Icon;
-      case '/transacciones':
+      case '/gestorTransformador':
         return GestorTransformadorIcon;
-      case '/registrarTransacciones':
+      case '/registrarGestorTransformador':
         return GestorTransformador1Icon;
       case '/estadisticas':
         return EstadisticasIcon;
@@ -88,7 +90,7 @@ const Navbar = () => {
         return LogoIcon;
 
       default:
-        return null; // Puedes retornar una imagen predeterminada si no coincide ninguna ruta
+        return null; 
     }
   };
 

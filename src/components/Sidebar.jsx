@@ -21,7 +21,7 @@ const Sidebar = ({ children, isAuthenticated }) => {
   const toggleActors = () => setIsActorsOpen(!isActorsOpen);
   const toggleTransactions = () => setIsTransactionsOpen(!isTransactionsOpen);
 
-  
+// MEnus y sub menus
 
   const actorsSubMenu = [
     {
@@ -53,7 +53,7 @@ const Sidebar = ({ children, isAuthenticated }) => {
       icon: <FaCodeCompare />,
     },
     {
-      path: "/transacciones",
+      path: "/gestorTransformador",
       name: "Gestor - Transformador",
       icon: <FaCodeMerge />,
     },

@@ -1,7 +1,3 @@
-//import React from 'react';
-// App.js
-
-
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
@@ -10,7 +6,7 @@ import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
 import Inicio from './pages/Inicio.jsx';
 import Reportes from './pages/Reportes.jsx';
-import InicioS from './pages/InicioS.jsx';
+import InicioS from './pages/inicioS.jsx';
 
 import Productores from './pages/Productores/Productores.jsx';
 import Estadisticas from './pages/Estadisticas.jsx';
@@ -20,34 +16,27 @@ import Logout from './pages/Logout.jsx';
 import RegistrarProductores from './pages/Productores/RegistrarProductores.jsx';
 
 import Gestores from './pages/Gestores/Gestores.jsx';
-import Transformadores from './pages/Transformadores.jsx';
+import Transformadores from './Transformador/Transformadores.jsx';
 
 import RegistrarGestores from './pages/Gestores/RegistrarGestores.jsx';
 
-import RegistrarTransformadores from './pages/RegistrarTransformadores.jsx';
+import RegistrarTransformadores from './Transformador/RegistrarTransformadores.jsx';
 
 import EditarGestor from './pages/Gestores/EditarGestor';
-import EditarTransformador from './pages/EditarTransformador';
+import EditarTransformador from './Transformador/EditarTransformador.jsx';
 import EditarProductores from './pages/Productores/EditarProductores';
 
-import EditarTransacciones from './pages/TransGestorProductor/EditarTransaccion';
-import RegistrarTransacciones from './pages/TransGestorProductor/RegistrarTransacciones.jsx';
-import Transacciones from './pages/TransGestorProductor/Transacciones.jsx';
+import EditarTransacciones from './pages/TransGestorTransformador/EditarGestorTransformador.jsx';
+import RegistrarTransacciones from './pages/TransGestorTransformador/RegistrarGestorTransformador.jsx';
+import Transacciones from './pages/TransGestorTransformador/GestorTransformador.jsx';
 
 import GestorGestor from './pages/TransGestorGestor/GestorGestor';
 import RegistrarGestorGestor from './pages/TransGestorGestor/RegistrarGestorGestor';
 import EditarGestorGestor from './pages/TransGestorGestor/EditarGestorGestor';
 
-
-
 import GestorEntidadExterna from './pages/TransGestorExterno/GestorEntidadExterna';
 import RegistrarGestorEntidadExterna from './pages/TransGestorExterno/RegistrarGestorEntidadExterna';
 import EditarGestorEntidadExterna from './pages/TransGestorExterno/EditarGestorEntidadExterna';
-
-import ProductorGestor from './pages/ProductorGestor';
-import EditarProductorGestor from './pages/EditarProductorGestor';
-import RegistrarProductorGestor from './pages/RegistrarProductorGestor';
-
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -79,7 +68,7 @@ const App = () => {
             <div className="content-container"></div>
             <Sidebar className="full-height-sidebar" isAuthenticated={isAuthenticated}>
               <Routes>
-                
+
                 <Route exact path="/inicioS" element={<InicioS />} />
 
                 <Route exact path="/productores" element={<Productores />} />
@@ -94,11 +83,6 @@ const App = () => {
                 <Route exact path="/registrarTransformadores" element={<RegistrarTransformadores />} />
                 <Route path="/editarTransformador/:id" element={<EditarTransformador />} />
 
-                {/* Gestor - Transformador   */}
-                <Route path="/transacciones" element={<Transacciones />} />
-                <Route path="/registrarTransacciones" element={<RegistrarTransacciones />} />
-                <Route path="/editarTransaccion" element={<EditarTransacciones />} />
-
                 {/*  Productor - entidad externa  */}
                 <Route path="/gestorEntidadExterna" element={<GestorEntidadExterna />} />
                 <Route path="/registrarGestorEntidadExterna" element={<RegistrarGestorEntidadExterna />} />
@@ -109,10 +93,11 @@ const App = () => {
                 <Route path="/registrarGestorGestor" element={<RegistrarGestorGestor />} />
                 <Route path="/editarGestorGestor" element={<EditarGestorGestor />} />
 
-                {/* Productor-Gestor   */}
-                <Route path="/productorGestor" element={<ProductorGestor />} />
-                <Route path="/registrarProductorGestor" element={<RegistrarProductorGestor />} />
-                <Route path="/editarProductorGestor" element={<EditarProductorGestor />} />
+                {/* Gestor - Transformador   */}
+                <Route path="/gestorTransformador" element={<Transacciones />} />
+                <Route path="/registrarGestorTransformador" element={<RegistrarTransacciones />} />
+                <Route path="/editarGesorTransformador" element={<EditarTransacciones />} />
+
 
 
 
@@ -122,10 +107,10 @@ const App = () => {
                 <Route path="/reportes" element={<Reportes />} />
 
                 <Route path="/logout" element={<Logout onLogout={handleLogout} />} />
-                </Routes>
-          </Sidebar>
-        </>
-      )}
+              </Routes>
+            </Sidebar>
+          </>
+        )}
 
         <Routes>
           <Route
