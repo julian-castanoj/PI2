@@ -30,7 +30,7 @@ const RegistrarGestorEntidadExterna = () => {
 
   const fetchData = useCallback(async () => {
     try {
-      const response = await fetch('backend-ac-production.up.railway.app/transacciones/ge');
+      const response = await fetch('https://backend-ac-production.up.railway.app/transacciones/ge');
       if (response.ok) {
         const result = await response.json();
         setRegistros(result);
@@ -44,7 +44,7 @@ const RegistrarGestorEntidadExterna = () => {
 
   useEffect(() => {
     fetchData();
-    fetch('backend-ac-production.up.railway.app/gestor')
+    fetch('https://backend-ac-production.up.railway.app/gestor')
       .then((response) => response.json())
       .then((data) => setGestores(data))
       .catch((error) => console.error('Error al obtener la lista de gestores:', error));
@@ -60,7 +60,7 @@ const RegistrarGestorEntidadExterna = () => {
   const fetchMaterials = (gestorId) => {
     const parsedId = parseInt(gestorId);
     if (!isNaN(parsedId)) {
-      fetch(`backend-ac-production.up.railway.app/gestor/${parsedId}`)
+      fetch(`https://backend-ac-production.up.railway.app/gestor/${parsedId}`)
         .then((response) => response.json())
         .then((data) => {
           if (data && data.materiales_recolectados) {
@@ -117,7 +117,7 @@ const RegistrarGestorEntidadExterna = () => {
       const parsedId = parseInt(selectedId);
       if (!isNaN(parsedId)) {
         // Hacer la solicitud para obtener los detalles del gestor por su ID
-        fetch(`backend-ac-production.up.railway.app/gestor/${parsedId}`)
+        fetch(`https://backend-ac-production.up.railway.app/gestor/${parsedId}`)
           .then((response) => response.json())
           .then((data) => {
             console.log(data); // Agregar un log para verificar los datos
@@ -165,7 +165,7 @@ const RegistrarGestorEntidadExterna = () => {
           body: JSON.stringify(requestBody),
         };
 
-        const response = await fetch('backend-ac-production.up.railway.app/transacciones', requestOptions);
+        const response = await fetch('https://backend-ac-production.up.railway.app/transacciones', requestOptions);
 
         if (response.ok) {
           console.log('Registro exitoso');
@@ -213,7 +213,7 @@ const RegistrarGestorEntidadExterna = () => {
     setEditandoId(id);
     // Aquí puedes cargar los datos del registro seleccionado para edición si es necesario.
     // Por ejemplo, puedes realizar una solicitud a la API para obtener los detalles del registro.
-    fetch(`backend-ac-production.up.railway.app/transacciones/ge/${id}`)
+    fetch(`https://backend-ac-production.up.railway.app/transacciones/ge/${id}`)
       .then((response) => response.json())
       .then((data) => {
         // Verifica la estructura de datos y ajusta la lógica según sea necesario
@@ -254,7 +254,7 @@ const RegistrarGestorEntidadExterna = () => {
     };
 
     try {
-      const response = await fetch(`backend-ac-production.up.railway.app/transacciones/ge/${editandoId}`, requestOptions);
+      const response = await fetch(`https://backend-ac-production.up.railway.app/transacciones/ge/${editandoId}`, requestOptions);
 
       if (response.ok) {
         console.log('Edición exitosa');
@@ -270,7 +270,7 @@ const RegistrarGestorEntidadExterna = () => {
 
   const eliminarRegistro = async (id) => {
     try {
-      const response = await fetch(`backend-ac-production.up.railway.app/transacciones/ge/${id}`, {
+      const response = await fetch(`https://backend-ac-production.up.railway.app/transacciones/ge/${id}`, {
         method: 'DELETE',
       });
 
@@ -290,7 +290,7 @@ const RegistrarGestorEntidadExterna = () => {
   };
 
   const fetchPuntosRecoleccion = (gestorId) => {
-    fetch(`backend-ac-production.up.railway.app/gestor/${gestorId}`)
+    fetch(`https://backend-ac-production.up.railway.app/gestor/${gestorId}`)
       .then((response) => response.json())
       .then((data) => {
         if (data && data.puntos_recoleccion) {

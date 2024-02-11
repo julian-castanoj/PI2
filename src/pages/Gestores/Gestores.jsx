@@ -22,7 +22,7 @@ const Gestores = () => {
   //Funcion para traer los datos de los gestores
   const fetchData = async () => {
     try {
-      const response = await fetch('backend-ac-production.up.railway.app/gestor');
+      const response = await fetch('https://backend-ac-production.up.railway.app/gestor');
       if (response.ok) {
         const result = await response.json();
         setData(result);
@@ -63,7 +63,7 @@ const Gestores = () => {
     const userConfirmed = window.confirm('¿Estás seguro de que deseas eliminar a este miembro?');
     if (userConfirmed) {
       try {
-        const response = await fetch(`backend-ac-production.up.railway.app/gestor/${id}`, {
+        const response = await fetch(`https://backend-ac-production.up.railway.app/gestor/${id}`, {
           method: 'DELETE',
         });
         if (response.ok) {

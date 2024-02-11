@@ -37,7 +37,7 @@ const RegistrarTransformadores = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('backend-ac-production.up.railway.app/transformador');
+      const response = await fetch('https://backend-ac-production.up.railway.app/transformador');
       if (response.ok) {
         const result = await response.json();
         setRegistros(result);
@@ -79,7 +79,7 @@ const RegistrarTransformadores = () => {
           body: JSON.stringify(formData),
         };
 
-        const response = await fetch('backend-ac-production.up.railway.app/transformador/registrar', requestOptions);
+        const response = await fetch('https://backend-ac-production.up.railway.app/transformador/registrar', requestOptions);
 
         if (response.ok) {
           console.log('Registro exitoso');
@@ -133,7 +133,7 @@ const RegistrarTransformadores = () => {
 
   const editarRegistro = async (id) => {
     try {
-      const response = await fetch(`backend-ac-production.up.railway.app/transformador/${id}`);
+      const response = await fetch(`https://backend-ac-production.up.railway.app/transformador/${id}`);
       if (response.ok) {
         const data = await response.json();
         setFormData({ ...data });
@@ -155,7 +155,7 @@ const RegistrarTransformadores = () => {
 
     try {
       setMessage(null); // Limpia mensajes previos
-      const response = await fetch(`backend-ac-production.up.railway.app/transformador/${editandoId}`, requestOptions);
+      const response = await fetch(`https://backend-ac-production.up.railway.app/transformador/${editandoId}`, requestOptions);
 
       if (response.ok) {
         const nuevosRegistros = [...registros];
@@ -207,7 +207,7 @@ const RegistrarTransformadores = () => {
 
   const eliminarRegistro = async (id) => {
     try {
-      const response = await fetch(`backend-ac-production.up.railway.app/transformador/${id}`, {
+      const response = await fetch(`https://backend-ac-production.up.railway.app/transformador/${id}`, {
         method: 'DELETE',
       });
       if (response.ok) {

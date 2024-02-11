@@ -19,7 +19,7 @@ const About = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('backend-ac-production.up.railway.app/productor');
+      const response = await fetch('https://backend-ac-production.up.railway.app/productor');
       if (response.ok) {
         const result = await response.json();
         setData(result);
@@ -56,7 +56,7 @@ const About = () => {
     const userConfirmed = window.confirm('¿Estás seguro de que deseas eliminar a este miembro?');
     if (userConfirmed) {
       try {
-        const response = await fetch(`backend-ac-production.up.railway.app/productor/${id}`, {
+        const response = await fetch(`https://backend-ac-production.up.railway.app/productor/${id}`, {
           method: 'DELETE',
         });
         if (response.ok) {

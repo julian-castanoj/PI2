@@ -24,7 +24,7 @@ const BarChart = () => {
   };
 
   useEffect(() => {
-    const endpoint = 'backend-ac-production.up.railway.app/material-productores/total';
+    const endpoint = 'https://backend-ac-production.up.railway.app/material-productores/total';
 
     fetch(endpoint)
       .then(response => response.json())

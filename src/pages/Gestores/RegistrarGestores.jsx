@@ -36,7 +36,7 @@ const RegistrarGestores = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('backend-ac-production.up.railway.app/gestor');
+      const response = await fetch('https://backend-ac-production.up.railway.app/gestor');
       if (response.ok) {
         const result = await response.json();
         setRegistros(result);
@@ -78,7 +78,7 @@ const RegistrarGestores = () => {
           body: JSON.stringify(formData),
         };
 
-        const response = await fetch('backend-ac-production.up.railway.app/gestor/registrar', requestOptions);
+        const response = await fetch('https://backend-ac-production.up.railway.app/gestor/registrar', requestOptions);
 
         if (response.ok) {
           console.log('Registro exitoso');
@@ -132,7 +132,7 @@ const RegistrarGestores = () => {
 
   const editaregistro = async (id) => {
     try {
-      const response = await fetch(`backend-ac-production.up.railway.app/gestor/${id}`);
+      const response = await fetch(`https://backend-ac-production.up.railway.app/gestor/${id}`);
       if (response.ok) {
         const data = await response.json();
         setFormData({ ...data });
@@ -154,7 +154,7 @@ const RegistrarGestores = () => {
 
     try {
       setMessage(null); // Limpia mensajes previos
-      const response = await fetch(`backend-ac-production.up.railway.app/gestor/${editandoId}`, requestOptions);
+      const response = await fetch(`https://backend-ac-production.up.railway.app/gestor/${editandoId}`, requestOptions);
 
       if (response.ok) {
         const nuevosRegistros = [...registros];
@@ -209,7 +209,7 @@ const RegistrarGestores = () => {
     if (confirmCancel) {
 
       try {
-        const response = await fetch(`backend-ac-production.up.railway.app/gestor/${id}`, {
+        const response = await fetch(`https://backend-ac-production.up.railway.app/gestor/${id}`, {
           method: 'DELETE',
         });
         if (response.ok) {

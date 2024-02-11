@@ -22,9 +22,9 @@ const Transactions = () => {
     const fetchDataAndGestores = async () => {
       try {
         const [transaccionesResponse, gestoresResponse, transformadoresResponse] = await Promise.all([
-          fetch('backend-ac-production.up.railway.app/transacciones/gt'),
-          fetch('backend-ac-production.up.railway.app/gestor'),
-          fetch('backend-ac-production.up.railway.app/transformador')
+          fetch('https://backend-ac-production.up.railway.app/transacciones/gt'),
+          fetch('https://backend-ac-production.up.railway.app/gestor'),
+          fetch('https://backend-ac-production.up.railway.app/transformador')
         ]);
 
         if (transaccionesResponse.ok && gestoresResponse.ok && transformadoresResponse.ok) {
@@ -85,7 +85,7 @@ const Transactions = () => {
 
   const deleteTransaction = async (id) => {
     try {
-      const response = await fetch(`backend-ac-production.up.railway.app/transacciones/gt/${id}`, {
+      const response = await fetch(`https://backend-ac-production.up.railway.app/transacciones/gt/${id}`, {
         method: 'DELETE',
       });
       if (response.ok) {

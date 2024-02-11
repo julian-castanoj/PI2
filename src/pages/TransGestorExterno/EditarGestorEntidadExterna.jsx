@@ -20,7 +20,7 @@ const EditarGestorEntidadExterna = () => {
 
 
   useEffect(() => {
-    fetch('http://localhost:3000/materiales')
+    fetch('https://backend-ac-production.up.railway.app/materiales')
       .then((response) => response.json())
       .then((data) => setMateriales(data))
       .catch((error) => console.error('Error al obtener la lista de materiales:', error));
@@ -59,7 +59,7 @@ const EditarGestorEntidadExterna = () => {
     };
 
     try {
-      const response = await fetch(`http://localhost:3000/transaccionge/${id}`, requestOptions);
+      const response = await fetch(`https://backend-ac-production.up.railway.app/transaccionge/${id}`, requestOptions);
 
       if (response.ok) {
         console.log('Edición exitosa');

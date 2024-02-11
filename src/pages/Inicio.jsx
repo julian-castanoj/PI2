@@ -39,7 +39,7 @@ const Inicio = ({ onLogin, loggedIn, onLogout }) => {
       };
 
       try {
-        const response = await fetch('backend-ac-production.up.railway.app/auth/login', requestOptions);
+        const response = await fetch('https://backend-ac-production.up.railway.app/auth/login', requestOptions);
         if (response.ok) {
           const responseData = await response.json();
 

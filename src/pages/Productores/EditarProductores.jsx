@@ -44,7 +44,7 @@ const EditarProductores = () => {
 
     const actualizarProductor = async () => {
       try {
-        const response = await fetch(`backend-ac-production.up.railway.app/productor/${id}`, {
+        const response = await fetch(`https://backend-ac-production.up.railway.app/productor/${id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ const EditarProductores = () => {
 
   const getProductorDetails = async (productId) => {
     try {
-      const response = await fetch(`backend-ac-production.up.railway.app/productor/${productId}`);
+      const response = await fetch(`https://backend-ac-production.up.railway.app/productor/${productId}`);
       
       if (response.ok) {
         return response.json();

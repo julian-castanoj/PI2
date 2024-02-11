@@ -10,7 +10,7 @@ const DoughnutChart = () => {
     
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3000/material-total/pc');
+        const response = await fetch('https://backend-ac-production.up.railway.app/material-total/pc');
         const data = await response.json();
         setEstadisticaData(data);
       } catch (error) {
