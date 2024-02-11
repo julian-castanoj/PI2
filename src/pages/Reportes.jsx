@@ -9,7 +9,7 @@ const Reportes = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://tu-api.com/tu-endpoint');
+        const response = await fetch('backend-ac-production.up.railway.app');
         const dataFromAPI = await response.json();
         setData(dataFromAPI);
       } catch (error) {

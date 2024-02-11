@@ -22,7 +22,7 @@ const RegistrarProductores = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:3000/productor');
+      const response = await fetch('backend-ac-production.up.railway.app/productor');
       if (response.ok) {
         const data = await response.json();
         setRegistros(data);
@@ -94,7 +94,7 @@ const RegistrarProductores = () => {
 
         try {
           setMessage(null); // Limpiamos mensajes previos
-          const response = await fetch('http://localhost:3000/productor/registrar', requestOptions);
+          const response = await fetch('backend-ac-production.up.railway.app/productor/registrar', requestOptions);
 
           if (response.ok) {
             console.log('Registro exitoso');
@@ -153,7 +153,7 @@ const RegistrarProductores = () => {
   const handleEditarClick = async (id) => {
     console.log(formData);
     try {
-      const response = await fetch(`http://localhost:3000/productor/${id}`);
+      const response = await fetch(`backend-ac-production.up.railway.app/productor/${id}`);
       if (response.ok) {
         const data = await response.json();
 
@@ -185,7 +185,7 @@ const RegistrarProductores = () => {
     if (indiceEdicion !== -1) {
       try {
         setMessage(null); // Limpia mensajes previos
-        const response = await fetch(`http://localhost:3000/productor/${editandoId}`, {
+        const response = await fetch(`backend-ac-production.up.railway.app/productor/${editandoId}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -242,7 +242,7 @@ const RegistrarProductores = () => {
   const eliminarRegistro = async (id) => {
     try {
       setMessage(null);
-      const response = await fetch(`http://localhost:3000/productor/${id}`, {
+      const response = await fetch(`backend-ac-production.up.railway.app/productor/${id}`, {
         method: 'DELETE',
       });
       if (response.ok) {

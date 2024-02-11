@@ -26,7 +26,7 @@ const EditarTransformador = () => {
   useEffect(() => {
     const fetchTransformadorDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/transformador/${id}`);
+        const response = await fetch(`backend-ac-production.up.railway.app/transformador/${id}`);
         if (response.ok) {
           const data = await response.json();
           setFormData(data);
@@ -67,7 +67,7 @@ const EditarTransformador = () => {
     e.preventDefault(); // Evita la recarga de la página
 
     try {
-      const response = await fetch(`http://localhost:3000/transformador/${id}`, {
+      const response = await fetch(`backend-ac-production.up.railway.app/transformador/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

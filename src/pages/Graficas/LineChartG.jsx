@@ -12,7 +12,7 @@ const LineChartT = () => {
     const fetchData = async () => {
       try {
         // Llamada al endpoint para obtener los datos
-        const response = await fetch('http://localhost:3000/material-productores/pc');
+        const response = await fetch('backend-ac-production.up.railway.app/material-productores/pc');
         const dataFromAPI = await response.json();
         console.log('dataFromAPI:', dataFromAPI);
 

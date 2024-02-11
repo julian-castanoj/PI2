@@ -16,7 +16,7 @@ const GestorGestor = () => {
 
   const fetchGestoresData = async () => {
     try {
-      const response = await fetch('http://localhost:3000/gestor');
+      const response = await fetch('backend-ac-production.up.railway.app/gestor');
       if (response.ok) {
         const result = await response.json();
         console.log('Gestores Data:', result); // Agrega este console log
@@ -31,7 +31,7 @@ const GestorGestor = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:3000/transacciones/gg');
+      const response = await fetch('backend-ac-production.up.railway.app/transacciones/gg');
       if (response.ok) {
         const result = await response.json();
         setData(result);
@@ -47,8 +47,8 @@ const GestorGestor = () => {
     const fetchDataAndGestores = async () => {
       try {
         const [transaccionesResponse, gestoresResponse] = await Promise.all([
-          fetch('http://localhost:3000/transacciones/gg'),
-          fetch('http://localhost:3000/gestor')
+          fetch('backend-ac-production.up.railway.app/transacciones/gg'),
+          fetch('backend-ac-production.up.railway.app/gestor')
         ]);
 
         if (transaccionesResponse.ok && gestoresResponse.ok) {

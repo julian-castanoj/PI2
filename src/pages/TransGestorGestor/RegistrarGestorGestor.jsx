@@ -21,7 +21,7 @@
     };
 
     try {
-      const response = await fetch('http://localhost:3000/transacciongg', requestOptions);
+      const response = await fetch('backend-ac-production.up.railway.app/transacciongg', requestOptions);
 
       if (response.ok) {
         console.log('Registro exitoso');
@@ -68,7 +68,7 @@ const RegistrarGestorGestor = () => {
 
   const fetchData = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:3000/transacciones/gg');
+      const response = await fetch('backend-ac-production.up.railway.app/transacciones/gg');
       if (response.ok) {
         const result = await response.json();
         setRegistros(result);
@@ -82,7 +82,7 @@ const RegistrarGestorGestor = () => {
 
   useEffect(() => {
     fetchData();
-    fetch('http://localhost:3000/gestor')
+    fetch('backend-ac-production.up.railway.app/gestor')
       .then((response) => response.json())
       .then((data) => setGestores(data))
       .catch((error) => console.error('Error al obtener la lista de gestores:', error));
@@ -120,7 +120,7 @@ const RegistrarGestorGestor = () => {
   const fetchMaterials = (gestorId) => {
     const parsedId = parseInt(gestorId);
     if (!isNaN(parsedId)) {
-      fetch(`http://localhost:3000/gestor/${parsedId}`)
+      fetch(`backend-ac-production.up.railway.app/gestor/${parsedId}`)
         .then((response) => response.json())
         .then((data) => {
           if (data && data.materiales_recolectados) {
@@ -166,7 +166,7 @@ const RegistrarGestorGestor = () => {
       const parsedId = parseInt(selectedId);
       if (!isNaN(parsedId)) {
         try {
-          const response = await fetch(`http://localhost:3000/gestor/${parsedId}`);
+          const response = await fetch(`backend-ac-production.up.railway.app/gestor/${parsedId}`);
           if (response.ok) {
             const data = await response.json();
             setFormData({
@@ -192,7 +192,7 @@ const RegistrarGestorGestor = () => {
       const parsedId = parseInt(selectedId);
       if (!isNaN(parsedId)) {
         try {
-          const response = await fetch(`http://localhost:3000/gestor/${parsedId}`);
+          const response = await fetch(`backend-ac-production.up.railway.app/gestor/${parsedId}`);
           if (response.ok) {
             const data = await response.json();
             setFormData({
@@ -232,7 +232,7 @@ const RegistrarGestorGestor = () => {
           body: JSON.stringify(requestBody),
         };
 
-        const response = await fetch('http://localhost:3000/transacciones', requestOptions);
+        const response = await fetch('backend-ac-production.up.railway.app/transacciones', requestOptions);
 
         if (response.ok) {
           console.log('Registro exitoso');
@@ -283,7 +283,7 @@ const RegistrarGestorGestor = () => {
     };
 
     try {
-      const response = await fetch(`http://localhost:3000/transacciones/gg/${editandoId}`, requestOptions);
+      const response = await fetch(`backend-ac-production.up.railway.app/transacciones/gg/${editandoId}`, requestOptions);
 
       if (response.ok) {
         console.log('Edición exitosa');
@@ -299,7 +299,7 @@ const RegistrarGestorGestor = () => {
 
   const eliminarRegistro = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/transacciones/gg/${id}`, {
+      const response = await fetch(`backend-ac-production.up.railway.app/transacciones/gg/${id}`, {
         method: 'DELETE',
       });
 
@@ -319,7 +319,7 @@ const RegistrarGestorGestor = () => {
   };
 
   const fetchPuntosRecoleccion = (gestorId) => {
-    fetch(`http://localhost:3000/gestor/${gestorId}`)
+    fetch(`backend-ac-production.up.railway.app/gestor/${gestorId}`)
       .then((response) => response.json())
       .then((data) => {
         if (data && data.puntos_recoleccion) {

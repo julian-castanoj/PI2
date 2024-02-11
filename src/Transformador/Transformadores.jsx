@@ -18,7 +18,7 @@ const About = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:3000/transformador');
+      const response = await fetch('backend-ac-production.up.railway.app/transformador');
       if (response.ok) {
         const result = await response.json();
         setData(result);
@@ -56,7 +56,7 @@ const About = () => {
 
   const eliminarTransformador = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/transformador/${id}`, {
+      const response = await fetch(`backend-ac-production.up.railway.app/transformador/${id}`, {
         method: 'DELETE',
       });
       if (response.ok) {

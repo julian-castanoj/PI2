@@ -26,7 +26,7 @@ const EditarGestor = () => {
   useEffect(() => {
     const fetchGestorDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/gestor/${id}`);
+        const response = await fetch(`backend-ac-production.up.railway.app/gestor/${id}`);
         if (response.ok) {
           const data = await response.json();
           setFormData(data);
@@ -118,7 +118,7 @@ const EditarGestor = () => {
     navigate('/gestores');
     const actualizarGestor = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/gestor/${id}`, {
+        const response = await fetch(`backend-ac-production.up.railway.app/gestor/${id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

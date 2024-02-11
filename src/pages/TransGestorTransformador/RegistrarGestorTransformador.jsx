@@ -33,9 +33,9 @@ const RegistrarTransacciones = () => {
   const fetchData = useCallback(async () => {
     try {
       const [transaccionesResponse, gestoresResponse, transformadoresResponse] = await Promise.all([
-        fetch('http://localhost:3000/transacciones'),
-        fetch('http://localhost:3000/gestor'),
-        fetch('http://localhost:3000/transformador'),
+        fetch('backend-ac-production.up.railway.app/transacciones'),
+        fetch('backend-ac-production.up.railway.app/gestor'),
+        fetch('backend-ac-production.up.railway.app/transformador'),
       ]);
 
       if (transaccionesResponse.ok && gestoresResponse.ok && transformadoresResponse.ok) {
@@ -74,7 +74,7 @@ const RegistrarTransacciones = () => {
   const fetchMaterials = (gestorId) => {
     const parsedId = parseInt(gestorId);
     if (!isNaN(parsedId)) {
-      fetch(`http://localhost:3000/gestor/${parsedId}`)
+      fetch(`backend-ac-production.up.railway.app/gestor/${parsedId}`)
         .then((response) => response.json())
         .then((data) => {
           if (data && data.materiales_recolectados) {
@@ -123,7 +123,7 @@ const RegistrarTransacciones = () => {
 
       if (!isNaN(parsedId)) {
         try {
-          const response = await fetch(`http://localhost:3000/gestor/${parsedId}`);
+          const response = await fetch(`backend-ac-production.up.railway.app/gestor/${parsedId}`);
 
           if (response.ok) {
             const data = await response.json();
@@ -161,7 +161,7 @@ const RegistrarTransacciones = () => {
 
       if (!isNaN(parsedId)) {
         try {
-          const response = await fetch(`http://localhost:3000/transformador/${parsedId}`);
+          const response = await fetch(`backend-ac-production.up.railway.app/transformador/${parsedId}`);
 
           if (response.ok) {
             const data = await response.json();
@@ -237,7 +237,7 @@ const RegistrarTransacciones = () => {
         body: JSON.stringify(requestBody),
       };
 
-      const response = await fetch('http://localhost:3000/transacciones', requestOptions);
+      const response = await fetch('backend-ac-production.up.railway.app/transacciones', requestOptions);
 
       if (response.ok) {
         console.log('Registro exitoso');
@@ -285,7 +285,7 @@ const RegistrarTransacciones = () => {
   };
 
   const fetchDireccionPrincipal = (transformadorId) => {
-    fetch(`http://localhost:3000/transformador/${transformadorId}`)
+    fetch(`backend-ac-production.up.railway.app/transformador/${transformadorId}`)
       .then((response) => response.json())
       .then((data) => {
         if (data && data.direccion_principal) {
