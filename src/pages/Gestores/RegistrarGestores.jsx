@@ -653,9 +653,6 @@ const RegistrarGestores = () => {
       </div>
     </div>
 
-
-
-
   );
 };
 

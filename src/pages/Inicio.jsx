@@ -39,32 +39,25 @@ const Inicio = ({ onLogin, loggedIn, onLogout }) => {
       };
 
       try {
-        const response = await fetch('http://localhost:3000/auth/login', requestOptions);
-
+        const response = await fetch('backend-ac-production.up.railway.app/auth/login', requestOptions);
         if (response.ok) {
           const responseData = await response.json();
-          // Supongamos que el servidor devuelve un token de acceso
-          const accessToken = responseData.access_token;
 
-          // Guarda el token de acceso en localStorage
+          const accessToken = responseData.access_token;
           localStorage.setItem('accessToken', accessToken);
-          
-          console.log('Inicio de sesión exitoso');
-          onLogin(true); // Marca al usuario como autenticado
           navigate('/inicioS');
         } else {
-          // Manejar el error de autenticación
           if (response.status === 401) {
             const errorData = await response.json();
-            setError('Error: ' + errorData.message); // Establece el mensaje de error
+            setError('Error: ' + errorData.message);
             console.error('Error al iniciar sesión:', errorData.message);
           } else {
-            setError('Error al iniciar sesión'); // Establece un mensaje de error genérico
+            setError('Error al iniciar sesión');
             console.error('Error al iniciar sesión');
           }
         }
       } catch (error) {
-        setError('Error al realizar la solicitud: ' + error.message); // Establece el mensaje de error
+        setError('Error al realizar la solicitud: ' + error.message);
         console.error('Error al realizar la solicitud:', error);
       }
     } else {
@@ -73,56 +66,8 @@ const Inicio = ({ onLogin, loggedIn, onLogout }) => {
   };
 
   const handleLogout = () => {
-    // Lógica para cerrar la sesión, como borrar el token de acceso del localStorage
-    
-
-    // Realiza cualquier otra lógica de cierre de sesión que necesites
-
-    // Llama a la función proporcionada en "onLogout" para marcar al usuario como no autenticado
-    
-
-    // Redirige a la página de inicio después del logout
     navigate('/productores');
   };
-
- /* return (
-    <div className="registrar-miembros-page">
-      <h2>Iniciar Sesión</h2>
-      {!loggedIn ? (
-        <form onSubmit={handleLogin}>
-          <div className="form-group">
-            <label>Usuario</label>
-            <input
-              className="search-input"
-              type="text"
-              name="email"
-              value={email}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="form-group">
-            <label>Contraseña</label>
-            <input
-              className="search-input"
-              type="password"
-              name="password"
-              value={password}
-              onChange={handleInputChange}
-            />
-          </div>
-          <button type="submit" className="register-button">
-            Iniciar Sesión
-          </button>
-          {error && <p style={{ color: 'red' }}>{error}</p>} 
-        </form>
-      ) : (
-        <p>¡Has iniciado sesión con éxito!</p>
-      )}
-    </div>
-  );
-}; */
-
-  
 
   return (
     <div className="landing-page" >
@@ -138,6 +83,7 @@ const Inicio = ({ onLogin, loggedIn, onLogout }) => {
             >
               Iniciar sesión
             </button>
+
             <button
               className="signup"
               sx={{ width: 100 }}
@@ -150,6 +96,7 @@ const Inicio = ({ onLogin, loggedIn, onLogout }) => {
           </div>
         </div>
       </div>
+
       <div className="frame2" >
         <img className="frame-icon" alt="" src="/frame@2x.png" />
         <div className="frame3">
@@ -168,6 +115,7 @@ const Inicio = ({ onLogin, loggedIn, onLogout }) => {
             </div>
           </div>
         </div>
+        
         <div className="frame4" >
           <div className="frame5">
             <div className="footer">
@@ -190,6 +138,7 @@ const Inicio = ({ onLogin, loggedIn, onLogout }) => {
               <img className="frame-icon1" alt="" src="/cartoon@2x.png" />
             </div>
           </div>
+
           <div className="banner">
             <img className="banner-child" alt="" src="/rectangle-21@2x.png" style={{ width: "100%", height: "100%" }} />
             <div className="s-el-cambio-container">
@@ -199,6 +148,7 @@ const Inicio = ({ onLogin, loggedIn, onLogout }) => {
             </div>
           </div>
         </div>
+
         <div className="landing-page1">
           <div className="frame6">
             <img className="cartoon-icon" alt="" src="/CARTOON.png" />
@@ -223,17 +173,17 @@ const Inicio = ({ onLogin, loggedIn, onLogout }) => {
                 <div className="olvide-mi-contrasea-parent">
                   <a className="olvide-mi-contrasea">Olvide mi contraseña</a>
                   <form onSubmit={handleLogout}>
-                  <button className="" onClick={handleLogout}>
-                        <b className="entrar">cerrar</b>
-                      </button>
+                    <button className="" onClick={handleLogout}>
+                      <b className="entrar">cerrar</b>
+                    </button>
                   </form>
+
                   {!loggedIn ? (
-                    
                     <form onSubmit={handleLogin}>
                       <button className="getstarted" onClick={handleLogin}>
                         <b className="entrar">Entrar</b>
                       </button>
-                      
+
                       {error && <p style={{ color: 'red' }}>{error}</p>}
                     </form>
                   ) : (
@@ -243,6 +193,7 @@ const Inicio = ({ onLogin, loggedIn, onLogout }) => {
               </div>
             </div>
           </div>
+
           <div className="frame8">
             <div className="frame9">
               <input
@@ -257,6 +208,7 @@ const Inicio = ({ onLogin, loggedIn, onLogout }) => {
                 onChange={handleInputChange}
               />
             </div>
+
             <div className="frame10">
               <input
                 className="frame-item"
@@ -275,8 +227,9 @@ const Inicio = ({ onLogin, loggedIn, onLogout }) => {
         </div>
       </div>
     </div>
+
   );
-}; 
+};
 
 export default Inicio;
 

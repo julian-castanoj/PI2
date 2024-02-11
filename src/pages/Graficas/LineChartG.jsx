@@ -56,7 +56,7 @@ const LineChartT = () => {
   }, [selectedGestor]);
 
   if (!chartData.datasets) {
-    // Manejar el caso en que el estado chartData esté vacío
+    
     return null;
   }
 
@@ -84,7 +84,7 @@ const LineChartT = () => {
         options={{
           plugins: {
             legend: {
-              display: false, // Oculta la leyenda
+              display: false, 
             },
           },
           scales: {

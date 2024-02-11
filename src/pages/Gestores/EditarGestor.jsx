@@ -77,6 +77,7 @@ const EditarGestor = () => {
     });
   };
 
+  // Funcion para agregar mas puntos de recolección
   const handleAgregarPuntoRecoleccion = () => {
     const nuevosPuntosRecoleccion = formData.puntos_recoleccion.split(', ');
     nuevosPuntosRecoleccion.push('');
@@ -112,6 +113,7 @@ const EditarGestor = () => {
     });
   };
 
+  //  Funcion para actualizar gestores
   const handleGuardarCambios = () => {
     navigate('/gestores');
     const actualizarGestor = async () => {
@@ -143,13 +145,11 @@ const EditarGestor = () => {
 
   return (
     <div className="registrar-miembros-page2">
-
       <form onSubmit={handleGuardarCambios}>
 
 
         <div className="GESTORES-REGISTROb1">
           <div className="divb1">
-
             <div className="groupb1">
               <input
                 className="overlap-groupb1 text-wrapperb1 "
@@ -158,12 +158,8 @@ const EditarGestor = () => {
                 value={formData.nit}
                 onChange={handleChange}
                 placeholder='NIT'
-
               />
             </div>
-
-
-
 
             <div className="overlap-wrapperb1">
               <input
@@ -173,11 +169,8 @@ const EditarGestor = () => {
                 value={formData.telefono}
                 onChange={handleChange}
                 placeholder='Teléfono'
-
               />
             </div>
-
-
 
             <div className="overlap-group-wrapperb1">
               <input
@@ -190,12 +183,8 @@ const EditarGestor = () => {
               />
             </div>
 
-
-
-
             <div className="div-wrapperb1">
               <input
-
                 className="overlap-groupb1 text-wrapperb1 "
                 type="number"
                 name="capacidad"
@@ -216,9 +205,6 @@ const EditarGestor = () => {
               />
             </div>
 
-
-
-
             <div className="group-3b1">
               <input
                 className="overlap-groupb1 text-wrapperb1 "
@@ -227,7 +213,6 @@ const EditarGestor = () => {
                 value={formData.correo}
                 onChange={handleChange}
                 placeholder='Correo'
-
               />
             </div>
 
@@ -239,10 +224,8 @@ const EditarGestor = () => {
                 value={formData.municipio}
                 onChange={handleChange}
                 placeholder='Municipio'
-
               />
             </div>
-
 
             <div className="group-3b3">
               <input
@@ -252,22 +235,13 @@ const EditarGestor = () => {
                 value={formData.mecanismos_recoleccion}
                 onChange={handleChange}
                 placeholder='Mecanismos de recolecciòn'
-
               />
             </div>
-
 
             <div className="text-wrapper-2b1">Información</div>
             <p className="pb1">Formulario de registro de Gestores</p>
           </div>
         </div>
-
-
-
-
-
-
-
 
         <div className="gestores-registro">
           <label className="estado-wrapper">
@@ -283,13 +257,7 @@ const EditarGestor = () => {
             <option value="true">Activo</option>
             <option value="false">Inactivo</option>
           </select>
-
         </div>
-
-
-
-
-
 
         <div className="gestores-registro1">
           <label className="estado-wrapper1">
@@ -309,7 +277,6 @@ const EditarGestor = () => {
             <option value="5">Categoría 5</option>
             <option value="6">Categoría 6</option>
           </select>
-
         </div>
 
         <div className="GESTORES-REGISTROb2">
@@ -317,8 +284,6 @@ const EditarGestor = () => {
             <div className="formb2">
               <div className="overlap-groupb2">
                 <div className="divb2">
-
-
                   <div className="text-wrapper-4b2">Puntos de recolección</div>
                   <table>
                     <thead>
@@ -361,7 +326,6 @@ const EditarGestor = () => {
                                 </button>
                               </div>
 
-
                             )}
                           </td>
                         </tr>
@@ -379,16 +343,11 @@ const EditarGestor = () => {
                       </div>
                     </div>
                   </div>
-
-
-
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-
 
         <div className="GESTORES-REGISTRO">
           <div className="overlap-group-wrapper">
@@ -396,10 +355,8 @@ const EditarGestor = () => {
               <div className="contenido">
                 <div className="form">
                   <p className="text-wrapper-materiales-mercado">Materiales de empaques puestos en el mercado</p>
-
                   {materiales.map((material, index) => (
                     <div key={index}>
-
                       <div className="div">{material}</div>
                       <div className="text-wrapper-2">Seleccionar</div>
                       <input className="checkbox"
@@ -409,16 +366,12 @@ const EditarGestor = () => {
                         onChange={handleMaterialChange}
                       />
                     </div>
-
                   ))}
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-
-
 
         <div className="b4box2">
           <div className="b4CR">
@@ -427,8 +380,6 @@ const EditarGestor = () => {
                 <div className="b4tw">Cancelar</div>
               </div>
             </button>
-
-
             <button type="submit" className="b4registrar" onClick={handleGuardarCambios}>
               <div className='b4o'>
                 <div className="b4d">Guardar Edición</div>
@@ -436,11 +387,11 @@ const EditarGestor = () => {
             </button>
           </div>
         </div>
+
       </form>
     </div>
-  );
 
+  );
 };
 
 export default EditarGestor;
-

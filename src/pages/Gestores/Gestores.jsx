@@ -19,6 +19,7 @@ const Gestores = () => {
   const [filteredData, setFilteredData] = useState([]);
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
+  //Funcion para traer los datos de los gestores
   const fetchData = async () => {
     try {
       const response = await fetch('http://localhost:3000/gestor');
@@ -41,8 +42,8 @@ const Gestores = () => {
     setCurrentPage(newPage);
   };
 
+  // Funcion para filtrar los datos por NIT
   useEffect(() => {
-    // Filtrar los datos por NIT
     const filtered = data.filter((item) => item.nit.toString().includes(searchNit));
     setFilteredData(filtered);
   }, [searchNit, data]);
@@ -52,10 +53,12 @@ const Gestores = () => {
     currentPage * itemsPerPage
   );
 
+  // Funcion para editar gestores por id
   const handleEditarClick = (id) => {
     navigate(`/editarGestor/${id}`);
   };
 
+  // Funcion para eliminar gestores
   const eliminarGestor = async (id) => {
     const userConfirmed = window.confirm('¿Estás seguro de que deseas eliminar a este miembro?');
     if (userConfirmed) {
@@ -76,7 +79,7 @@ const Gestores = () => {
 
   return (
     <div className="gestores-page">
-      
+
       <div className="search-bar">
         <input
           type="text"
@@ -87,37 +90,7 @@ const Gestores = () => {
         />
       </div>
 
-   {/*   <table className="custom-table">
-        <thead>
-          <tr>
-            
-            <th>Nombre</th>
-            <th>NIT</th>
-            <th>Correo</th>
-            <th>Teléfono</th>
-            <th>Dirección</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {paginatedData.map((item) => (
-            <tr key={item.id}>
-              
-              <td>{item.nombre}</td>
-              <td>{item.nit}</td>
-              <td>{item.correo}</td>
-              <td>{item.telefono}</td>
-              <td>{item.direccion}</td>
-              <td>
-                <button onClick={() => eliminarGestor(item.id)}>Eliminar</button>
-                <button onClick={() => handleEditarClick(item.id)}>Editar</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table> */}
-
-<div className="GESTORES">
+      <div className="GESTORES">
         <div className="contenido-wrapper">
           <div className="contenido">
             <div className="tabla">
@@ -136,6 +109,7 @@ const Gestores = () => {
                         ))}
                       </div>
                     </div>
+
                     <div className="navbar">
                       <div className="text-wrapper-4">Nombre</div>
                       <div className="text-wrapper-5">Correo</div>
@@ -145,17 +119,14 @@ const Gestores = () => {
                       <div className="text-wrapper-8">Acciones</div>
                     </div>
 
-
                     <button onClick={() => handleEditarClick(item.id)} className="edit-buttonPG">
                       <BiSolidEdit />
                     </button>
-
                     <button onClick={() => eliminarGestor(item.id)} className="delete-buttonPG">
                       <div className="icon-containerPG">
                         <IoTrashOutline />
                       </div>
                     </button>
-
 
                   </div>
                 ))}
@@ -165,57 +136,54 @@ const Gestores = () => {
         </div>
       </div>
 
-
-
       <div className="pagination" style={{ display: 'flex', alignItems: 'center' }}>
-  <button
-    onClick={() => handlePageChange(currentPage - 1)}
-    disabled={currentPage === 1}
-    style={{
-      backgroundColor: 'transparent',
-      color: '#069877',
-      fontSize: '18px',
-      padding: '8px 12px',
-      border: 'none',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-    }}
-  >
-    <HiOutlineArrowCircleLeft style={{ color: '#069877', marginRight: '5px', fontSize: '40px' }} />
-    <span style={{ marginRight: '10px' }}>Anterior</span>
-  </button>
-  <span style={{ marginRight: '10px' }}>Página {currentPage} de {totalPages}</span>
-  <button
-    onClick={() => handlePageChange(currentPage + 1)}
-    disabled={currentPage === totalPages}
-    style={{
-      backgroundColor: 'transparent',
-      color: '#069877',
-      fontSize: '18px',
-      padding: '8px 12px',
-      border: 'none',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-    }}
-  >
-    <span style={{ marginRight: '10px' }}>Siguiente</span>
-    <HiOutlineArrowCircleRight style={{ color: '#069877', marginLeft: '5px', fontSize: '40px' }} />
-  </button>
-</div>
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          style={{
+            backgroundColor: 'transparent',
+            color: '#069877',
+            fontSize: '18px',
+            padding: '8px 12px',
+            border: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <HiOutlineArrowCircleLeft style={{ color: '#069877', marginRight: '5px', fontSize: '40px' }} />
+          <span style={{ marginRight: '10px' }}>Anterior</span>
+        </button>
+        <span style={{ marginRight: '10px' }}>Página {currentPage} de {totalPages}</span>
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          style={{
+            backgroundColor: 'transparent',
+            color: '#069877',
+            fontSize: '18px',
+            padding: '8px 12px',
+            border: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <span style={{ marginRight: '10px' }}>Siguiente</span>
+          <HiOutlineArrowCircleRight style={{ color: '#069877', marginLeft: '5px', fontSize: '40px' }} />
+        </button>
+      </div>
 
-<div className="registrarGe" style={{ textAlign: 'center' }}>
-  <div className='oGe'>
-    <Link to="/registrarGestores" className="dGe">
-      Registrar
-    </Link>
-  </div>
-</div>
+      <div className="registrarGe" style={{ textAlign: 'center' }}>
+        <div className='oGe'>
+          <Link to="/registrarGestores" className="dGe">
+            Registrar
+          </Link>
+        </div>
+      </div>
 
-
-      
     </div>
+    
   );
 };
 
