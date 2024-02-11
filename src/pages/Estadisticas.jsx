@@ -8,15 +8,15 @@ import StatsLayout from '../components/StatsLayout';
 const Estadisticas = () => {
   return (
     <div>
-      <h1>Dashboard</h1>
+      
       <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-        <StatsLayout>            
-        <BarChart />
-           
-            
-                    
-        </StatsLayout>
-    </div>
+       
+          <BarChart />
+          <LineChartT />
+          <LineChartG />
+          <DoughnutChart />
+        
+      </div>
     </div >
   );
 };

@@ -1,8 +1,8 @@
 .search-bar {
-  background-color: #fff; 
+  background-color: #fff;
   padding: 10px;
   border-radius: 4px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
 }
@@ -10,59 +10,951 @@
 .search-input {
   width: 100%;
   padding: 8px;
-  border: 1px solid #ccc; 
+  border: 1px solid #ccc;
   border-radius: 4px;
-  background-color: #fff; 
-  color: #333; 
+  background-color: #fff;
+  color: #333;
   font-size: 14px;
-  margin-right: 10px; 
+  margin-right: 10px;
 }
 
 .registrar-miembros-page {
-    background-color: #f0f0f0; 
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  height: 2000px;
+
+}
+
+.registrar-miembros-page h2 {
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #222;
+}
+
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Info Personal*/
+
+.GESTORES-REGISTROb1 {
   
-   
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.GESTORES-REGISTROb1 .divb1 {
+  
+  height: 389px;
+  position: relative;
+  width: 587px;
+}
+
+.GESTORES-REGISTROb1 .groupb1 {
+  height: 33px;
+  left: -111px;
+  position: absolute;
+  top: 182px;
+  width: 406px;
+}
+
+.GESTORES-REGISTROb1 .overlap-groupb1 {
+  background-color: #f5f6fa;
+  border-radius: 5px;
+  height: 33px;
+  position: relative;
+  width: 404px;
+  top: -10px;
+  left: -110px;
+}
+
+.GESTORES-REGISTROb1 .text-wrapperb1 {
+  color: #7c7d7f;
+  font-family: "Lato", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  left: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 8px;
+  white-space: nowrap;
+  width: 380px;
+  height: 15px;
+}
+
+.GESTORES-REGISTROb1 .overlap-wrapperb1 {
+height: 33px;
+left: -111px;
+position: absolute;
+top: 229px;
+width: 406px;
+}
+
+.GESTORES-REGISTROb1 .overlap-group-wrapperb1 {
+  height: 33px;
+  left: -111px;
+  position: absolute;
+  top: 276px;
+  width: 406px;
+}
+
+.GESTORES-REGISTROb1 .div-wrapperb1 {
+  height: 33px;
+  left: -111px;
+  position: absolute;
+  top: 324px;
+  width: 406px;
+}
+
+.GESTORES-REGISTROb1 .group-2b1 {
+  height: 33px;
+  left: -110px;
+  position: absolute;
+  top: 80px;
+  width: 406px;
+}
+
+.GESTORES-REGISTROb1 .group-3b1 {
+  height: 33px;
+  left: -111px;
+  position: absolute;
+  top: 130px;
+  width: 0px;
+}
+
+.GESTORES-REGISTROb1 .text-wrapper-2b1 {
+  color: #000022;
+  font-family: "Lato", Helvetica;
+  font-size: 16px;
+  font-weight: 700;
+  left: -90px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 54px;
+  white-space: nowrap;
+  width: 86px;
+}
+
+.GESTORES-REGISTROb1 .pb1 {
+  color: #000022;
+  font-family: "Lato", Helvetica;
+  font-size: 36px;
+  font-weight: 600;
+  left: -100px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: -5px;
+  width: 651px;
+}
+
+
+/* Estado */
+
+.estado,
+.estado-wrapper {
+  position: absolute;
+  width: 49px;
+  height: 16.6px;
+}
+.estado {
+  top: 0;
+  left: 0;
+  font-weight: 600;
+  display: inline-block;
+}
+.estado-wrapper {
+  cursor: pointer;
+  top: 47.8px;
+  left: 30px;
+}
+.selectoutline {
+  position: absolute;
+  top: 39px;
+  left: 107px;
+  font-family: Roboto;
+  font-size: 16px;
+  color: #1a202c;
+  width: 140px;
+  height: 30px;
+}
+.gestores-registro {
+  width: 340px;
+  position: relative;
+  
+  height: 103px;
+  text-align: left;
+  font-size: 14px;
+  color: #002;
+  font-family: Lato;
+}
+
+/* Municipio */
+
+.group-3b2 {
+  height: 33px;
+  left: -111px;
+  position: absolute;
+  top: 480px;
+  width: 0px;
+}
+
+.overlap-groupb2 {
+  background-color: #f5f6fa;
+  border-radius: 5px;
+  height: 33px;
+  position: relative;
+  width: 404px;
+  top: -10px;
+  left: -110px;
+}
+
+.text-wrapperb2 {
+  color: #7c7d7f;
+  font-family: "Lato", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  left: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 8px;
+  white-space: nowrap;
+  width: 380px;
+  height: 15px;
+}
+
+/* Mecanismos de recoleccion*/
+
+.group-3b3 {
+  height: 33px;
+  left: -111px;
+  position: absolute;
+  top: 610px;
+  width: 0px;
+}
+
+
+
+/* Categoria municipio*/
+.estado1,
+.estado-wrapper1 {
+  position: absolute;
+  width: 209px;
+  height: 16.6px;
+}
+.estado1 {
+  top: 15px;
+  left: 0;
+  font-weight: 600;
+  display: inline-block;
+}
+.estado-wrapper1 {
+  cursor: pointer;
+  top: 47.8px;
+  left: 30px;
+}
+.selectoutline1 {
+  position: absolute;
+  top: 59px;
+  left: 207px;
+  font-family: Roboto;
+  font-size: 16px;
+  color: #1a202c;
+  width: 140px;
+  height: 30px;
+}
+.gestores-registro1 {
+  width: 340px;
+  position: relative;
+  
+  height: 103px;
+  text-align: left;
+  font-size: 14px;
+  color: #002;
+  font-family: Lato;
+  top: 20px;
+}
+
+/* Puntos de recoleccion */
+
+.GESTORES-REGISTROb2 { 
+  background-color: 
+  #ffffff; 
+  
+  flex-direction: row;
+  justify-content: center;
+  position: absolute;
+  width:800px;
+  top: 940px;
+  }
+
+  .GESTORES-REGISTROb2 .form-wrapperb2 {
+  background-color: #ffffff;
+  height: 302px;
+  width: 463px;
+  }
+
+  .GESTORES-REGISTROb2 .formb2 {
+  height: 302px;
+  position: absolute;
+  width: 488px;
+  top: 20px;
+  left: 130px;
+  }
+  .GESTORES-REGISTROb2 .overlap-groupb2 {
+  border-radius: 5px;
+  height: 180px;
+  left: 0;
+  position: absolute;
+  top: 47px;
+  width: 402px;
+  top: 40px;
   }
   
-  .registrar-miembros-page h2 {
-    color: #333; 
+  .GESTORES-REGISTROb2 .divb2 {
+  background-color: #f5f6fa;
+  border-radius: 5px;
+  height: 180px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 482px;
+  
+  }
+  .GESTORES-REGISTROb2 .groupb2 {
+  height: 35px;
+  left: 19px;
+  position: absolute;
+  top: 47px;
+  width: 362px;
+
   }
   
-  .form-group {
-    margin-bottom: 15px;
+  .GESTORES-REGISTROb2 .rectangleb2 {
+  background-color: #ffffff;
+  border-radius: 5px;
+  height: 35px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 323px;
+  
+  }
+
+  .GESTORES-REGISTROb2 .bx-trashb2 {
+    height: 44px;
+    width: 44px; 
+    left: 238px;
+    position: absolute;
+    top: -40px;
+    background-color: #f5f6fa; /* Fondo blanco */
+    border: none; /* Borde invisible */
+    font-size: 35px; /* Ajusta el contenido dentro del botón */
+    box-sizing: border-box; /* Incluye el padding en el tamaño total del botón */
   }
   
-  label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #222; 
+  .GESTORES-REGISTROb2 .botonesb2 {
+  height: 45px;
+  left: 255px;
+  position: absolute;
+  top: 121px;
+  width: 152px;
   }
   
-  input[type="text"],
-  input[type="number"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc; 
-    border-radius: 4px;
-    background-color: #fff; 
-    color: #333; 
+  .GESTORES-REGISTRO .LOGIN-SIGNUPb2 {
+  height: 45px;
   }
   
-  button[type="submit"] {
-    background-color: #007bff; 
-    color: #fff; 
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
+  .GESTORES-REGISTROb2 .signupb2 {
+  background-color: #069877;
+  border-radius: 10px;
+  height: 45px;
+  width: 152px;
+  
   }
   
-  button[type="submit"]:hover {
-    background-color: #0056b3;
+  .GESTORES-REGISTROb2 .frameb2 {
+  align-items: center;
+  display: inline-flex;
+  gap: 10px;
+  justify-content: center;
+  left: -3px;
+  padding: 10px;
+  position: absolute;
+  top: -5px;
   }
   
- 
+  .GESTORES-REGISTROb2 .text-wrapperb2 {
+  
+  color: #ffffff;
+  font-family: "Lato", Helvetica;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1px;
+  position: relative;
+  width: fit-content;
+  width: 152px;
+  left: -7px;
+  height: 50px;
+  top: -8px;
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  
+  }
+  
+  .GESTORES-REGISTROb2 .text-wrapper-2b2 {
+  
+  color: #000022;
+  font-family: "Lato", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  left: 22px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: -20px;
+  width: 154px;
+  
+  }
+  
+  
+  .GESTORES-REGISTROb2 .text-wrapper-3b2 {
+  
+  color: #000022;
+  font-family: "Lato", Helvetica;
+  font-size: 14px;
+  font-weight: 600; 
+  left: 37px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 57px;
+  width: 284px;
+  }
+
+  .GESTORES-REGISTROb2 .text-wrapper-4b2 {
+  color: #000022;
+  font-family: "Lato", Helvetica;
+  font-size: 16px;
+  font-weight: 700;
+  left: -110px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: -40px;
+  white-space: nowrap;
+  }
+
+/*checkbox*/
+
+.GESTORES-REGISTRO {
+
+  display: absolute;
+  flex-direction: row;
+  justify-content: center;
+  width: 1000px;
+  position: absolute;
+  top: 1350px;
+  left: 250px;
+}
+
+.GESTORES-REGISTRO .overlap-group-wrapper {
+
+  height: 250px;
+  width: 400px;
+}
+
+.GESTORES-REGISTRO .overlap-group {
+
+  height: 200px;
+  position: relative;
+}
+
+.GESTORES-REGISTRO .contenido {
+  height: 294px;
+  left: 300px;
+  position: absolute;
+  top: 14px;
+  width: 353px;
+}
+
+.GESTORES-REGISTRO .form {
+  height: 204px;
+  position: relative;
+  width: 367px;
+}
+
+.GESTORES-REGISTRO .text-wrapper-materiales-mercado {
+  color: #000022;
+  font-family: "Lato", Helvetica;
+  font-size: 16px;
+  font-weight: 700;
+  left: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: -30px;
+  white-space: nowrap;
+}
+
+.GESTORES-REGISTRO .group-2 {
+  height: 25px;
+  left: 159px;
+  position: absolute;
+  top: 180px;
+  width: 40px;
+}
+
+.GESTORES-REGISTRO .text-wrapper-3 {
+
+  color: #000022;
+  font-family: "Lato",
+    Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  left: 48px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: right;
+  top: 133px;
+  width: 64px;
+}
+
+.GESTORES-REGISTRO .text-wrapper-4 {
+
+  color: #000022;
+  font-family: "Lato",
+    Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  left: 48px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: right;
+  top: 183px;
+  width: 64px;
+}
+
+.GESTORES-REGISTRO .text-wrapper-5 {
+  color: #000022;
+  font-family: "Lato", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  left: 11px;
+  letter-spacing: 0;
+  width: 337px;
+}
+
+
+
+.GESTORES-REGISTRO .div {
+
+  color: #000022;
+  font-family: "Lato", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  left: -15px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: relative;
+  text-align: right;
+  top: 60px;
+  width: 104px;
+}
+
+.GESTORES-REGISTRO .checkbox {
+  position: relative;
+  top: 45px;
+  left: 170px;
+
+}
+
+
+.GESTORES-REGISTRO .text-wrapper-2 {
+  color: #000022;
+  font-family: "Lato", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  left: 132px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 20px;
+  width: 88px;
+}
+
+.GESTORES-REGISTRO .group {
+  height: 25px;
+  left: 159px;
+  position: absolute;
+  top: 228px;
+  width: 40px;
+}
+
+.GESTORES-REGISTRO .img {
+  height: 25px;
+  left: 159px;
+  position: absolute;
+  top: 133px;
+  width: 40px;
+  line-height: normal;
+  position: absolute;
+  text-align: right;
+  top: 233px;
+  width: 101px;
+}
+
+
+
+.GESTORES-REGISTRO .text-wrapper-6 {
+
+  color: #000022;
+  font-family: "Lato",
+    Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: right;
+  top: 277px;
+  width: 112px;
+}
+
+.GESTORES-REGISTRO .radio-checked-radio {
+
+  height: 25px;
+  left: 169px;
+  position: absolute;
+  top: 96px;
+  width: 40px;
+}
+
+.GESTORES-REGISTRO .radio-checked-radio-2 {
+  height: 25px;
+  left: 170px;
+  position: absolute;
+  top: 287px;
+  width: 40px;
+}
+
+/* error */
+.b4error {
+  height: 43px;
+  width: 1440px;
+  position: absolute;
+  top: 1600px;
+}
+
+/* Botones */
+
+.b4box2 {
+  height: 45px;
+  position: absolute;
+  width: 215px;
+  top: 0px;
+  left: 0px;
+}
+
+.b4box2 .b4CR {
+  height: 45px;
+  left: 600px;
+  position: absolute;
+  top: 1650px;
+  width: 215px;
+}
+
+.b4box2 .b4cancelar {
+  height: 45px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 105px;
+  border-radius: 10px;
+}
+
+.b4box2 .b4og {
+  background-color: #ffff;
+  border: 1px solid;
+  border-color: #069877;
+  border-radius: 10px;
+  height: 45px;
+  position: relative;
+  width: 103px;
+  left: -2px;
+  top: -2px;
+}
+
+.b4box2 .b4tw {
+  color: #069877;
+  font-family: "Lato-Bold", Helvetica;
+  font-size: 18px;
+  font-weight: 700;
+  left: 13px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 10px;
+  width: 80px;
+}
+
+.b4box2 .b4registrar {
+  height: 45px;
+  left: 115px;
+  position: absolute;
+  top: 0;
+  width: 102px;
+  border-radius: 10px;
+}
+
+.b4editar{
+  height: 45px;
+  left: 115px;
+  position: absolute;
+  top: 0;
+  width: 102px;
+  border-radius: 10px;
+}
+
+.b4box2 .b4o {
+  background-color: #069877;
+  border-radius: 10px;
+  height: 45px;
+  position: relative;
+  width: 103px;
+  left: -20px;
+  top: -10px;
+}
+
+.b4box2 .b4d {
+  color: #ffffff;
+  font-family: "Lato-Bold", Helvetica;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 10px;
+
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  height: 45px;
+  background-color: #069877;
+  width: 103px;
+  left: -1px;
+  top: -1px;
+}
+
+
+/* Registros */
+
+.b4lab {
+  height: 43px;
+  width: 147px;
+  position: absolute;
+}
+
+.b4lab .b4textl {
+  color: #000022;
+  font-family: "Lato-SemiBold", Helvetica;
+  font-size: 36px;
+  font-weight: 600;
+  left: 50px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 950px;
+  white-space: nowrap;
+}
+
+.b4error {
+  height: 43px;
+  width: 1440px;
+  position: absolute;
+  top: 1610px;
+}
+
+/* Registros span */
+.b4registros {
+  
+  position: absolute;
+  top: -500px;
+  left: 50px;
+  
+}
+
+.b4box4 {
+  height: 18px;
+  position: absolute;
+  width: 311px;
+  top: 480px;
+}
+
+.b4box4 .b4group4 {
+  height: auto;
+  left: 420px;
+  position: absolute;
+  top: 1930px;
+  width: 317px;
+}
+
+.b4box4 .b4registro {
+  margin-bottom: 0px;
+  top: 10px;
+  
+  
+}
+
+.b4box4 .b4text-wrapper-7 {
+  color: #000022;
+  font-family: "Lato-Bold", Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: -40px;
+  white-space: nowrap;
+  
+  
+}
+
+
+.b4box4 .b4div2 {
+  color: #000022;
+  font-family: "Lato-Bold", Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 330px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: -40px;
+  white-space: nowrap;
+
+}
+
+.b4box4 .b4text-wrapper-8 {
+  color: #000022;
+  font-family: "Lato-Bold", Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 520px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: -40px;
+  white-space: nowrap;
+  margin-bottom: 25px;
+  
+}
+
+.b4span {
+  margin-right: 0px; 
+  height: 53px;
+  width: 1040px;
+}
+
+.b4span2{
+  margin-right: -10px; 
+  height: 53px;
+  width: 1040px;
+  left: -20px;
+}
+
+.b4uli {
+  margin-right: 20px; 
+  height: 53px;
+  width: 640px;
+  
+  
+
+}
+
+
+.b4registros li {
+  display: flex;
+  align-items: center; /* Centra verticalmente el contenido */
+}
+
+.b4registros li .b4text-wrapper-7,
+.b4registros li .b4div2,
+.b4registros li .b4text-wrapper-8 {
+  margin-right: 10px; /* Ajusta el valor según sea necesario */
+}
+
+.b4registros li .b4span {
+  margin-left: -50px; /* Ajusta el valor según sea necesario */
+}
+
+.b4registros li .b4span2 {
+  margin-left: 200px; /* Ajusta el valor según sea necesario */
+}
+
+
+
+/* Ajusta el espacio entre los botones si es necesario */
+.b4registros li .b4edit-button,
+.b4registros li .b4delete-button {
+  margin-left: 20px; /* Ajusta el valor según sea necesario */
+
+}
+
+.b4show-box1 {
+  visibility: visible;
+  
+}
+
+.b4delete-button{
+  height: 35px;
+  width: 280px;
+  font-size: 30px;
+}
+
+.b4edit-button{
+  font-size: 20px;
+  
+}

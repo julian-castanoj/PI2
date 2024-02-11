@@ -1,6 +1,8 @@
+import '../../styles/Tablas/new-table5.css';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import '../../styles/custom-table.css';
+import { HiOutlineArrowCircleRight } from "react-icons/hi";
+import { HiOutlineArrowCircleLeft } from "react-icons/hi";
 
 const Transactions = () => {
   const [data, setData] = useState([]);
@@ -10,17 +12,19 @@ const Transactions = () => {
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const [filteredData, setFilteredData] = useState([]);
   const [error, setError] = useState(null);
+
+
   const [gestoresData, setGestoresData] = useState([]);
 
-  const [transformadoresData, setTransformadoresData] = useState([]); // Nueva variable de estado
+  const [transformadoresData, setTransformadoresData] = useState([]);
 
   useEffect(() => {
     const fetchDataAndGestores = async () => {
       try {
         const [transaccionesResponse, gestoresResponse, transformadoresResponse] = await Promise.all([
-          fetch('http://localhost:3000/transacciones/gt'),
-          fetch('http://localhost:3000/gestor'),
-          fetch('http://localhost:3000/transformador')
+          fetch('backend-ac-production.up.railway.app/transacciones/gt'),
+          fetch('backend-ac-production.up.railway.app/gestor'),
+          fetch('backend-ac-production.up.railway.app/transformador')
         ]);
 
         if (transaccionesResponse.ok && gestoresResponse.ok && transformadoresResponse.ok) {
@@ -35,7 +39,7 @@ const Transactions = () => {
           setData(transaccionesResult);
           setFilteredData(transaccionesResult);
           setGestoresData(gestoresResult);
-          setTransformadoresData(transformadoresResult); 
+          setTransformadoresData(transformadoresResult);
         } else {
           console.error('Error al cargar datos de la API');
           setError('Error al cargar datos de la API');
@@ -71,12 +75,17 @@ const Transactions = () => {
 
   const getTransformadorNameById = (transformadorId) => {
     const transformador = transformadoresData.find((t) => t.id === transformadorId);
-    return transformador ? transformador.razon_social : 'Nombre no encontrado';
+    return transformador ? transformador.nombre : 'Nombre no encontrado';
+  };
+
+  const getGestoresNameById = (gestorId) => {
+    const gestor = gestoresData.find((t) => t.id === gestorId);
+    return gestor ? gestor.nombre : 'Nombre no encontrado';
   };
 
   const deleteTransaction = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/transacciones/gt/${id}`, {
+      const response = await fetch(`backend-ac-production.up.railway.app/transacciones/gt/${id}`, {
         method: 'DELETE',
       });
       if (response.ok) {
@@ -94,12 +103,12 @@ const Transactions = () => {
     }
   };
 
-  
+
 
 
   return (
     <div className="about-page">
-      <h1 className="page-title">Gestor Transformador</h1>
+
 
       {error && (
         <div className="error-message">
@@ -117,6 +126,7 @@ const Transactions = () => {
         />
       </div>
 
+      {/*
       <table className="custom-table">
         <thead>
           <tr>
@@ -125,7 +135,7 @@ const Transactions = () => {
             <th>Material</th>
             <th>Fecha</th>
             <th>Descripción</th>
-            <th>Acciones</th>
+            
           </tr>
         </thead>
         <tbody>
@@ -139,39 +149,110 @@ const Transactions = () => {
               <td>{item.material}</td>
               <td>{item.fecha}</td>
               <td>{item.descripcion}</td>
-              <td>
-                <button onClick={() => deleteTransaction(item.id)}>Eliminar</button>
-                <Link to={`/editarTransaccion/${item.id}`}>
-                  <button>Editar</button>
-                </Link>
-              </td>
+              
             </tr>
           ))}
         </tbody>
       </table>
+          */}
 
-      <div className="pagination">
+      <div className="GESTORTRANSFORMADOR">
+        <div className="contenido-wrapper">
+          <div className="contenido">
+            <div className="tabla">
+
+              <div>
+                {paginatedData.map((item) => (
+                  <div className="MEETING" key={item.id}>
+                    <div className="group">
+                      <div className="text-wrapper-12">{getGestoresNameById(item.gestor_realiza)}</div>
+                      <div className="text-wrapper-10">{getTransformadorNameById(item.transformador_recive)}</div>
+                      <div className="text-wrapper-2">{item.imagen ? item.gestor.nombre : 'Imagen no encontrado'}</div>
+                      <div className="text-wrapper-3">{item.fecha}</div>
+                      <div className="text-wrapper1">{item.descripcion ? item.gestor.nombre : 'Descripcion no encontrado'}</div>
+                      <div className="text-wrapper-11">{item.ubicacion ? item.gestor.nombre : 'Ubicacion no encontrado'}</div>
+                    </div>
+                    <div className="navbar">
+                      <div className="text-wrapper-4">Gestor realiza</div>
+                      <div className="text-wrapper-5">Gestor Recive</div>
+                      <div className="text-wrapper-13">Imagen</div>
+                      <div className="text-wrapper-6">Fecha</div>
+                      <div className="text-wrapper-7">Descripcion</div>
+                      <div className="text-wrapper-8">Ubicacion</div>
+                    </div>
+
+
+
+
+
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div className="pagination" style={{ display: 'flex', alignItems: 'center' }}>
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
+          style={{
+            backgroundColor: 'transparent',
+            color: '#069877',
+            fontSize: '18px',
+            padding: '8px 12px',
+            border: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+          }}
         >
-          Anterior
+          <HiOutlineArrowCircleLeft style={{ color: '#069877', marginRight: '5px', fontSize: '40px' }} />
+          <span style={{ marginRight: '10px' }}>Anterior</span> {/* Quitamos el margen izquierdo */}
         </button>
-        <span>Página {currentPage} de {totalPages}</span>
+        <span style={{ marginRight: '10px' }}>Página {currentPage} de {totalPages}</span> {/* Agregamos un margen derecho */}
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
+          style={{
+            backgroundColor: 'transparent',
+            color: '#069877',
+            fontSize: '18px',
+            padding: '8px 12px',
+            border: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+          }}
         >
-          Siguiente
+          <span style={{ marginRight: '10px' }}>Siguiente</span> {/* Agregamos un margen derecho */}
+          <HiOutlineArrowCircleRight style={{ color: '#069877', marginLeft: '5px', fontSize: '40px' }} />
         </button>
       </div>
 
-      <div className="action-buttons">
-        <Link to="/registrarTransacciones" className="register-button">
-          Registrar
-        </Link>
+
+      <div className="registrarGTr">
+        <div className='oGTr'>
+          <Link to="/registrarGestorTransformador" className="dGTr">
+            Registrar
+          </Link>
+        </div>
       </div>
+
+
+
+
+
     </div>
+
+
+
+
+
+
   );
 };
 

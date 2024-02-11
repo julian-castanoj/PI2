@@ -1,0 +1,62 @@
+.INICIO {
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 1450px;
+    top: 0;
+  }
+  
+  .INICIO .overlap-group-wrapper {
+    background-color: #ffffff;
+    height: 792px;
+    width: 1528px;
+    top: 0;
+}
+  
+  .INICIO .overlap-group {
+    position: relative; /* Agregamos posición relativa para que la posición absoluta sea relativa a este elemento */
+    background-color: #ffffff;
+    background-image: url('../images/inicioS.png');
+    background-position: absolute; /* Posicionamiento absoluto */
+    background-size: cover;
+    height: 792px;
+    left: 0px; /* Ajusta el valor de left según sea necesario */
+    top: -220px;
+  }
+
+.INICIO .TEXT {
+    height: 121px;
+    left: 364px;
+    position: relative;
+    top: 229px;
+    width: 337px;
+}
+
+.INICIO .bienvenidos-al-m {
+    color: #f5f6fa;
+    font-family: "Playfair Display", Helvetica;
+    font-size: 48px;
+    font-weight: 400;
+    left: 200px;
+    letter-spacing: 0;
+    line-height: 48px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 400px;
+}
+
+.INICIO .text-wrapper {
+    font-style: italic;
+    font-weight: 700;
+    line-height: 81px;
+    
+}
+
+.INICIO .span {
+    font-family: "Lato", Helvetica;
+    font-size: 32px;
+    line-height: 29px;
+    
+}

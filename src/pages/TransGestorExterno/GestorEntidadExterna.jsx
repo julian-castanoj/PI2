@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import '../../styles/Tablas/new-table3.css';
+import { HiOutlineArrowCircleRight } from "react-icons/hi";
+import { HiOutlineArrowCircleLeft } from "react-icons/hi";
 
 const GestorEntidadExterna = () => {
   const [data, setData] = useState([]);
@@ -13,18 +16,18 @@ const GestorEntidadExterna = () => {
 
   const fetchData = async () => {
     try {
-      const transacciongeResponse = await fetch('http://localhost:3000/transacciones/ge');
-      const gestoresResponse = await fetch('http://localhost:3000/gestor'); 
-  
+      const transacciongeResponse = await fetch('backend-ac-production.up.railway.app/transacciones/ge');
+      const gestoresResponse = await fetch('backend-ac-production.up.railway.app/gestor');
+
       if (transacciongeResponse.ok && gestoresResponse.ok) {
         const transacciongeResult = await transacciongeResponse.json();
         const gestoresResult = await gestoresResponse.json();
-  
+
         setData(transacciongeResult);
         setGestoresData(gestoresResult);
-  
-        
-  
+
+
+
         setError(null);
       } else {
         console.error('Error al cargar datos de la API');
@@ -35,7 +38,7 @@ const GestorEntidadExterna = () => {
       setError('Error al realizar la solicitud');
     }
   };
-  
+
 
   useEffect(() => {
     fetchData();
@@ -65,7 +68,7 @@ const GestorEntidadExterna = () => {
 
   return (
     <div className="about-page">
-      <h1 className="page-title">Gestor Entidad Externa</h1>
+     
 
       {error && (
         <div className="error-message">
@@ -82,6 +85,7 @@ const GestorEntidadExterna = () => {
           className="search-input"
         />
       </div>
+      {/* 
       <table className="custom-table">
         <thead>
           <tr>
@@ -93,50 +97,108 @@ const GestorEntidadExterna = () => {
             <th>Nombre de Entidad</th>
             <th>Descripción</th>
             <th>Ubicación</th>
-            <th>Acciones</th>
+            
           </tr>
         </thead>
         <tbody>
           {paginatedData.map((item) => (
             <tr key={item.id}>
               <td>{item.gestor ? item.gestor.nombre : 'Nombre no encontrado'}</td>
-              <td>{item.material}</td>
+              <td>{item.material }</td>
               <td>{item.cantidad}</td>
               <td>{item.fecha}</td>
               <td>{item.archivoImagen ? item.archivoImagen : 'NULL'}</td>
               <td>{item.entidad_externa}</td>
               <td>{item.descripcion}</td>
               <td>{item.ubicacion}</td>
-              <td>
-                <Link to={`/editarGestorEntidadExterna/${item.id}`}>
-                  <button>Editar</button>
-                </Link>
-              </td>
+              
             </tr>
           ))}
         </tbody>
-      </table>
+      </table> */}
 
-      <div className="pagination">
+      <div className="GESTORENTIDAD">
+        <div className="contenido-wrapper">
+          <div className="contenido">
+            <div className="tabla">
+
+              <div>
+                {paginatedData.map((item) => (
+                  <div className="MEETING" key={item.id}>
+                    <div className="group">
+                      <div className="text-wrapper-12">{item.nombre ? item.gestor.nombre : 'Nombre no encontrado'}</div>
+                      <div className="text-wrapper-10">{item.imagen ? item.gestor.nombre : 'Imagen no encontrado'}</div>
+                      <div className="text-wrapper-2">{item.fecha}</div>
+                      <div className="text-wrapper-3">{item.entidad_externa}</div>
+                      <div className="text-wrapper1">{item.descripcion ? item.gestor.nombre : 'Descripcion no encontrado'}</div>
+                      <div className="text-wrapper-11">{item.ubicacion ? item.gestor.nombre : 'Ubicacion no encontrado'}</div>
+                    </div>
+                    <div className="navbar">
+                      <div className="text-wrapper-4">Gestor</div>
+                      <div className="text-wrapper-5">Imagen</div>
+                      <div className="text-wrapper-13">fecha</div>
+                      <div className="text-wrapper-6">Nombre Entidad</div>
+                      <div className="text-wrapper-7">Descripcion</div>
+                      <div className="text-wrapper-8">Ubicacion</div>
+                    </div>
+
+
+
+
+
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="pagination" style={{ display: 'flex', alignItems: 'center' }}>
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
+          style={{
+            backgroundColor: 'transparent',
+            color: '#069877',
+            fontSize: '18px',
+            padding: '8px 12px',
+            border: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+          }}
         >
-          Anterior
+          <HiOutlineArrowCircleLeft style={{ color: '#069877', marginRight: '5px', fontSize: '40px' }} />
+          <span style={{ marginRight: '10px' }}>Anterior</span> {/* Quitamos el margen izquierdo */}
         </button>
-        <span>Página {currentPage} de {totalPages}</span>
+        <span style={{ marginRight: '10px' }}>Página {currentPage} de {totalPages}</span> {/* Agregamos un margen derecho */}
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
+          style={{
+            backgroundColor: 'transparent',
+            color: '#069877',
+            fontSize: '18px',
+            padding: '8px 12px',
+            border: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+          }}
         >
-          Siguiente
+          <span style={{ marginRight: '10px' }}>Siguiente</span> {/* Agregamos un margen derecho */}
+          <HiOutlineArrowCircleRight style={{ color: '#069877', marginLeft: '5px', fontSize: '40px' }} />
         </button>
       </div>
 
-      <div className="action-buttons">
-        <Link to="/registrarGestorEntidadExterna" className="register-button">
-          Registrar Transacción Gestor Entidad Externa
-        </Link>
+
+      <div className="registrarGe">
+        <div className='oGe'>
+          <Link to="/registrarGestorEntidadExterna" className="dGe">
+            Registrar
+          </Link>
+        </div>
       </div>
     </div>
   );

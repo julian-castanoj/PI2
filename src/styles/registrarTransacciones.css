@@ -1,33 +1,677 @@
+/* Titulo */
 
-.form-group {
-    margin-bottom: 20px;
-  }
-  
- 
-  .form-group label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #333; 
-  }
-  
-  
-  .form-group input[type="date"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.GESTORTRANSFORMADOR {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.GESTORTRANSFORMADOR .contenido-wrapperGT {
+  background-color: #ffffff;
+  height: 100px;
+  width: 1165px;
+}
+
+.GESTORTRANSFORMADOR .contenidoGT {
+  height: 92px;
+  left: 59px;
+  position: relative;
+  top: 91px;
+  width: 876px;
+}
+
+.GESTORTRANSFORMADOR .formGT {
+  height: 19px;
+  left: 7px;
+  position: absolute;
+  top: 73px;
+  width: 86px;
+}
+
+.GESTORTRANSFORMADOR .groupGT {
+  height: 19px;
+  position: relative;
+  width: 88px;
+}
+
+.text-wrapperGT {
+  color: #000022;
+  font-family: "Lato", Helvetica;
+  font-size: 16px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0px;
+  white-space: nowrap;
+}
+
+.divGT {
+  color: #000022;
+  font-family: "Lato", Helvetica;
+  font-size: 36px;
+  font-weight: 600;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+}
+
+/* Gestor realiza */
+
+.gestorgt,
+.gestorgt-wrapper {
+    position: absolute;
+    width: 209px;
+    height: 16.6px;
+}
+
+.gestorgt {
+    top: 15px;
+    left: 0;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.gestorgt-wrapper {
+    cursor: pointer;
+    top: 47.8px;
+    left: 30px;
+}
+
+.selectoutlineGT {
+    position: absolute;
+    top: 59px;
+    left: 247px;
+    font-family: roboto;
     font-size: 16px;
-    color: #333; 
-  }
-  
-  
-  .form-group input[type="file"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc; 
-    border-radius: 5px;
+    color: #1a202c;
+    width: 140px;
+    height: 30px;
+}
+
+.GESTOR-TRANSFORMADOR1 {
+    width: 340px;
+    position: relative;
+
+    height: 103px;
+    text-align: left;
+    font-size: 14px;
+    color: #002;
+    font-family: Lato;
+    top: 50px;
+}
+
+/* Gestor recibe */
+
+.gestorgtr,
+.gestorgtr-wrapper {
+    position: absolute;
+    width: 209px;
+    height: 16.6px;
+}
+
+.gestorgtr {
+    top: 5px;
+    left: 0;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.gestorgtr-wrapper {
+    cursor: pointer;
+    top: 47.8px;
+    left: 30px;
+}
+
+.selectoutlineGTR {
+    position: absolute;
+    top: 45px;
+    left: 247px;
+    font-family: roboto;
     font-size: 16px;
-    color: #333;
+    color: #1a202c;
+    width: 140px;
+    height: 30px;
+}
+
+.GESTOR-TRANSFORMADOR2 {
+    width: 340px;
+    position: relative;
+
+    height: 103px;
+    text-align: left;
+    font-size: 14px;
+    color: #002;
+    font-family: Lato;
+    top: 50px;
+}
+  
+/* Materiales */
+
+.materialNGT {
+  position: absolute;
+  width: 209px;
+  height: 16.6px;
+  top: 575px;
+  left: 630px;
+  color: #000022;
+  font-family: "Lato", Helvetica;
+  font-size: 16px;
+  font-weight: 700;
+
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+
+  white-space: nowrap;
+  
+}
+
+.material1GT {
+  position: absolute;
+  width: 209px;
+  height: 16.6px;
+  top: 85px;
+  left: 190px;
+  font-weight: 600;
+  display: inline-block;
+  font-family: "Lato", Helvetica;
+  
+}
+
+.cantidadGG {
+  position: absolute;
+  width: 209px;
+  height: 16.6px;
+  top: 535px;
+  left: 750px;
+  font-weight: 600;
+  color: #000022;
+  font-family: "Lato", Helvetica;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  white-space: nowrap;
+  font-family: "Lato", Helvetica;
+}
+
+.materialGT {
+  color: #000022;
+  font-family: "Lato", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  left: 158px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: right;
+  top: 128px;
+  width: 110px;
+  
+  
+  
+}
+
+.materiales-tableGT {
+  width: 200px;
+  height: 300px;
+  position: absolute;
+  
+  
+}
+
+.materialGT-row {
+  margin-bottom: 10px; /* Ajusta el valor según sea necesario para el margen entre las filas */
+}
+
+.materialGT-row td {
+  padding: 8px;
+  
+  
+}
+
+.materiales-tableGT th {
+ margin-bottom: 10px; 
+  padding: 8px;
+  
+}
+
+.materialGT tr:not(:last-child) {
+  margin-bottom: 20px; /* Ajusta el valor según sea necesario para el margen entre las filas */
+}
+
+
+
+
+.cantidad2GT {
+  position: absolute;
+  left: 720px;
+  top: 615px; /* Ajusta la posición vertical según sea necesario */
+  text-align: right;  
+}
+
+.cantidad-tableGT {
+    width: 100%;
+    border-collapse: collapse;
   }
   
+
+  /* */
+
+  .fechaGT,
+.fechaGT-wrapper {
+    position: absolute;
+    width: 209px;
+    height: 16.6px;
+}
+
+.fechaGT {
+    top: 85px;
+    left: 0;
+    font-weight: 600;
+    display: inline-block;
+    font-family: "Lato-Bold", Helvetica;
+}
+
+.fechaGT-wrapper {
+    cursor: pointer;
+    top: 765px;
+    left: 450px;
+    font-family: "Lato-Bold", Helvetica;
+}
+
+/* */
+.div-GT1 {
+  height: 33px;
+  left: 630px;
+  position: absolute;
+  top: 855px;
+  width: 400px;
+}
+
+.fechaGT1 {
+  font-family: "Lato-Bold", Helvetica;
+  color: #069877;
+  border-color: transparent;
+  
+}
+
+.calendarGT {
+  position: absolute;
+  top: 0;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator, input[type="time"]::-webkit-calendar-picker-indicator{
+  cursor: pointer;
+  border-radius: 4px;
+  margin-right: 2px;
+  opacity: 0.0;
+  filter: invert(0.9);
+}
+
+.div-GT2 {
+  height: 33px;
+  left: 500px;
+  position: absolute;
+  top: 940px;
+  width: 550px;
+}
+
+.div-GT4 {
+  height: 33px;
+  left: 500px;
+  position: absolute;
+  top: 1020px;
+  width: 550px;
+}
+
+.div-GT5 {
+  height: 33px;
+  left: 500px;
+  position: absolute;
+  top: 1070px;
+  width: 550px;
+}
+.dr1 {
+  top: 10px;
+}
+.dr2 {
+  top: 10px; 
+}
+
+.selectoutlineGU {
+  position: absolute;
+  top: 10px;
+  left: 100px;
+  font-family: roboto;
+  font-size: 16px;
+  color: #1a202c;
+  width: 140px;
+  height: 30px;
+}
+
+.text-wrapperGT1 {
+  color: #7c7d7f;
+  font-family: "Lato", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  left: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 8px;
+  white-space: nowrap;
+  width: 380px;
+  height: 15px;
+}
+
+.overlap-groupGT1 {
+  background-color: #f5f6fa;
+  border-radius: 5px;
+  height: 33px;
+  position: relative;
+  width: 404px;
+  top: -10px;
+  left: -110px;
+}
+
+.overlap-groupGT2 {
+  background-color: #f5f6fa;
+  border-radius: 5px;
+  height: 15px;
+  position: relative;
+  width: 404px;
+  top: -10px;
+  left: -110px;
+}
+
+.boxGT {
+  height: 45px;
+  position: absolute;
+  width: 215px;
+  top: -450px;
+  left: 0px;
+}
+
+.boxGT .CRGT {
+  height: 45px;
+  left: 600px;
+  position: absolute;
+  top: 1650px;
+  width: 215px;
+}
+
+.boxGT .cancelarGT {
+  height: 45px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 105px;
+  border-radius: 10px;
+}
+
+.boxGT .ogGT {
+  background-color: #ffff;
+  border: 1px solid;
+  border-color: #069877;
+  border-radius: 10px;
+  height: 45px;
+  position: relative;
+  width: 103px;
+  left: -2px;
+  top: -2px;
+}
+
+.boxGT .twGT {
+  color: #069877;
+  font-family: "Lato-Bold", Helvetica;
+  font-size: 18px;
+  font-weight: 700;
+  left: 13px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 10px;
+  width: 80px;
+}
+
+.boxGT .twregistrarGT {
+  height: 45px;
+  left: 115px;
+  position: absolute;
+  top: 0;
+  width: 102px;
+  border-radius: 10px;
+}
+
+.b4editar{
+  height: 45px;
+  left: 115px;
+  position: absolute;
+  top: 0;
+  width: 102px;
+  border-radius: 10px;
+}
+
+.boxGT .oGT {
+  background-color: #069877;
+  border-radius: 10px;
+  height: 45px;
+  position: relative;
+  width: 103px;
+  left: -20px;
+  top: -10px;
+}
+
+.boxGT .dGT{
+  color: #ffffff;
+  font-family: "Lato-Bold", Helvetica;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 10px;
+
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  height: 45px;
+  background-color: #069877;
+  width: 103px;
+  left: -1px;
+  top: -1px;
+}
+
+
+
+/* Registros */
+
+.labGT {
+  height: 43px;
+  width: 147px;
+  position: absolute;
+}
+
+.labGT .textlGT {
+  color: #000022;
+  font-family: "Lato-SemiBold", Helvetica;
+  font-size: 36px;
+  font-weight: 600;
+  left: 50px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 760px;
+  white-space: nowrap;
+}
+
+.errorGT {
+  height: 43px;
+  width: 1440px;
+  position: absolute;
+  top: 1140px;
+}
+
+/* Registros span */
+.registrosGT {
+  
+  position: absolute;
+  top: -950px;
+  left: 50px;
+  
+}
+
+.box4GT {
+  height: 18px;
+  position: absolute;
+  width: 311px;
+  top: 440px;
+}
+
+.box4GT .group4Gt {
+  height: auto;
+  left: 420px;
+  position: absolute;
+  top: 1930px;
+  width: 317px;
+}
+
+.box4GT .registroGT {
+  margin-bottom: 0px;
+  top: 10px;
+  
+  
+}
+
+.box4GT .text-wrapper-7-GT {
+  color: #000022;
+  font-family: "Lato-Bold", Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: -40px;
+  white-space: nowrap;
+  
+  
+}
+
+
+.box4GT .div2GT {
+  color: #000022;
+  font-family: "Lato-Bold", Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 330px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: -40px;
+  white-space: nowrap;
+
+}
+
+.box4GT .text-wrapper-8-GE {
+  color: #000022;
+  font-family: "Lato-Bold", Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 520px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: -40px;
+  white-space: nowrap;
+  margin-bottom: 25px;
+  
+}
+
+.spanGT{
+  margin-right: 0px; 
+  height: 53px;
+  width: 1040px;
+}
+
+.span2GT{
+  margin-right: -10px; 
+  height: 53px;
+  width: 1040px;
+  left: -20px;
+}
+
+.uliGT {
+  margin-right: 20px; 
+  height: 53px;
+  width: 640px;
+  
+  
+
+}
+
+
+.registrosGT li {
+  display: flex;
+  align-items: center; /* Centra verticalmente el contenido */
+}
+
+.registrosGT li .text-wrapper-7-GT,
+.registrosGT li .div2GT,
+.registrosGT li .text-wrapper-8-GE {
+  margin-right: 10px; /* Ajusta el valor según sea necesario */
+}
+
+.registrosGT li .spanGT{
+  margin-left: -50px; /* Ajusta el valor según sea necesario */
+}
+
+.registrosGT li .span2GT {
+  margin-left: 200px; /* Ajusta el valor según sea necesario */
+}
+
+
+
+/* Ajusta el espacio entre los botones si es necesario */
+.registrosGT li .edit-buttonGE,
+.registrosGT li .delete-buttonGE {
+  margin-left: 20px; /* Ajusta el valor según sea necesario */
+
+}
+
+.b4show-box1 {
+  visibility: visible;
+  
+}
+
+.delete-buttonGE{
+  height: 35px;
+  width: 280px;
+  font-size: 30px;
+}
+
+.edit-buttonGE{
+  font-size: 20px;
+  
+}
+
+.GESTOR-GESTOR4 {
+  width: 340px;
+  position: relative;
+  height: 103px;
+  text-align: left;
+  font-size: 14px;
+  color: #002;
+  font-family: Lato;
+  top: 550px;
+  left: 20px;
+}

@@ -24,7 +24,7 @@ const BarChart = () => {
   };
 
   useEffect(() => {
-    const endpoint = 'http://localhost:3000/material-productores/total';
+    const endpoint = 'backend-ac-production.up.railway.app/material-productores/total';
 
     fetch(endpoint)
       .then(response => response.json())
@@ -48,10 +48,14 @@ const BarChart = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Gráfico de Barras</h1>
-      <Bar data={data} options={options} />
+    
+    <div style={{ width: '50%', margin: '0 auto', paddingTop: '20px', position:'absolute',left:'400px' }}>
+      <h1 style={{ textAlign: 'center' }}>Gráfico de Barras</h1>
+      <div style={{ height: '500px' }}> 
+        <Bar data={data} options={options} />
+      </div>
     </div>
+
   );
 };
 

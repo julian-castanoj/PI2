@@ -49,3 +49,8 @@ main{
 .icon, .link_text{
     font-size: 20px;
 }
+
+.full-height-sidebar {
+    height: 100vh;
+    overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
+  }

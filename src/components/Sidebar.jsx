@@ -1,57 +1,62 @@
 import React, { useState } from 'react';
 import { FaTh, FaBars, FaUserAlt, FaRegChartBar, FaCommentAlt, FaShoppingBag } from "react-icons/fa";
+import { GoHome, GoArrowSwitch } from "react-icons/go";
+import { MdPersonOutline } from "react-icons/md";
+
+
+import { BiCoffeeTogo } from "react-icons/bi";
+import { IoExtensionPuzzleOutline } from "react-icons/io5";
+import { CiTrophy } from "react-icons/ci";
+
+import { FaCodeCompare, FaCodePullRequest, FaCodeMerge } from "react-icons/fa6";
+import { TbReportSearch } from "react-icons/tb";
+
 import { NavLink } from 'react-router-dom';
 import '../styles/ss.css';
 
 const Sidebar = ({ children, isAuthenticated }) => {
-  const [isOpen, setIsOpen] = useState(false);
   const [isActorsOpen, setIsActorsOpen] = useState(false);
-  const [isTransactionsOpen, setIsTransactionsOpen] = useState(false); // Nuevo estado para transacciones
-  const toggle = () => setIsOpen(!isOpen);
+  const [isTransactionsOpen, setIsTransactionsOpen] = useState(false);
 
   const toggleActors = () => setIsActorsOpen(!isActorsOpen);
-  const toggleTransactions = () => setIsTransactionsOpen(!isTransactionsOpen); // Función para mostrar/ocultar transacciones
+  const toggleTransactions = () => setIsTransactionsOpen(!isTransactionsOpen);
+
+// MEnus y sub menus
 
   const actorsSubMenu = [
     {
       path: "/productores",
       name: "Productores",
-      icon: <FaUserAlt />,
+      icon: <BiCoffeeTogo />,
     },
     {
       path: "/gestores",
       name: "Gestores",
-      icon: <FaUserAlt />,
+      icon: <IoExtensionPuzzleOutline />,
     },
     {
       path: "/transformadores",
       name: "Transformadores",
-      icon: <FaUserAlt />,
+      icon: <CiTrophy />,
     },
   ];
 
-  const transactionsSubMenu = [ // Definición de submenú de transacciones
+  const transactionsSubMenu = [
     {
       path: "/gestorEntidadExterna",
       name: "Gestor - Entidad Externa",
-      icon: <FaCommentAlt />,
+      icon: <FaCodePullRequest />,
     },
-    
     {
       path: "/gestorGestor",
       name: "Gestor - Gestor",
-      icon: <FaCommentAlt />,
+      icon: <FaCodeCompare />,
     },
     {
-      path: "/transacciones",
+      path: "/gestorTransformador",
       name: "Gestor - Transformador",
-      icon: <FaCommentAlt />,
+      icon: <FaCodeMerge />,
     },
-    /*{
-          path: "/transacciones",
-          name: "Transacciones",
-          icon: <FaCommentAlt />,
-        },*/ 
   ];
 
   const menuItem = isAuthenticated
@@ -61,38 +66,37 @@ const Sidebar = ({ children, isAuthenticated }) => {
           name: "Estadisticas",
           icon: <FaRegChartBar />,
         },
-        
+        {
+          path: "/reportes",
+          name: "Reportes",
+          icon: <TbReportSearch />,
+        },
         {
           path: "/logout",
           name: "Salir de sesion",
           icon: <FaShoppingBag />,
         },
       ]
-    : [
-        {
-          path: "/inicio",
-          name: "Inicio de Sesión",
-          icon: <FaTh />,
-        },
-      ];
+    : [];
 
   return (
     <div className="container">
-      <div style={{ width: isOpen ? "200px" : "50px" }} className="sidebar">
-        <div className="top_section">
-          <h1 style={{ display: isOpen ? "block" : "none" }} className="logo">
-            Logo
-          </h1>
-          <div style={{ marginLeft: isOpen ? "50px" : "0px" }} className="bars">
-            <FaBars onClick={toggle} />
-          </div>
-        </div>
+      <div className="sidebar">
+
+      <NavLink to="/inicioS" className="link" activeClassName="active" style={{ color: '#94989D', fontFamily: 'Lato, sans-serif' }}>
+              <div className="icon"><GoHome /></div>
+              <div className="link_text">Inicio</div>
+            </NavLink>        
+
         {isAuthenticated && (
+
+
           <>
-            <div className="link" onClick={toggleActors}>
-              <div className="icon"><FaUserAlt /></div>
+            <div className="link" onClick={toggleActors} style={{color: '#94989D', fontFamily: 'Lato, sans-serif'}}>
+              <div className="icon"><MdPersonOutline /></div>
               <div className="link_text">Actores</div>
             </div>
+            
             {isActorsOpen && (
               <div className="submenu">
                 {actorsSubMenu.map((item, index) => (
@@ -105,11 +109,11 @@ const Sidebar = ({ children, isAuthenticated }) => {
                 ))}
               </div>
             )}
-            <div className="link" onClick={toggleTransactions}>
-              <div className="icon"><FaCommentAlt /></div>
-              <div className="link_text">Transacciones</div>
+            <div className="link" onClick={toggleTransactions} style={{color: '#94989D' , fontFamily: 'Lato, sans-serif',  textAlign: 'left', alignItems: 'flex-start'}}>
+              <div className="icon"><GoArrowSwitch /></div>
+              <div className="link_text">Transacciones</div >
             </div>
-            {isTransactionsOpen && ( // Mostrar submenú de transacciones cuando está abierto
+            {isTransactionsOpen && (
               <div className="submenu">
                 {transactionsSubMenu.map((item, index) => (
                   <NavLink to={item.path} key={index} className="link" activeClassName="active">
@@ -135,88 +139,11 @@ const Sidebar = ({ children, isAuthenticated }) => {
         </div>
       </div>
       <main>{children}</main>
-    </div>
+    </div>  
   );
 };
 
 export default Sidebar;
 
 
-/*import React, { useState } from 'react';
-import { FaTh, FaBars, FaUserAlt, FaRegChartBar, FaCommentAlt, FaShoppingBag } from "react-icons/fa";
-import { NavLink } from 'react-router-dom';
 
-const Sidebar = ({ children, isAuthenticated }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
-  const menuItem = [
-    {
-      path: "/inicio",
-      name: "Inicio",
-      icon: <FaTh />,
-    },
-    {
-      path: "/productores",
-      name: "Productores",
-      icon: <FaUserAlt />,
-    },
-    {
-      path: "/gestores",
-      name: "Gestores",
-      icon: <FaUserAlt />,
-    },
-    {
-      path: "/transformadores",
-      name: "Transformadores",
-      icon: <FaUserAlt />,
-    },
-    {
-      path: "/estadisticas",
-      name: "Estadisticas",
-      icon: <FaRegChartBar />,
-    },
-    {
-      path: "/transacciones",
-      name: "Transacciones",
-      icon: <FaCommentAlt />,
-    },
-    {
-      path: "/logout",
-      name: "Salir de sesion",
-      icon: <FaShoppingBag />,
-    },
-  ];
-
-  return (
-    <div className="container">
-      <div style={{ width: isOpen ? "200px" : "50px" }} className="sidebar">
-        <div className="top_section">
-          <h1 style={{ display: isOpen ? "block" : "none" }} className="logo">
-            Logo
-          </h1>
-          <div style={{ marginLeft: isOpen ? "50px" : "0px" }} className="bars">
-            <FaBars onClick={toggle} />
-          </div>
-        </div>
-        {isAuthenticated ? (
-          menuItem.map((item, index) => (
-            <NavLink to={item.path} key={index} className="link" activeClassName="active">
-              <div className="icon">{item.icon}</div>
-              <div style={{ display: isOpen ? "block" : "none" }} className="link_text">
-                {item.name}
-              </div>
-            </NavLink>
-          ))
-        ) : (
-          <NavLink to="/inicio" className="link" activeClassName="active">
-            <div className="icon"><FaTh /></div>
-            <div style={{ display: isOpen ? "block" : "none" }} className="link_text">Inicio</div>
-          </NavLink>
-        )}
-      </div>
-      <main>{children}</main>
-    </div>
-  );
-};
-
-export default Sidebar;*/

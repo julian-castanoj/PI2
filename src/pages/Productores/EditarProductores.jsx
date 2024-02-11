@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import '../../styles/PRODUCTORESREGIST.css';
 
 const EditarProductores = () => {
   const { id } = useParams();
@@ -43,14 +44,14 @@ const EditarProductores = () => {
 
     const actualizarProductor = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/productor/${id}`, {
+        const response = await fetch(`backend-ac-production.up.railway.app/productor/${id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             ...formData,
-            cantidad: getCantidadesString(),
+            cantidad: getCantidadesString(formData),
           }),
         });
 
@@ -84,7 +85,7 @@ const EditarProductores = () => {
 
   const getProductorDetails = async (productId) => {
     try {
-      const response = await fetch(`http://localhost:3000/productor/${productId}`);
+      const response = await fetch(`backend-ac-production.up.railway.app/productor/${productId}`);
       
       if (response.ok) {
         return response.json();
@@ -138,132 +139,127 @@ const getCantidadesString = (formData) => {
 
 
 
-  return (
-    <div className="registrar-miembros-page">
-      <h2>Formulario de Registro de productores</h2>
-      <form onSubmit={handleGuardarCambios}>
-        <div className="form-group">
-          <label>Nombre</label>
-          <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label>Correo</label>
-          <input type="text" name="correo" value={formData.correo} onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label>NIT</label>
-          <input type="number" name="nit" value={formData.nit} onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label>Teléfono</label>
-          <input type="number" name="telefono" value={formData.telefono} onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label>Dirección</label>
-          <input type="text" name="direccion" value={formData.direccion} onChange={handleChange} />
-        </div>
-
-        <div className="form-group">
-          <label>Materiales de empaques puestos en el mercado</label>
-
-          <table>
-            <thead>
-              <tr>
-                <th>Material</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Papel</td>
-              </tr>
-              <tr>
-                <td>Cartón</td>
-              </tr>
-              <tr>
-                <td>Vidrio</td>
-              </tr>
-              <tr>
-                <td>Plástico Rígido</td>
-              </tr>
-              <tr>
-                <td>Plástico Flexible</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div className="form-group">
-          <table>
-            <thead>
-              <tr>
-                <th>Cantidad</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <input
-                    type="text"
-                    name="papel"
-                    value={formData.papel || ''}
-                    onChange={handleInputChange}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input
-                    type="text"
-                    name="carton"
-                    value={formData.carton || ''}
-                    onChange={handleInputChange}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input
-                    type="text"
-                    name="vidrio"
-                    value={formData.vidrio || ''}
-                    onChange={handleInputChange}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input
-                    type="text"
-                    name="plasticoRigido"
-                    value={formData.plasticoRigido || ''}
-                    onChange={handleInputChange}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input
-                    type="text"
-                    name="plasticoFlexible"
-                    value={formData.plasticoFlexible || ''}
-                    onChange={handleInputChange}
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div className="form-group">
-          <button type="submit" className="submit-button">
-            Guardar Cambios
-          </button>
-          <button type="button" className="register-button" onClick={handleCancelar}>
-            Salir
-          </button>
-        </div>
-      </form>
+return (
+  <div className="registrar-miembros-page2">
+    <div className="label">
+      <p className="text-wrapper">Formulario de edición de productores</p>
     </div>
-  );
+    <form onSubmit={handleGuardarCambios}>
+      <div className="box1 ${showBox1 ? 'show-box1' : ''}`">
+        <div className="form1">
+          <div className="overlap">
+            <div className="group1">
+              <input
+                className="overlapgroup textwrapper-placeholder"
+                type="text"
+                name="nombre"
+                placeholder="Nombre"
+                value={formData.nombre}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="overlapgroupwrapper">
+              <input
+                className="overlapgroup div-placeholder"
+                type="text"
+                name="correo"
+                placeholder="Correo"
+                value={formData.correo}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="overlapgroupwrapper1">
+              <input
+                className="overlapgroup div-placeholder"
+                type="number"
+                name="nit"
+                placeholder="NIT"
+                value={formData.nit || ''}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="overlapgroupwrapper2">
+              <input
+                className="overlapgroup div-placeholder"
+                type="number"
+                name="telefono"
+                placeholder="Telefono"
+                value={formData.telefono || ''}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="group2">
+              <input
+                className="divwrapper div-placeholder"
+                type="text"
+                name="direccion"
+                placeholder="Direccion"
+                value={formData.direccion}
+                onChange={handleChange}
+              />
+              <div className="textwrapper2">Información</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="box">
+        <div className="form">
+          <p className="text-wrapper">Materiales de empaques puestos en el mercado</p>
+          <div className="div">Papel</div>
+          <div className="text-wrapper-2">Cantidad</div>
+          <div className="text-wrapper-3">Cartón</div>
+          <div className="text-wrapper-4">Vidrio</div>
+          <div className="text-wrapper-5">Plástico rígido</div>
+          <div className="text-wrapper-6">Plástico flexible</div>
+          <input className="group"
+            type="number"
+            name="papel"
+            value={formData.papel || ''}
+            onChange={handleInputChange}
+          />
+          <input className="group-2" type="number"
+            name="carton"
+            value={formData.carton || ''}
+            onChange={handleInputChange}
+          />
+          <input className="group-3" type="number"
+            name="vidrio"
+            value={formData.vidrio || ''}
+            onChange={handleInputChange}
+          />
+          <input className="group-4" name="plasticoRigido" type="number"
+            value={formData.plasticoRigido || ''}
+            onChange={handleInputChange}
+          />
+          <input className="group-5" name="plasticoFlexible" type="number"
+            value={formData.plasticoFlexible || ''}
+            onChange={handleInputChange}
+          />
+        </div>
+      </div>
+
+      
+
+      <div className="box2">
+        <div className="CR">
+          <button type="button" className="cancelar" onClick={handleCancelar}>
+            <div className="og">
+              <div className="tw">Cancelar</div>
+            </div>
+          </button>
+          
+            <button type="button" className="editar" onClick={handleGuardarCambios}>
+              <div className="d">Guardar Edición</div>
+            </button>
+         
+          
+        </div>
+      </div>
+    </form>
+  </div>
+);
+
 };
 
 export default EditarProductores;

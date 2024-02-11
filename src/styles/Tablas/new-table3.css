@@ -1,0 +1,318 @@
+.GESTORENTIDAD {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.GESTORENTIDAD .contenido-wrapper {
+    background-color: #ffffff;
+    height: 251px;
+    width: 100%;
+}
+
+.GESTORENTIDAD .contenido {
+    height: 139px;
+    left: 65px;
+    position: relative;
+    top: 47px;
+    width: 90%;
+}
+
+.GESTORENTIDAD .tabla {
+    height: 139px;
+    position: relative;
+    left: -180px;
+}
+
+.GESTORENTIDAD .MEETING {
+    background-color: #f5f6fa;
+    border-radius: 10px;
+    height: 70px;
+    width: 165%;
+    margin-bottom: 20px;
+    left: -100px;
+    
+}
+
+
+.GESTORENTIDAD .MEETING .group {
+    padding: 50px;
+    
+}
+
+
+
+.GESTORENTIDAD .group {
+    height: 54px;
+    left: 35px;
+    position: relative;
+    top: 28px;
+    width: 841px;
+}
+
+.GESTORENTIDAD .text-wrapper1 {
+    color: #7b7d7f;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 950px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -10px;
+    white-space: nowrap;
+    width: 200px;
+    height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: inline-block;
+}
+
+.GESTORENTIDAD .text-wrapper-10 {
+    color: #7b7d7f;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 240px;
+    letter-spacing: 0;
+    line-height: 20px; /* Ajusta la altura de línea según sea necesario */
+    position: absolute;
+    text-align: center;
+    top: -10px;
+    
+    width: 200px;
+    max-height: 40px; /* Altura máxima para dos líneas */
+    overflow: hidden;
+    white-space: pre-wrap; /* Permite que el texto se ajuste automáticamente a múltiples líneas */
+    word-wrap: break-word; /* Rompe palabras largas para ajustarse al ancho */
+    display: inline-block;
+}
+
+.GESTORENTIDAD .text-wrapper-11 {
+    color: #7b7d7f;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 1200px;
+    letter-spacing: 0;
+    line-height: 20px; /* Ajusta la altura de línea según sea necesario */
+    position: absolute;
+    text-align: center;
+    top: -10px;
+    
+    width: 200px;
+    max-height: 40px; /* Altura máxima para dos líneas */
+    overflow: hidden;
+    white-space: pre-wrap; /* Permite que el texto se ajuste automáticamente a múltiples líneas */
+    word-wrap: break-word; /* Rompe palabras largas para ajustarse al ancho */
+    display: inline-block;
+}
+
+.GESTORENTIDAD .text-wrapper-2 {
+    color: #7b7d7f;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 440px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -10px;
+    white-space: nowrap;
+    width: 200px;
+    height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: inline-block;
+}
+
+.GESTORENTIDAD .text-wrapper-3 {
+    color: #7b7d7f;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 680px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -10px;
+    white-space: nowrap;
+    width: 200px;
+    height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: inline-block;
+}
+
+.GESTORENTIDAD .text-wrapper-12 {
+    color: #7b7d7f;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 0px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -15px;
+    
+    width: 200px;
+    height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: inline-block;
+}
+
+.GESTORENTIDAD .navbar {
+    height: 18px;
+    left: 68px;
+    position: absolute;
+    top: 0;
+    width: 945px;
+}
+
+.GESTORENTIDAD .text-wrapper-4 {
+    color: #000022;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 40px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -40px;
+    white-space: nowrap;
+}
+
+.GESTORENTIDAD .text-wrapper-5 {
+    color: #000022;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 283px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -40px;
+    white-space: nowrap;
+}
+
+.GESTORENTIDAD .text-wrapper-13 {
+    color: #000022;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 485px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -40px;
+    white-space: nowrap;
+}
+
+.GESTORENTIDAD .text-wrapper-6 {
+    color: #000022;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 700px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -40px;
+    white-space: nowrap;
+}
+
+.GESTORENTIDAD .text-wrapper-7 {
+    color: #000022;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 970px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -40px;
+    white-space: nowrap;
+
+}
+
+.GESTORENTIDAD .text-wrapper-8 {
+    color: #000022;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 1230px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -40px;
+    white-space: nowrap;
+}
+
+.GESTORENTIDAD .text-wrapper-9 {
+
+    color: #000022;
+    font-family: "Lato", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 1172px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -40px;
+    white-space: nowrap;
+
+}
+
+.registrarGe {
+    height: 45px;
+    left: 1050px;
+    position: absolute;
+    top: 0;
+    width: 102px;
+    border-radius: 10px;
+  }
+  
+  .oGe {
+    background-color: #069877;
+    border-radius: 10px;
+    height: 45px;
+    position: relative;
+    width: 103px;
+    top: 1430px;
+    
+  }
+  
+  .dGe {
+    color: #ffffff;
+    font-family: "Lato-Bold", Helvetica;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 10px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    height: 45px;
+    background-color: #069877;
+    width: 103px;
+    left: -1px;
+    top: 5px;
+    text-align: center;
+  }
